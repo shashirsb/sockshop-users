@@ -19,7 +19,7 @@
     </parent>
 
     <groupId>io.helidon.examples.sockshop</groupId>
-    <artifactId>users-mongo</artifactId>
+    <artifactId>users-atpsoda</artifactId>
 
     <properties>
         <mainClass>io.helidon.microprofile.server.Main</mainClass>
