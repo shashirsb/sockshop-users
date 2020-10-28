@@ -281,6 +281,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
             OracleCursor c = col.find().filter(filterSpec).getCursor();
             String jsonFormattedString = null;
+            if(c.size() > 0){
             try {
                 OracleDocument resultDoc;
                 while (c.hasNext()) {
@@ -322,6 +323,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             } finally {
                 // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
                 if (c != null) c.close();
+            } } else {
+                user = null;
             }
         } catch (Exception e) {
             e.printStackTrace();
