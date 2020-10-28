@@ -372,7 +372,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
             while (c.hasNext()) {
                 OracleDocument resultDoc = c.next();
-                System.out.println(resultDoc.toString());
+                System.out.println ("Key:         " + resultDoc.getKey());
+            System.out.println ("Content:     " + resultDoc.getContentAsString());
+            System.out.println ("Version:     " + resultDoc.getVersion());
+            System.out.println ("Last modified: " + resultDoc.getLastModified());
+            System.out.println ("Created on:    " + resultDoc.getCreatedOn());
+            System.out.println ("Media:         " + resultDoc.getMediaType());
+            System.out.println ("\n");
           
 
             List < Address > addressesList = user.addresses;
