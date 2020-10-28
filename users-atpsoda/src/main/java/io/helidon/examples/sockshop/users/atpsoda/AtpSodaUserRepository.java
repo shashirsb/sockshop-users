@@ -39,8 +39,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Specializes;
 import javax.inject.Inject;
 
-import io.helidon.examples.sockshop.catalog.CatalogRepository;
-import io.helidon.examples.sockshop.catalog.DefaultCatalogRepository;
 
 
 import org.bson.BsonDocument;

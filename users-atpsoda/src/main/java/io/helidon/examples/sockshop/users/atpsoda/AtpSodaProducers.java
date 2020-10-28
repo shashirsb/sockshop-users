@@ -13,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
 import io.helidon.config.Config;
-import io.helidon.examples.sockshop.catalog.Sock;
+
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
