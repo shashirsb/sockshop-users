@@ -194,6 +194,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         if (user != null) {
             try {
 
+                AtpSodaProducers asp = new AtpSodaProducers();
+            this.db = asp.dbConnect();
                 OracleCollection col = this.db.admin().createCollection("users");
 
                 OracleDocument filterSpec =
@@ -231,6 +233,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         if (existing == null) {
             try {
 
+                AtpSodaProducers asp = new AtpSodaProducers();
+                this.db = asp.dbConnect();
                 OracleCollection col = this.db.admin().createCollection("users");
 
 
@@ -268,6 +272,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         try {
             // Get a collection with the name "socks".
             // This creates a database table, also named "socks", to store the collection.
+            AtpSodaProducers asp = new AtpSodaProducers();
+            this.db = asp.dbConnect();
             OracleCollection col = this.db.admin().createCollection("users");
 
             // Find a documents in the collection.
@@ -330,6 +336,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     private void updateUser(String userID, User user) {
         try {
             String k1 = "";
+            AtpSodaProducers asp = new AtpSodaProducers();
+            this.db = asp.dbConnect();
             OracleCollection col = this.db.admin().createCollection("users");
 
             OracleDocument filterSpec =
