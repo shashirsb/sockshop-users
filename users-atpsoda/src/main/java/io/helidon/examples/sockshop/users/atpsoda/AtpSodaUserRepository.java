@@ -245,6 +245,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 OracleDocument newDoc = this.db.createDocumentFromString(document);
 
                 System.out.println("1...............................");
+                System.out.println(document.toString());
                 System.out.println(newDoc.toString());
                 System.out.println("2...............................");
                 col.insert(newDoc);
