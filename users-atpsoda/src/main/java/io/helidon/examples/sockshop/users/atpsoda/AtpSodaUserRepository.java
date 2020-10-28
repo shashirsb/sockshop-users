@@ -160,7 +160,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public Card getCard(CardId id) {
         return findUser(id.getUser()).getCard(id.getCardId());
     }
-
+////////////
     @Override
     public void removeCard(CardId id) {
         String userID = id.getUser();
@@ -227,7 +227,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         User user = findUser(username);
         return user != null ? user.authenticate(password) : false;
     }
-
+////////////
     @Override
     public User register(User user) {
         User _user = null;
@@ -361,7 +361,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     private void updateUser(String userID, User user) {
         try {
-            String k1 = "";
+            Key k1 = null;
 
             OracleCollection col = this.db.admin().createCollection("users");
 
@@ -372,7 +372,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
             while (c.hasNext()) {
                 OracleDocument resultDoc = c.next();
-
+                System.out.println(resultDoc);
                 k1 = resultDoc.getKey();
             }
 
