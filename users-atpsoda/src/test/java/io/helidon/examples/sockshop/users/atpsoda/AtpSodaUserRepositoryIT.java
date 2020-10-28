@@ -10,7 +10,7 @@ package io.helidon.examples.sockshop.users.atpsoda;
 import io.helidon.examples.sockshop.users.UserRepository;
 import io.helidon.examples.sockshop.users.UserRepositoryTest;
 
-import static io.helidon.examples.sockshop.users.atpsoda.*;
+//import io.helidon.examples.sockshop.users.atpsoda.*;
 
 /**
  * Integration tests for {@link io.helidon.examples.sockshop.users.mongo.MongoUserRepository}.
