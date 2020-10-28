@@ -270,7 +270,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             //  users.insertOne(user);
           
         }
-        return existing;
+        return user;
     }
 
     // --- helpers ----------------------------------------------------------
