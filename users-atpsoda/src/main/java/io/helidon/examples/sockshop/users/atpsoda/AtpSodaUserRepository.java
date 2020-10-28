@@ -234,8 +234,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 OracleCollection col = this.db.admin().createCollection("users");
 
 
-                ArrayList < Address > addressesList = user.addresses;
-                ArrayList < Card > cardsList = user.cards;
+                List < Address > addressesList = user.addresses;
+                List < Card > cardsList = user.cards;
 
                 String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
                 OracleDocument newDoc = this.db.createDocumentFromString(document);
@@ -345,8 +345,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
             c.close();
 
-            ArrayList < Address > addressesList = user.addresses;
-            ArrayList < Card > cardsList = user.cards;
+            List < Address > addressesList = user.addresses;
+            List < Card > cardsList = user.cards;
 
             String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
             OracleDocument newDoc = this.db.createDocumentFromString(document);
