@@ -388,7 +388,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             OracleDocument newDoc = this.db.createDocumentFromString(document);
 
             
-            resultDoc = col.find().key("\"" + resultDoc.getKey() + "\"").replaceOneAndGet(newDoc);
+            resultDoc = col.find().key(resultDoc.getKey()).version(resultDoc.getVersion()).replaceOneAndGet(newDoc);
             System.out.println(resultDoc);
 
             // users.replaceOne(eq("username", userID), user);
