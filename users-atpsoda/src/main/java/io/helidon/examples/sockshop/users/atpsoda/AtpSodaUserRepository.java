@@ -102,7 +102,7 @@ import org.apache.commons.lang3.StringUtils;
 public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
-    
+
     public static AtpSodaProducers asp = new AtpSodaProducers();
     public static OracleDatabase db = asp.dbConnect();
 
@@ -280,22 +280,24 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
             OracleCursor c = col.find().filter(filterSpec).getCursor();
             String jsonFormattedString = null;
-            if (c != null) {
-                try {
-                    OracleDocument resultDoc;
-                    while (c.hasNext()) {
-                        // ArrayList < Address > addressesList = new ArrayList < > ();
-                        // ArrayList < Card > cardsList = new ArrayList < > ();
-                        //     String firstName, String lastName, String email, String username, String password,
-                        // Collection<Address> addresses, Collection<Card> cards
-                        resultDoc = c.next();
 
-                        JSONParser parser = new JSONParser();
+            try {
+                OracleDocument resultDoc;
+                while (c.hasNext()) {
+                    // ArrayList < Address > addressesList = new ArrayList < > ();
+                    // ArrayList < Card > cardsList = new ArrayList < > ();
+                    //     String firstName, String lastName, String email, String username, String password,
+                    // Collection<Address> addresses, Collection<Card> cards
+                    resultDoc = c.next();
 
-                        Object obj = parser.parse(resultDoc.getContentAsString());
 
-                        JSONObject jsonObject = (JSONObject) obj;
 
+                    JSONParser parser = new JSONParser();
+
+                    Object obj = parser.parse(resultDoc.getContentAsString());
+
+                    JSONObject jsonObject = (JSONObject) obj;
+                    if (jsonObject.get("username") != null) {
                         user.username = jsonObject.get("username").toString();
                         user.firstName = jsonObject.get("firstName").toString();
                         user.lastName = jsonObject.get("lastName").toString();
@@ -319,23 +321,24 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         user.cards = cardsList;
                         System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
                         System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
+                    } else {
+                        user = null;
+                        System.out.println("Null.............");
+                        System.out.println(user);
+                        System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
+                        System.out.println("findUser(String userID)  " + userID.toString() + ".. GET Request 200OK");
 
                     }
-                } finally {
-                    // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
-                    if (c != null) c.close();
                 }
-            } else {
-                System.out.println("Null.............");
-                System.out.println(user);
-                System.out.println("findUser(String userID)  " + userID.toString() + ".. GET Request 200OK");
-                System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
-                return null;
+            } finally {
+                // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
+                if (c != null) c.close();
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-       System.out.println(user.toString());
+
         return user;
 
 
