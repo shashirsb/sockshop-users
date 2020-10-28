@@ -234,6 +234,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         if (existing.getUsername() == null) {
             
         String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\""+user.getUsername()+"\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"}]";
+        // User user = new User("Test", "User", "user@weavesocks.com", "user", "pass");
+        // user.addCard(new Card("1234123412341234", "12/19", "123"));
+        // user.addAddress(new Address("123", "Main St", "Springfield", "12123", "USA"));
         try {
 
             JSONParser parser = new JSONParser();
@@ -266,9 +269,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             e.printStackTrace();
         }
             //  users.insertOne(user);
-            return existing;
+          
         }
-        
+        return existing;
     }
 
     // --- helpers ----------------------------------------------------------
