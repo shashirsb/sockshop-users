@@ -36,25 +36,25 @@ public class Card implements Serializable {
      */
     @Id
     @Schema(description = "Card identifier")
-    private String cardId;
+    public String cardId;
 
     /**
      * The card number.
      */
     @Schema(description = "Card number")
-    private String longNum;
+    public String longNum;
 
     /**
      * The expiration date.
      */
     @Schema(description = "Expiration date")
-    private String expires;
+    public String expires;
 
     /**
      * The security code.
      */
     @Schema(description = "CCV code")
-    private String ccv;
+    public String ccv;
 
     /**
      * The user this card belongs to, purely for JPA optimization.
@@ -64,7 +64,7 @@ public class Card implements Serializable {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonbTransient
-    private User user;
+    public User user;
 
     /**
      * Construct {@code Card} with specified parameters.

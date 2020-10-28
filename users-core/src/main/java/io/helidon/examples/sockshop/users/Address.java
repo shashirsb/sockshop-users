@@ -36,37 +36,37 @@ public class Address implements Serializable {
      */
     @Id
     @Schema(description = "Address identifier")
-    private String addressId;
+    public String addressId;
 
     /**
      * The street number.
      */
     @Schema(description = "Street number")
-    private String number;
+    public String number;
 
     /**
      * The street name.
      */
     @Schema(description = "Street name")
-    private String street;
+    public String street;
 
     /**
      * The city name.
      */
     @Schema(description = "City name")
-    private String city;
+    public String city;
 
     /**
      * The postal code.
      */
     @Schema(description = "Postal code")
-    private String postcode;
+    public String postcode;
 
     /**
      * The country name.
      */
     @Schema(description = "Country name")
-    private String country;
+    public String country;
 
     /**
      * The user this address is associated with, purely for JPA optimization.
@@ -76,7 +76,7 @@ public class Address implements Serializable {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonbTransient
-    private User user;
+    public User user;
 
     /**
      * Construct {@code Address} with specified parameters.

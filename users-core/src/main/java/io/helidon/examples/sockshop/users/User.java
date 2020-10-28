@@ -34,45 +34,45 @@ public class User implements Serializable {
      */
     @Id
     @Schema(description = "User identifier")
-    private String username;
+    public String username;
 
     /**
      * First name.
      */
     @Schema(description = "First name")
-    private String firstName;
+    public String firstName;
 
     /**
      * Last name.
      */
     @Schema(description = "Last name")
-    private String lastName;
+    public String lastName;
 
     /**
      * User's email.
      */
     @Schema(description = "User email")
-    private String email;
+    public String email;
 
     /**
      * The password.
      */
     @Schema(description = "User password")
-    private String password;
+    public String password;
 
     /**
      * The addresses that are associated with the user.
      */
     @JsonbTransient
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses = new ArrayList<>();
+    public List<Address> addresses = new ArrayList<>();
 
     /**
      * The cards that belongs to the user.
      */
     @JsonbTransient
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Card> cards = new ArrayList<>();
+    public List<Card> cards = new ArrayList<>();
 
     /**
      * Default constructor.
