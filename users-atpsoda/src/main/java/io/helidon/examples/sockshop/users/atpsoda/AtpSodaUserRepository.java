@@ -281,7 +281,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
             OracleCursor c = col.find().filter(filterSpec).getCursor();
             String jsonFormattedString = null;
-            if(c == null){
+            if(c != null){
             try {
                 OracleDocument resultDoc;
                 while (c.hasNext()) {
@@ -325,12 +325,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 if (c != null) c.close();
             } } else {
                 user = null;
+                System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
+                System.out.println("findUser(String userID)  " + user+ ".. GET Request 200OK");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
-        System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
+       
         return user;
 
 
