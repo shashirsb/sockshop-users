@@ -102,9 +102,9 @@ import org.apache.commons.lang3.StringUtils;
 public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
-    public static OracleDatabase db = null;
+    
     public AtpSodaProducers asp = new AtpSodaProducers();
-    this.db = asp.dbConnect();
+    public static OracleDatabase db = asp.dbConnect();
 
     @Inject
     AtpSodaUserRepository() {
