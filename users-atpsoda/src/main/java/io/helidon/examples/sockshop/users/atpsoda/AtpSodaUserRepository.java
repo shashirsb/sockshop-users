@@ -232,26 +232,25 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public User register(User user) {
         User existing = findUser(user.getUsername());
         if (existing.getUsername() == null) {
-            try {
+            try {               
 
 
-                
+                // List < Address > addressesList = user.addresses;
+                // List < Card > cardsList = user.cards;
 
-
-                List < Address > addressesList = user.addresses;
-                List < Card > cardsList = user.cards;
+                OracleCollection col = this.db.admin().createCollection("users");
 
                 //String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
                 
                 OracleDocument newDoc = this.db.createDocumentFromString("{\"addresses\":\"addresss\"}");
 
                 System.out.println("1............REGISTRATION...................");
-                System.out.println(this.db.createDocumentFromString("{\"addresses\":\"addresss\"}").toString());
+                System.out.println(this.db.createDocumentFromString("{\"addresses\":\"addresss\"}"));
 
                 System.out.println(newDoc.toString());
                 System.out.println("2...............................");
 
-                OracleCollection col = this.db.admin().createCollection("users");
+      
                 col.insert(newDoc);
 
 
