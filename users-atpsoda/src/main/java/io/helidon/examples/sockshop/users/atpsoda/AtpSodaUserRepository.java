@@ -381,7 +381,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
             OracleDocument newDoc = this.db.createDocumentFromString(document);
 
-            OracleDocument resultDoc = col.find().key("\"" + resultDoc.getKey() + "\"").replaceOneAndGet(newDoc);
+            
+            resultDoc = col.find().key("\"" + resultDoc.getKey() + "\"").replaceOneAndGet(newDoc);
             System.out.println(resultDoc);
 
             // users.replaceOne(eq("username", userID), user);
