@@ -361,7 +361,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     private void updateUser(String userID, User user) {
         try {
-            Key k1 = null;
+            String k1 = null;
 
             OracleCollection col = this.db.admin().createCollection("users");
 
