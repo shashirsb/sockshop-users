@@ -297,6 +297,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     Object obj = parser.parse(resultDoc.getContentAsString());
 
                     JSONObject jsonObject = (JSONObject) obj;
+                    System.out.println(jsonObject.get("username"));
+
                     if (jsonObject.get("username") != null) {
                         user.username = jsonObject.get("username").toString();
                         user.firstName = jsonObject.get("firstName").toString();
@@ -339,6 +341,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             e.printStackTrace();
         }
 
+
+                        System.out.println(user);
+                        System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
+                        System.out.println("findUser(String userID)  " + userID.toString() + ".. GET Request 200OK");
         return user;
 
 
