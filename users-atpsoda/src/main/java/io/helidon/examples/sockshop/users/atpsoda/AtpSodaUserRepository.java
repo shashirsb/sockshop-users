@@ -326,9 +326,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     if (c != null) c.close();
                 }
             } else {
-                user = null;
+                
                 System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
                 System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
+                return null;
             }
         } catch (Exception e) {
             e.printStackTrace();
