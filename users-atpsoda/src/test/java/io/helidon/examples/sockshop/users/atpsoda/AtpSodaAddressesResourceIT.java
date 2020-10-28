@@ -5,7 +5,7 @@
  * http://oss.oracle.com/licenses/upl.
  */
 
-package io.helidon.examples.sockshop.users.mongo;
+package io.helidon.examples.sockshop.users.atpsoda;
 
 import io.helidon.examples.sockshop.users.AddressesResourceIT;
 

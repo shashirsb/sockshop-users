@@ -5,13 +5,13 @@
  * http://oss.oracle.com/licenses/upl.
  */
 
-package io.helidon.examples.sockshop.users.mongo;
+package io.helidon.examples.sockshop.users.atpsoda;
 
-import io.helidon.examples.sockshop.users.UserResourceIT;
+import io.helidon.examples.sockshop.users.CustomerResourceIT;
 
 /**
  * Integration tests for {@link io.helidon.examples.sockshop.users.UserResource},
  * using MongoDB for persistence.
  */
-public class MongoUserResourceIT extends UserResourceIT {
+public class MongoCustomerResourceIT extends CustomerResourceIT {
 }

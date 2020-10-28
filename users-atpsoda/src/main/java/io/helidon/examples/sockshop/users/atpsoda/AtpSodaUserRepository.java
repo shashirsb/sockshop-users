@@ -5,7 +5,7 @@
  * http://oss.oracle.com/licenses/upl.
  */
 
-package io.helidon.examples.sockshop.users.mongo;
+package io.helidon.examples.sockshop.users.atpsoda;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,12 +42,12 @@ import static javax.interceptor.Interceptor.Priority.APPLICATION;
 @Alternative
 @Priority(APPLICATION)
 @Traced
-public class MongoUserRepository extends DefaultUserRepository {
+public class AtpSodaUserRepository extends DefaultUserRepository {
 
-    private MongoCollection<User> users;
+    private AtpSodaCollection<User> users;
 
     @Inject
-    MongoUserRepository(MongoCollection<User> users) {
+    MongoUserRepository(AtpSodaCollection<User> users) {
         this.users = users;
     }
 
