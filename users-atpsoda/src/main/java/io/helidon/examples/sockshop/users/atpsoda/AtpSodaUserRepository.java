@@ -274,7 +274,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
           
         }
         System.out.println("#............... BEFORE RETURN THE CREATION");
-        User existing = findUser(user.getUsername());
+        existing = findUser(user.getUsername());
         return existing;
     }
 
