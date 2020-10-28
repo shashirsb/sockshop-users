@@ -372,7 +372,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
             while (c.hasNext()) {
                 OracleDocument resultDoc = c.next();
-                System.out.println(resultDoc);
+                System.out.println(resultDoc.toString());
                 k1 = resultDoc.getKey();
             }
 
