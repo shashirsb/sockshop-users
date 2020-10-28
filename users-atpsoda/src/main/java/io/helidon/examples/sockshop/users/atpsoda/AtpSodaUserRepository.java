@@ -231,7 +231,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public User register(User user) {
         User existing = findUser(user.getUsername());
-        if (existing == null) {
+        if (existing.getUsername() == null) {
             try {
 
 
@@ -244,7 +244,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
                 OracleDocument newDoc = this.db.createDocumentFromString(document);
 
-                System.out.println("1...............................");
+                System.out.println("1............REGISTRATION...................");
                 System.out.println(document.toString());
                 System.out.println(newDoc.toString());
                 System.out.println("2...............................");
@@ -302,7 +302,6 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     JSONObject jsonObject = (JSONObject) obj;
                     System.out.println(jsonObject.get("username"));
 
-                    if (jsonObject.get("username") != null) {
                         user.username = jsonObject.get("username").toString();
                         user.firstName = jsonObject.get("firstName").toString();
                         user.lastName = jsonObject.get("lastName").toString();
@@ -326,14 +325,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         user.cards = cardsList;
                         System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
                         System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
-                    } else {
-                        user = null;
-                        System.out.println("Null.............");
-                        System.out.println(user);
-                        System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
-                        System.out.println("findUser(String userID)  " + userID.toString() + ".. GET Request 200OK");
-
-                    }
+            
                 }
             } finally {
                 // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
@@ -344,11 +336,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             e.printStackTrace();
         }
 
-
-                        System.out.println(user);
-                        System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
-                        System.out.println("findUser(String userID)  " + userID.toString() + ".. GET Request 200OK");
-        return null;
+        return user;
 
 
         //return users.find(eq("username", userID)).first();
