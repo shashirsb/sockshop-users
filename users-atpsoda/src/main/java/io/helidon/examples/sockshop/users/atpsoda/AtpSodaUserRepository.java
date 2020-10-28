@@ -373,10 +373,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             while (c.hasNext()) {
                 OracleDocument resultDoc = c.next();
                 System.out.println(resultDoc.toString());
-                k1 = resultDoc.getKey();
-            }
-
-            c.close();
+          
 
             List < Address > addressesList = user.addresses;
             List < Card > cardsList = user.cards;
@@ -384,12 +381,15 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
             OracleDocument newDoc = this.db.createDocumentFromString(document);
 
-            OracleDocument resultDoc = col.find().key("\"" + k1 + "\"").replaceOneAndGet(newDoc);
+            OracleDocument resultDoc = col.find().key("\"" + resultDoc.getKey( + "\"").replaceOneAndGet(newDoc);
             System.out.println(resultDoc);
 
             // users.replaceOne(eq("username", userID), user);
             System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
 
+        }
+
+        c.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
