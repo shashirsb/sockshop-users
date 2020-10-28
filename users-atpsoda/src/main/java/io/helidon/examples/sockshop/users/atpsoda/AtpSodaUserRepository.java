@@ -72,6 +72,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public Address getAddress(AddressId id) {
         return findUser(id.getUser()).getAddress(id.getAddressId());
     }
+    /////////////////////////
+
+
 
     @Override
     public void removeAddress(AddressId id) {
@@ -131,7 +134,29 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public User removeUser(String id) {
         User user = findUser(id);
         if (user != null) {
-            users.deleteOne(eq("username", id));
+            try {
+
+                OracleCollection col = this.db.admin().createCollection("users");
+
+                OracleDocument filterSpec =
+                    this.db.createDocumentFromString("{ \"username\" : \"" + id + "\"}");
+
+                OracleCursor c = col.find().filter(filterSpec).getCursor();
+
+                while (c.hasNext()) {
+                    OracleDocument resultDoc = c.next();
+
+                    k1 = resultDoc.getKey();
+                }
+
+                c.close();
+
+                col.find().key("\"" + k1 + "\"").remove();
+
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+            // users.deleteOne(eq("username", id));
         }
         return user;
     }
@@ -146,6 +171,26 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public User register(User user) {
         User existing = findUser(user.getUsername());
         if (existing == null) {
+            try {
+
+                OracleCollection col = this.db.admin().createCollection("users");
+
+
+                ArrayList < Address > addressesList = user.addresses;
+                ArrayList < Card > cardsList = user.cards;
+
+                String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                OracleDocument newDoc = this.db.createDocumentFromString(document);
+
+
+                col.insert(newDoc);
+
+
+                // users.replaceOne(eq("username", userID), user);
+                System.out.println(" User register(User user).... GET Request 200OK");
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
             users.insertOne(user);
         }
         return existing;
@@ -225,8 +270,39 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     }
 
     private void updateUser(String userID, User user) {
-        users.replaceOne(eq("username", userID), user);
-        System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
+        try {
+            String k1 = "";
+            OracleCollection col = this.db.admin().createCollection("users");
+
+            OracleDocument filterSpec =
+                this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
+
+            OracleCursor c = col.find().filter(filterSpec).getCursor();
+
+            while (c.hasNext()) {
+                OracleDocument resultDoc = c.next();
+
+                k1 = resultDoc.getKey();
+            }
+
+            c.close();
+
+            ArrayList < Address > addressesList = user.addresses;
+            ArrayList < Card > cardsList = user.cards;
+
+            String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+            OracleDocument newDoc = this.db.createDocumentFromString(document);
+
+            OracleDocument resultDoc = col.find().key("\"" + k1 + "\"").replaceOneAndGet(newDoc);
+            System.out.println(resultDoc);
+
+            // users.replaceOne(eq("username", userID), user);
+            System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String createData() {
