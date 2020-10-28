@@ -232,32 +232,31 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public User register(User user) {
         User user = null;
         User existing = findUser(user.getUsername());
-        System.out.println("#............... OUTSIDE THE CREATION");
+      
         if (existing.getUsername() == null) {
             existing = user;
-            System.out.println("#............... INSIDE THE CREATION");
+
             
         //String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"sssxx\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"},\"addresses\":{\"href\":\"http://user/customers/randy/addresses\"},\"cards\":{\"href\":\"http://user/customers/randy/cards\"}},\"password\":\"pass\",\"username\":\"randy\"}]";
        // User user = new User("Test", "User", "user@weavesocks.com", "user", "pass");
         // user.addCard(new Card("1234123412341234", "12/19", "123"));
         // user.addAddress(new Address("123", "Main St", "Springfield", "12123", "USA"));
         try {
-            String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"sssxx\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"},\"addresses\":{\"href\":\"http://user/customers/randy/addresses\"},\"cards\":{\"href\":\"http://user/customers/randy/cards\"}},\"password\":\"pass\",\"username\":\"sssxx\"}]";
+            String stringToParse = "[{\"addresses\":[],\"cards\":[],\"email\":\""+user.email+"\",\"firstName\":\""+user.firstName+"\",\"lastName\":\""+user.lastName+"\",\"links\":{\"customer\":{\"href\":\"http://user/customers/"+user.getUsername()+"\"},\"self\":{\"href\":\"http://user/customers/"+user.getUsername()+"\"},\"addresses\":{\"href\":\"http://user/customers/"+user.getUsername()+"/addresses\"},\"cards\":{\"href\":\"http://user/customers/"+user.getUsername()+"/cards\"}},\"password\":\""+user.password+"\",\"username\":\""+user.getUsername()+"\"}]";
        
             JSONParser parser = new JSONParser();
             JSONObject jsonObjects = new JSONObject();
             JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
 
-            System.out.println("#............... 1");
+
 
             // Create a collection with the name "MyJSONCollection".
             // This creates a database table, also named "MyJSONCollection", to store the collection.\
 
             OracleCollection col = this.db.admin().createCollection("users");
-            System.out.println("#............... 2");
+            
             for (int i = 0; i < jsonArray.size(); i++) {
-                System.out.println("#............... 3" +jsonArray.get(i).toString());
-                System.out.println("#............... 3");
+
                 // Create a JSON document.
                 OracleDocument doc =
                     this.db.createDocumentFromString(jsonArray.get(i).toString());
@@ -266,7 +265,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 col.insert(doc);
 
             }
-            System.out.println("#............... 4");
+   
         } catch (OracleException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -275,7 +274,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             //  users.insertOne(user);
           
         }
-        System.out.println("#............... BEFORE RETURN THE CREATION");
+
         return existing;
     }
 
