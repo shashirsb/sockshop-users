@@ -246,15 +246,16 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             JSONObject jsonObjects = new JSONObject();
             JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
 
-
+            System.out.println("#............... 1");
 
             // Create a collection with the name "MyJSONCollection".
             // This creates a database table, also named "MyJSONCollection", to store the collection.\
 
             OracleCollection col = this.db.admin().createCollection("users");
-
+            System.out.println("#............... 2");
             for (int i = 0; i < jsonArray.size(); i++) {
-
+                System.out.println("#............... 3" +jsonArray.get(i).toString());
+                System.out.println("#............... 3");
                 // Create a JSON document.
                 OracleDocument doc =
                     this.db.createDocumentFromString(jsonArray.get(i).toString());
@@ -263,7 +264,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 col.insert(doc);
 
             }
-
+            System.out.println("#............... 4");
         } catch (OracleException e) {
             e.printStackTrace();
         } catch (Exception e) {
