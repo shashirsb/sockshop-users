@@ -59,9 +59,19 @@ public class MongoUserRepository extends DefaultUserRepository {
     @Override
     public AddressId addAddress(String userID, Address address) {
         User user = findUser(userID);
+        
+        System.out.println("1-------------------------------");
+        System.out.println(userID);
+        System.out.println(address.toString());
+        System.out.println(user.toString());
+        System.out.println("2-------------------------------");
+        
         if (user != null) {
             AddressId id = user.addAddress(address).getId();
             updateUser(userID, user);
+            System.out.println("3-------------------------------");
+            System.out.println(id.toString());
+            System.out.println("4-------------------------------");
             return id;
         }
         return null;
@@ -69,6 +79,9 @@ public class MongoUserRepository extends DefaultUserRepository {
 
     @Override
     public Address getAddress(AddressId id) {
+            System.out.println("5-------------------------------");
+            System.out.println(findUser(id.getUser()).getAddress(id.getAddressId())+"");
+            System.out.println("6-------------------------------");
         return findUser(id.getUser()).getAddress(id.getAddressId());
     }
 
@@ -76,6 +89,12 @@ public class MongoUserRepository extends DefaultUserRepository {
     public void removeAddress(AddressId id) {
         String userID = id.getUser();
         User user = findUser(userID);
+
+            System.out.println("7-------------------------------");
+            System.out.println(userID+"");
+            System.out.println(user+"");
+            System.out.println("8-------------------------------");
+
         if (user != null) {
             user.removeAddress(id.getAddressId());
             updateUser(userID, user);
@@ -85,9 +104,15 @@ public class MongoUserRepository extends DefaultUserRepository {
     @Override
     public CardId addCard(String userID, Card card) {
         User user = findUser(userID);
+        System.out.println("0-------------------------------");
+        System.out.println(userID+"");
+        System.out.println(card+"");
+        System.out.println("10-------------------------------");
         if (user != null) {
             CardId id = user.addCard(card).getId();
             updateUser(userID, user);
+            System.out.println(id+"");
+            System.out.println("10-------------------------------");
             return id;
         }
         return null;
@@ -95,6 +120,9 @@ public class MongoUserRepository extends DefaultUserRepository {
 
     @Override
     public Card getCard(CardId id) {
+        System.out.println("11-------------------------------");
+        System.out.println(findUser(id.getUser()).getCard(id.getCardId())+"");
+        System.out.println("12-------------------------------");
         return findUser(id.getUser()).getCard(id.getCardId());
     }
 
@@ -103,6 +131,9 @@ public class MongoUserRepository extends DefaultUserRepository {
         String userID = id.getUser();
         User user = findUser(userID);
         if (user != null) {
+            System.out.println("12-------------------------------");
+            System.out.println(user.removeCard(id.getCardId())+"");
+            System.out.println("13-------------------------------");
             user.removeCard(id.getCardId());
             updateUser(userID, user);
         }
@@ -112,6 +143,9 @@ public class MongoUserRepository extends DefaultUserRepository {
     public Collection<? extends User> getAllUsers() {
         List<User> results = new ArrayList<>();
         users.find().forEach((Consumer<? super User>) results::add);
+        System.out.println("14-------------------------------");
+        System.out.println(results+"");
+        System.out.println("15-------------------------------");
         return results;
     }
 
@@ -123,6 +157,9 @@ public class MongoUserRepository extends DefaultUserRepository {
 
     @Override
     public User getUser(String id) {
+        System.out.println("14-------------------------------");
+        System.out.println(findUser(id)+"");
+        System.out.println("15-------------------------------");
         return findUser(id);
     }
 
@@ -132,6 +169,9 @@ public class MongoUserRepository extends DefaultUserRepository {
         if (user != null) {
             users.deleteOne(eq("username", id));
         }
+        System.out.println("16-------------------------------");
+        System.out.println(user+"");
+        System.out.println("17-------------------------------");
         return user;
     }
 
@@ -147,6 +187,10 @@ public class MongoUserRepository extends DefaultUserRepository {
         if (existing == null) {
             users.insertOne(user);
         }
+
+        System.out.println("16-------------------------------");
+        System.out.println(existing+"");
+        System.out.println("17-------------------------------");
         return existing;
     }
 
