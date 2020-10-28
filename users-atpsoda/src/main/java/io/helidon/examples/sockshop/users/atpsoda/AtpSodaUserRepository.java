@@ -44,7 +44,7 @@ import static javax.interceptor.Interceptor.Priority.APPLICATION;
 @Traced
 public class AtpSodaUserRepository extends DefaultUserRepository {
 
-    
+
     public static OracleDatabase db = null;
 
     @Inject
@@ -110,16 +110,16 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     }
 
     @Override
-    public Collection<? extends User> getAllUsers() {
-        List<User> results = new ArrayList<>();
-        users.find().forEach((Consumer<? super User>) results::add);
+    public Collection << ? extends User > getAllUsers() {
+        List < User > results = new ArrayList < > ();
+        users.find().forEach((Consumer << ? super User > ) results::add);
         return results;
     }
 
     @Override
     public User getOrCreate(String id) {
         return Optional.ofNullable(findUser(id))
-                .orElse(new User(id));
+            .orElse(new User(id));
     }
 
     @Override
@@ -155,16 +155,14 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     private User findUser(String userID) {
 
-        ArrayList < AtpSodaSock > results = new ArrayList < > ();
-        AtpSodaSock atpSodaSock = new AtpSodaSock();
 
+        User user = new User();
+        // Address address = new Address();
+        // Card card = new Card();
         org.json.simple.JSONObject _jsonObject = new JSONObject();
         org.json.simple.parser.JSONParser _parser = new JSONParser();
 
-
         try {
-
-
             // Get a collection with the name "socks".
             // This creates a database table, also named "socks", to store the collection.
             OracleCollection col = this.db.admin().createCollection("users");
@@ -176,13 +174,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             String jsonFormattedString = null;
             try {
                 OracleDocument resultDoc;
-
-
                 while (c.hasNext()) {
-
-                    List < String > imageUrlList = new ArrayList < > ();
-                    Set < String > tag_Set = new HashSet < String > ();
-
+                    ArrayList < Address > addressesList = new ArrayList < > ();
+                    ArrayList < Card > cardsList = new ArrayList < > ();
+                    //     String firstName, String lastName, String email, String username, String password,
+                    // Collection<Address> addresses, Collection<Card> cards
                     resultDoc = c.next();
 
                     JSONParser parser = new JSONParser();
@@ -191,42 +187,38 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     JSONObject jsonObject = (JSONObject) obj;
 
-                    atpSodaSock.id = jsonObject.get("id").toString();
-                    atpSodaSock.name = jsonObject.get("name").toString();
-                    atpSodaSock.description = jsonObject.get("description").toString();
-                    atpSodaSock.price = Float.parseFloat(jsonObject.get("price").toString());
-                    atpSodaSock.count = Integer.parseInt(jsonObject.get("count").toString());
+                    user.username = jsonObject.get("username").toString();
+                    user.firstName = jsonObject.get("firstName").toString();
+                    user.lastName = jsonObject.get("lastName").toString();
+                    user.email = jsonObject.get("email").toString();
+                    user.password = jsonObject.get("password").toString();
 
-                    JSONArray _jsonArrayimageUrl = (JSONArray) jsonObject.get("imageUrl");
 
-                    for (int i = 0; i < _jsonArrayimageUrl.size(); i++) {
-                        imageUrlList.add(_jsonArrayimageUrl.get(i).toString());
-                    }
+                    JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
 
-                    JSONArray _jsonArraytag = (JSONArray) jsonObject.get("tag");
+                    // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
+                    //     addressesList.add(_jsonArrayaddresses.get(i).toString());
+                    // }
 
-                    for (int i = 0; i < _jsonArraytag.size(); i++) {
-                        tag_Set.add(_jsonArraytag.get(i).toString());
-                    }
+                    JSONArray cardsList = (JSONArray) jsonObject.get("cards");
 
-                    atpSodaSock.imageUrl = imageUrlList;
-                    atpSodaSock.tag = tag_Set;
-                   
+                    // for (int i = 0; i < _jsonArraycards.size(); i++) {
+                    //     cardsList.add(_jsonArraycards.get(i).toString());
+                    // }
+
+                    user.addresses = addressesList;
+                    user.cards = cardsList;
+
                 }
-
-
-
             } finally {
                 // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
                 if (c != null) c.close();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        System.out.println("/catalogue/" + sockId + ".. GET Request 200OK");
-        return atpSodaSock;
+        System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
+        return user;
 
 
         //return users.find(eq("username", userID)).first();
@@ -234,6 +226,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     private void updateUser(String userID, User user) {
         users.replaceOne(eq("username", userID), user);
+        System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
     }
 
     public String createData() {

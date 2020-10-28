@@ -206,6 +206,7 @@ public class MongoUserRepository extends DefaultUserRepository {
 
     private void updateUser(String userID, User user) {
         System.out.println("21-------------------------------");
+        System.out.println(users.replaceOne(eq("username", userID), user));
         users.replaceOne(eq("username", userID), user);
         System.out.println("22-------------------------------");
     }
