@@ -232,36 +232,43 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public User register(User user) {
         User existing = findUser(user.getUsername());
         if (existing.getUsername() == null) {
-            try {               
+            
+        String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\""+user.getUsername()+"\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"}]";
+        try {
+
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObjects = new JSONObject();
+            JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
 
 
-                // List < Address > addressesList = user.addresses;
-                // List < Card > cardsList = user.cards;
 
-                OracleCollection col = this.db.admin().createCollection("users");
+            // Create a collection with the name "MyJSONCollection".
+            // This creates a database table, also named "MyJSONCollection", to store the collection.\
 
-                //String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
-                
-                OracleDocument newDoc = this.db.createDocumentFromString("{\"addresses\":\"addresss\"}");
+            OracleCollection col = this.db.admin().createCollection("users");
 
-                System.out.println("1............REGISTRATION...................");
-                System.out.println(this.db.createDocumentFromString("{\"addresses\":\"addresss\"}"));
+            col.admin().truncate();
 
-                System.out.println(newDoc.toString());
-                System.out.println("2...............................");
+            for (int i = 0; i < jsonArray.size(); i++) {
 
-      
-                col.insert(newDoc);
+                // Create a JSON document.
+                OracleDocument doc =
+                    this.db.createDocumentFromString(jsonArray.get(i).toString());
 
+                // Insert the document into a collection.
+                col.insert(doc);
 
-                // users.replaceOne(eq("username", userID), user);
-                System.out.println(" User register(User user).... GET Request 200OK");
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            //  users.insertOne(user);
+
+        } catch (OracleException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return existing;
+            //  users.insertOne(user);
+            return existing;
+        }
+        
     }
 
     // --- helpers ----------------------------------------------------------
