@@ -241,7 +241,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 List < Address > addressesList = user.addresses;
                 List < Card > cardsList = user.cards;
 
-                String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                //String document = "{\"addresses\":" + addressesList.toString() + ",\"cards\":" + cardsList.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                String  document = "{\"addresses\":\"addresss\"}";
                 OracleDocument newDoc = this.db.createDocumentFromString(document);
 
                 System.out.println("1............REGISTRATION...................");
