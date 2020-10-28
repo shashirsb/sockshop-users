@@ -188,19 +188,25 @@ public class MongoUserRepository extends DefaultUserRepository {
             users.insertOne(user);
         }
 
-        System.out.println("16-------------------------------");
-        System.out.println(existing+"");
         System.out.println("17-------------------------------");
+        System.out.println(existing+"");
+        System.out.println("18-------------------------------");
         return existing;
     }
 
     // --- helpers ----------------------------------------------------------
 
     private User findUser(String userID) {
+        System.out.println("19-------------------------------");
+        System.out.println(users.find(eq("username", userID)).first()+"");
+        System.out.println("20-------------------------------");
         return users.find(eq("username", userID)).first();
+        
     }
 
     private void updateUser(String userID, User user) {
+        System.out.println("21-------------------------------");
         users.replaceOne(eq("username", userID), user);
+        System.out.println("22-------------------------------");
     }
 }
