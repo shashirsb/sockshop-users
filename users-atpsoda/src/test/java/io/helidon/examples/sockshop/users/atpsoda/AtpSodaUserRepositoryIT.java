@@ -15,7 +15,7 @@ import static io.helidon.examples.sockshop.users.atpsoda.AtpSodaProducers.*;
 /**
  * Integration tests for {@link io.helidon.examples.sockshop.users.mongo.MongoUserRepository}.
  */
-public class MongoUserRepositoryIT extends UserRepositoryTest {
+public class AtpSodaUserRepositoryIT extends UserRepositoryTest {
     @Override
     protected UserRepository getUserRepository() {
         String host = System.getProperty("db.host","localhost");
