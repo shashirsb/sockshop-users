@@ -103,7 +103,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
     
-    public AtpSodaProducers asp = new AtpSodaProducers();
+    public static AtpSodaProducers asp = new AtpSodaProducers();
     public static OracleDatabase db = asp.dbConnect();
 
     @Inject
