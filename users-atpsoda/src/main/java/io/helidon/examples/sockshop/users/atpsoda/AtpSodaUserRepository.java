@@ -345,7 +345,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println(user);
                         System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
                         System.out.println("findUser(String userID)  " + userID.toString() + ".. GET Request 200OK");
-        return user;
+        return null;
 
 
         //return users.find(eq("username", userID)).first();
