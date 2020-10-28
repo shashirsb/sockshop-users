@@ -103,6 +103,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
     public static OracleDatabase db = null;
+    public AtpSodaProducers asp = new AtpSodaProducers();
+    this.db = asp.dbConnect();
 
     @Inject
     AtpSodaUserRepository() {
@@ -194,8 +196,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         if (user != null) {
             try {
 
-                AtpSodaProducers asp = new AtpSodaProducers();
-            this.db = asp.dbConnect();
+
                 OracleCollection col = this.db.admin().createCollection("users");
 
                 OracleDocument filterSpec =
@@ -233,8 +234,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         if (existing == null) {
             try {
 
-                AtpSodaProducers asp = new AtpSodaProducers();
-                this.db = asp.dbConnect();
+
                 OracleCollection col = this.db.admin().createCollection("users");
 
 
@@ -253,7 +253,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-          //  users.insertOne(user);
+            //  users.insertOne(user);
         }
         return existing;
     }
@@ -272,8 +272,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         try {
             // Get a collection with the name "socks".
             // This creates a database table, also named "socks", to store the collection.
-            AtpSodaProducers asp = new AtpSodaProducers();
-            this.db = asp.dbConnect();
+
             OracleCollection col = this.db.admin().createCollection("users");
 
             // Find a documents in the collection.
@@ -281,57 +280,60 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
             OracleCursor c = col.find().filter(filterSpec).getCursor();
             String jsonFormattedString = null;
-            if(c != null){
-            try {
-                OracleDocument resultDoc;
-                while (c.hasNext()) {
-                    // ArrayList < Address > addressesList = new ArrayList < > ();
-                    // ArrayList < Card > cardsList = new ArrayList < > ();
-                    //     String firstName, String lastName, String email, String username, String password,
-                    // Collection<Address> addresses, Collection<Card> cards
-                    resultDoc = c.next();
+            if (c != null) {
+                try {
+                    OracleDocument resultDoc;
+                    while (c.hasNext()) {
+                        // ArrayList < Address > addressesList = new ArrayList < > ();
+                        // ArrayList < Card > cardsList = new ArrayList < > ();
+                        //     String firstName, String lastName, String email, String username, String password,
+                        // Collection<Address> addresses, Collection<Card> cards
+                        resultDoc = c.next();
 
-                    JSONParser parser = new JSONParser();
+                        JSONParser parser = new JSONParser();
 
-                    Object obj = parser.parse(resultDoc.getContentAsString());
+                        Object obj = parser.parse(resultDoc.getContentAsString());
 
-                    JSONObject jsonObject = (JSONObject) obj;
+                        JSONObject jsonObject = (JSONObject) obj;
 
-                    user.username = jsonObject.get("username").toString();
-                    user.firstName = jsonObject.get("firstName").toString();
-                    user.lastName = jsonObject.get("lastName").toString();
-                    user.email = jsonObject.get("email").toString();
-                    user.password = jsonObject.get("password").toString();
+                        user.username = jsonObject.get("username").toString();
+                        user.firstName = jsonObject.get("firstName").toString();
+                        user.lastName = jsonObject.get("lastName").toString();
+                        user.email = jsonObject.get("email").toString();
+                        user.password = jsonObject.get("password").toString();
 
 
-                    JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
+                        JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
 
-                    // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
-                    //     addressesList.add(_jsonArrayaddresses.get(i).toString());
-                    // }
+                        // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
+                        //     addressesList.add(_jsonArrayaddresses.get(i).toString());
+                        // }
 
-                    JSONArray cardsList = (JSONArray) jsonObject.get("cards");
+                        JSONArray cardsList = (JSONArray) jsonObject.get("cards");
 
-                    // for (int i = 0; i < _jsonArraycards.size(); i++) {
-                    //     cardsList.add(_jsonArraycards.get(i).toString());
-                    // }
+                        // for (int i = 0; i < _jsonArraycards.size(); i++) {
+                        //     cardsList.add(_jsonArraycards.get(i).toString());
+                        // }
 
-                    user.addresses = addressesList;
-                    user.cards = cardsList;
+                        user.addresses = addressesList;
+                        user.cards = cardsList;
+                        System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
+                        System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
 
+                    }
+                } finally {
+                    // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
+                    if (c != null) c.close();
                 }
-            } finally {
-                // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
-                if (c != null) c.close();
-            } } else {
+            } else {
                 user = null;
                 System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
-                System.out.println("findUser(String userID)  " + user+ ".. GET Request 200OK");
+                System.out.println("findUser(String userID)  " + user + ".. GET Request 200OK");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
+
         return user;
 
 
@@ -341,8 +343,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     private void updateUser(String userID, User user) {
         try {
             String k1 = "";
-            AtpSodaProducers asp = new AtpSodaProducers();
-            this.db = asp.dbConnect();
+
             OracleCollection col = this.db.admin().createCollection("users");
 
             OracleDocument filterSpec =
@@ -388,8 +389,6 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
 
 
-            AtpSodaProducers asp = new AtpSodaProducers();
-            this.db = asp.dbConnect();
 
             // Create a collection with the name "MyJSONCollection".
             // This creates a database table, also named "MyJSONCollection", to store the collection.\
