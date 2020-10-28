@@ -116,7 +116,6 @@ public class DefaultUserRepository implements UserRepository {
 
     @Override
     public User register(User user) {
-        System.out.println(users.putIfAbsent(user.getUsername(), user));
         return users.putIfAbsent(user.getUsername(), user);
     }
 

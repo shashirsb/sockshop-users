@@ -71,7 +71,7 @@ public class UserResource implements UserApi {
     @Override
     public Response register(User user) {
         User prev = users.register(user);
-        if (prev.getUsername() != null) {
+        if (prev != null) {
             return Response.status(CONFLICT).entity("User with that ID already exists").build();
         }
         return Response.ok(obj().add("id", user.getUsername()).build()).build();
