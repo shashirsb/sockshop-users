@@ -108,7 +108,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     AtpSodaUserRepository() {
         try {
             String UserResponse = createData();
-            System.out.println(catalogResponse);
+            System.out.println(UserResponse);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,6 +190,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public User removeUser(String id) {
         User user = findUser(id);
+        String k1 = null;
         if (user != null) {
             try {
 
@@ -246,9 +247,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 // users.replaceOne(eq("username", userID), user);
                 System.out.println(" User register(User user).... GET Request 200OK");
             } catch (Exception e) {
-                //TODO: handle exception
+                e.printStackTrace();
             }
-            users.insertOne(user);
+          //  users.insertOne(user);
         }
         return existing;
     }
@@ -277,8 +278,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             try {
                 OracleDocument resultDoc;
                 while (c.hasNext()) {
-                    ArrayList < Address > addressesList = new ArrayList < > ();
-                    ArrayList < Card > cardsList = new ArrayList < > ();
+                    // ArrayList < Address > addressesList = new ArrayList < > ();
+                    // ArrayList < Card > cardsList = new ArrayList < > ();
                     //     String firstName, String lastName, String email, String username, String password,
                     // Collection<Address> addresses, Collection<Card> cards
                     resultDoc = c.next();
