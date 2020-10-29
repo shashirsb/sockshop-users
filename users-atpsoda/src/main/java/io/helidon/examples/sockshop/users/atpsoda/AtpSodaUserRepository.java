@@ -412,19 +412,19 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonCardsArray = (JSONArray) parser.parse(user.cards.toString());
                 }
 
-                if (user.cards instanceof Collection<?>) {
-                    for (Card card: user.cards) {
-                        System.out.println("7***********************");
-                        JSONObject jsonObj = new JSONObject();
-                        jsonObj.put("longNum", card.longNum.toString());
-                        jsonObj.put("expires", card.expires.toString());
-                        jsonObj.put("ccv", card.ccv.toString());
-                        jsonCardsArray.add(jsonObj);
-                    }
-                    System.out.println(user.addresses.toString());
-                    JSONParser parser = new JSONParser();
-                    jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
-                }
+                // if (user.cards instanceof Collection<?>) {
+                //     for (Card card: user.cards) {
+                //         System.out.println("7***********************");
+                //         JSONObject jsonObj = new JSONObject();
+                //         jsonObj.put("longNum", card.longNum.toString());
+                //         jsonObj.put("expires", card.expires.toString());
+                //         jsonObj.put("ccv", card.ccv.toString());
+                //         jsonCardsArray.add(jsonObj);
+                //     }
+                //     System.out.println(user.addresses.toString());
+                //     JSONParser parser = new JSONParser();
+                //     jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
+                // }
 
                 String _document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
         
