@@ -119,6 +119,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public AddressId addAddress(String userID, Address address) {
         User user = findUser(userID);
+        user.removeAddress("1");
         if (user != null) {
             AddressId id = user.addAddress(address).getId();
             updateUser(userID, user);
@@ -148,6 +149,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public CardId addCard(String userID, Card card) {
         User user = findUser(userID);
+        user.removeCard("1");
         if (user != null) {
             CardId id = user.addCard(card).getId();
             updateUser(userID, user);
@@ -235,12 +237,6 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
         if (existing.getUsername() == null) {
             existing = _user;
-
-
-            //String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"sssxx\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"},\"addresses\":{\"href\":\"http://user/customers/randy/addresses\"},\"cards\":{\"href\":\"http://user/customers/randy/cards\"}},\"password\":\"pass\",\"username\":\"randy\"}]";
-            // User user = new User("Test", "User", "user@weavesocks.com", "user", "pass");
-            // user.addCard(new Card("1234123412341234", "12/19", "123"));
-            // user.addAddress(new Address("123", "Main St", "Springfield", "12123", "USA"));
             try {
                 String stringToParse = "[{\"addresses\":[],\"cards\":[],\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"self\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.getUsername() + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.getUsername() + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.getUsername() + "\"}]";
 
@@ -304,10 +300,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             try {
                 OracleDocument resultDoc;
                 while (c.hasNext()) {
-                    // ArrayList < Address > addressesList = new ArrayList < > ();
-                    // ArrayList < Card > cardsList = new ArrayList < > ();
-                    //     String firstName, String lastName, String email, String username, String password,
-                    // Collection<Address> addresses, Collection<Card> cards
+ 
                     resultDoc = c.next();
 
 
@@ -396,7 +389,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println(user.cards instanceof Collection<?>);
 
                
-                    for (int i=0; i < user.addresses.size(); i++) {
+                    for (Address address : user.addresses) {
                         if(user.addresses[i] instanceof Collection<?>){
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("6***********************");
@@ -409,11 +402,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         jsonAddressArray.add(jsonObj);
                         } else {
                             JSONParser parser = new JSONParser();
-                            jsonAddressArray = (JSONArray) parser.parse(user.addresses[i].toString());                       
+                            jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());                       
                         }
                     }
 
-                    for (int i=0; i < user.cards.size(); i++) {
+                    for (Card card : user.cards) {
                         if(user.cards[i] instanceof Collection<?>){
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("7***********************");
@@ -423,7 +416,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         jsonCardsArray.add(jsonObj);
                         } else {
                             JSONParser parser = new JSONParser();
-                            jsonCardsArray = (JSONArray) parser.parse(user.cards[i].toString());                       
+                            jsonCardsArray = (JSONArray) parser.parse(user.cards.toString());                       
                         }
                     }
 
