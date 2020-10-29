@@ -389,8 +389,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("*************************");
                 System.out.println("*************************");
 
-                JSONArray jsonAddressArray = new JSONArray("[]");
-                JSONArray jsonCardsArray = new JSONArray("[]");
+                JSONArray jsonAddressArray = new JSONArray();
+                JSONArray jsonCardsArray = new JSONArray();
 
                 if (user.addresses instanceof Address) {
                     for (Address address: user.addresses) {
@@ -404,6 +404,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         jsonObj.put("country", address.country.toString());
                         jsonAddressArray.add(jsonObj);
                     }
+
+                    JSONParser parser = new JSONParser();
+                    jsonCardsArray = (JSONArray)parser.parse("\""+user.Cards.toString()+"\"");
                 }
 
                 if (user.cards instanceof Card) {
@@ -415,6 +418,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         jsonObj.put("ccv", card.ccv.toString());
                         jsonCardsArray.add(jsonObj);
                     }
+                    JSONParser parser = new JSONParser();
+                    jsonAddressArray = (JSONArray)parser.parse("\""+user.addresses.toString()+"\"");
                 }
 
                 String _document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
