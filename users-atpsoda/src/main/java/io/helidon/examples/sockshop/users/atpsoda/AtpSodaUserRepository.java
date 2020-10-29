@@ -392,6 +392,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 JSONArray jsonAddressArray = new JSONArray();
                 JSONArray jsonCardsArray = new JSONArray();
 
+                System.out.println(user.addresses instanceof Address);
+                System.out.println(user.cards instanceof Card);
+
                 if (user.addresses instanceof Address) {
                     for (Address address: user.addresses) {
                         JSONObject jsonObj = new JSONObject();
