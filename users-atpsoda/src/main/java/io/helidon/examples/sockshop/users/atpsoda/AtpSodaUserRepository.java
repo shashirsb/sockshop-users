@@ -395,8 +395,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             // List < Card > cardsList = user.cards;
 
          //Verify list data
-        for (String address : user.addresses) {
-            System.out.println(address.toString());
+        for (Address address : user.addresses.size) {
+            System.out.println(address.street.toString());
+            System.out.println(address.street.toString());
+            System.out.println(address.street.toString());
+            System.out.println(address.street.toString());
+            System.out.println(address.street.toString());
+            System.out.println(address.street.toString());
         }
 
  
