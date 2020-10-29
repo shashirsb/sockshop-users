@@ -160,7 +160,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     public Card getCard(CardId id) {
         return findUser(id.getUser()).getCard(id.getCardId());
     }
-////////////
+    ////////////
     @Override
     public void removeCard(CardId id) {
         String userID = id.getUser();
@@ -227,52 +227,52 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         User user = findUser(username);
         return user != null ? user.authenticate(password) : false;
     }
-////////////
+    ////////////
     @Override
     public User register(User user) {
         User _user = null;
         User existing = findUser(user.getUsername());
-      
+
         if (existing.getUsername() == null) {
             existing = _user;
 
-            
-        //String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"sssxx\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"},\"addresses\":{\"href\":\"http://user/customers/randy/addresses\"},\"cards\":{\"href\":\"http://user/customers/randy/cards\"}},\"password\":\"pass\",\"username\":\"randy\"}]";
-       // User user = new User("Test", "User", "user@weavesocks.com", "user", "pass");
-        // user.addCard(new Card("1234123412341234", "12/19", "123"));
-        // user.addAddress(new Address("123", "Main St", "Springfield", "12123", "USA"));
-        try {
-            String stringToParse = "[{\"addresses\":[],\"cards\":[],\"email\":\""+user.email+"\",\"firstName\":\""+user.firstName+"\",\"lastName\":\""+user.lastName+"\",\"links\":{\"customer\":{\"href\":\"http://user/customers/"+user.getUsername()+"\"},\"self\":{\"href\":\"http://user/customers/"+user.getUsername()+"\"},\"addresses\":{\"href\":\"http://user/customers/"+user.getUsername()+"/addresses\"},\"cards\":{\"href\":\"http://user/customers/"+user.getUsername()+"/cards\"}},\"password\":\""+user.password+"\",\"username\":\""+user.getUsername()+"\"}]";
-       
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObjects = new JSONObject();
-            JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
+
+            //String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"sssxx\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"},\"addresses\":{\"href\":\"http://user/customers/randy/addresses\"},\"cards\":{\"href\":\"http://user/customers/randy/cards\"}},\"password\":\"pass\",\"username\":\"randy\"}]";
+            // User user = new User("Test", "User", "user@weavesocks.com", "user", "pass");
+            // user.addCard(new Card("1234123412341234", "12/19", "123"));
+            // user.addAddress(new Address("123", "Main St", "Springfield", "12123", "USA"));
+            try {
+                String stringToParse = "[{\"addresses\":[],\"cards\":[],\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"self\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.getUsername() + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.getUsername() + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.getUsername() + "\"}]";
+
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObjects = new JSONObject();
+                JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
 
 
 
-            // Create a collection with the name "MyJSONCollection".
-            // This creates a database table, also named "MyJSONCollection", to store the collection.\
+                // Create a collection with the name "MyJSONCollection".
+                // This creates a database table, also named "MyJSONCollection", to store the collection.\
 
-            OracleCollection col = this.db.admin().createCollection("users");
-            
-            for (int i = 0; i < jsonArray.size(); i++) {
+                OracleCollection col = this.db.admin().createCollection("users");
 
-                // Create a JSON document.
-                OracleDocument doc =
-                    this.db.createDocumentFromString(jsonArray.get(i).toString());
+                for (int i = 0; i < jsonArray.size(); i++) {
 
-                // Insert the document into a collection.
-                col.insert(doc);
+                    // Create a JSON document.
+                    OracleDocument doc =
+                        this.db.createDocumentFromString(jsonArray.get(i).toString());
 
+                    // Insert the document into a collection.
+                    col.insert(doc);
+
+                }
+
+            } catch (OracleException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-   
-        } catch (OracleException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
             //  users.insertOne(user);
-          
+
         }
 
         return existing;
@@ -319,30 +319,30 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     JSONObject jsonObject = (JSONObject) obj;
                     System.out.println(jsonObject.get("username"));
 
-                        user.username = jsonObject.get("username").toString();
-                        user.firstName = jsonObject.get("firstName").toString();
-                        user.lastName = jsonObject.get("lastName").toString();
-                        user.email = jsonObject.get("email").toString();
-                        user.password = jsonObject.get("password").toString();
+                    user.username = jsonObject.get("username").toString();
+                    user.firstName = jsonObject.get("firstName").toString();
+                    user.lastName = jsonObject.get("lastName").toString();
+                    user.email = jsonObject.get("email").toString();
+                    user.password = jsonObject.get("password").toString();
 
 
-                        JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
+                    JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
 
-                        // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
-                        //     addressesList.add(_jsonArrayaddresses.get(i).toString());
-                        // }
+                    // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
+                    //     addressesList.add(_jsonArrayaddresses.get(i).toString());
+                    // }
 
-                        JSONArray cardsList = (JSONArray) jsonObject.get("cards");
+                    JSONArray cardsList = (JSONArray) jsonObject.get("cards");
 
-                        // for (int i = 0; i < _jsonArraycards.size(); i++) {
-                        //     cardsList.add(_jsonArraycards.get(i).toString());
-                        // }
+                    // for (int i = 0; i < _jsonArraycards.size(); i++) {
+                    //     cardsList.add(_jsonArraycards.get(i).toString());
+                    // }
 
-                        user.addresses = addressesList;
-                        user.cards = cardsList;
-                        System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
-                        System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
-            
+                    user.addresses = addressesList;
+                    user.cards = cardsList;
+                    System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
+                    System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
+
                 }
             } finally {
                 // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
@@ -372,56 +372,61 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
             while (c.hasNext()) {
                 OracleDocument resultDoc = c.next();
-                System.out.println ("Key:         " + resultDoc.getKey());
-            System.out.println ("Content:     " + resultDoc.getContentAsString());
-            System.out.println ("Version:     " + resultDoc.getVersion());
-            System.out.println ("Last modified: " + resultDoc.getLastModified());
-            System.out.println ("Created on:    " + resultDoc.getCreatedOn());
-            System.out.println ("Media:         " + resultDoc.getMediaType());
-            System.out.println ("\n");
-          
+                System.out.println("Key:         " + resultDoc.getKey());
+                System.out.println("Content:     " + resultDoc.getContentAsString());
+                System.out.println("Version:     " + resultDoc.getVersion());
+                System.out.println("Last modified: " + resultDoc.getLastModified());
+                System.out.println("Created on:    " + resultDoc.getCreatedOn());
+                System.out.println("Media:         " + resultDoc.getMediaType());
+                System.out.println("\n");
 
-            // System.out.println()
 
-            // JSONArray addressesList = user.addresses;
+                //Verify list data
+                JSONArray jsonAddressArray = new JSONArray();
 
-            // for (int i = 0; i < addressesList.size(); i++) {
-            //                 addressesList.add(_jsonArrayaddresses.get(i).toString());
-            // }        
-            
-            // (JSONArray) jsonObject.get("addresses");
 
-            // List < Address > addressesList = user.addresses;
-            // List < Card > cardsList = user.cards;
+                for (Address address: user.addresses) {
+                    JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("addressId", address.addressId.toString());
+                    jsonObj.put("number", address.number.toString());
+                    jsonObj.put("street", address.street.toString());
+                    jsonObj.put("city", address.city.toString());
+                    jsonObj.put("postcode", address.postcode.toString());
+                    jsonObj.put("country", address.country.toString());
 
-         //Verify list data
-        for (Address address : user.addresses) {
-            System.out.println(address.street.toString());
-            System.out.println(address.street.toString());
-            System.out.println(address.street.toString());
-            System.out.println(address.street.toString());
-            System.out.println(address.street.toString());
-            System.out.println(address.street.toString());
-        }
+                    jsonAddressArray.put(jsonObj.valueToString());
+                }
 
- 
 
-            String document = "{\"addresses\":" + user.addresses + ",\"cards\":" + user.cards + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
-            System.out.println(document);
-            System.out.println(user.addresses.toString());
-            System.out.println(user.cards.toString());
-            OracleDocument newDoc = this.db.createDocumentFromString(document);
 
-            
-            resultDoc = col.find().key(resultDoc.getKey()).version(resultDoc.getVersion()).replaceOneAndGet(newDoc);
-            System.out.println(resultDoc);
+                JSONArray jsonCardsArray = new JSONArray();
 
-            // users.replaceOne(eq("username", userID), user);
-            System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
+                for (Card card: user.cards) {
+                    JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("longNum", card.longNum.toString());
+                    jsonObj.put("expires", card.expires.toString());
+                    jsonObj.put("ccv", card.ccv.toString());
 
-        }
+                    jsonCardsArray.put(jsonObj.valueToString());
+                }
 
-        c.close();
+
+                String document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                System.out.println(document);
+                System.out.println(user.addresses.toString());
+                System.out.println(user.cards.toString());
+                OracleDocument newDoc = this.db.createDocumentFromString(document);
+
+
+                resultDoc = col.find().key(resultDoc.getKey()).version(resultDoc.getVersion()).replaceOneAndGet(newDoc);
+                System.out.println(resultDoc);
+
+                // users.replaceOne(eq("username", userID), user);
+                System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
+
+            }
+
+            c.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
