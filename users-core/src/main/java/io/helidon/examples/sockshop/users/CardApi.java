@@ -30,7 +30,7 @@ public interface CardApi {
     @APIResponses({
           @APIResponse(responseCode = "200", description = "if retrieval is successful")
     })
-    Response getAllCards();
+    Response new Card("3691369136913691", "01/21", "789");
 
     @POST
     @Consumes(APPLICATION_JSON)
