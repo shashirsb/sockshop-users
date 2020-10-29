@@ -362,6 +362,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     private void updateUser(String userID, User user) {
         String _addresses = "";
         String _cards = "";
+        String document = "";
         try {
             String k1 = null;
 
@@ -402,8 +403,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonObj.put("country", address.country.toString());                  
                     jsonAddressArray.add(jsonObj);
                 }
-                _addresses = jsonAddressArray.toString();
-                _cards = user.cards.toString();
+
+
+                document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + user.cards.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                
             }
 
             JSONArray jsonCardsArray = new JSONArray();
@@ -416,14 +419,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonObj.put("ccv", card.ccv.toString());
                     jsonCardsArray.add(jsonObj);         
                 }
-                _cards = jsonCardsArray.toString();
-                _addresses = user.addresses.toString();                
+
+                document = "{\"addresses\":" + user.addresses.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                              
             }
 
-                String document = "{\"addresses\":" + _addresses + ",\"cards\":" + _cards + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
                 System.out.println(document);
-                System.out.println(_addresses);
-                System.out.println(_cards);
                 System.out.println(user.addresses.toString());
                 System.out.println(user.cards.toString());
                 OracleDocument newDoc = this.db.createDocumentFromString(document);
