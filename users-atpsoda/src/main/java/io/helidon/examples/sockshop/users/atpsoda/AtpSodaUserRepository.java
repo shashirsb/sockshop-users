@@ -392,11 +392,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 JSONArray jsonAddressArray = new JSONArray();
                 JSONArray jsonCardsArray = new JSONArray();
 
-                System.out.println(user.addresses instanceof Collection);
-                System.out.println(user.cards instanceof Collection);
+                System.out.println(user.addresses instanceof Collection<?>);
+                System.out.println(user.cards instanceof Collection<?>);
 
-                if (user.addresses instanceof Collection<?>) {
-                    for (Address address: user.addresses) {
+               
+                    for (int i=0; i < user.addresses.size(); i++) {
+                        if(user.addresses[i] instanceof Collection<?>){
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("6***********************");
                         jsonObj.put("addressId", address.addressId.toString());
@@ -406,25 +407,25 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         jsonObj.put("postcode", address.postcode.toString());
                         jsonObj.put("country", address.country.toString());
                         jsonAddressArray.add(jsonObj);
+                        } else {
+                            JSONParser parser = new JSONParser();
+                            jsonAddressArray = (JSONArray) parser.parse(user.addresses[i].toString());                       
+                        }
                     }
-                    System.out.println(user.cards.toString());
-                    JSONParser parser = new JSONParser();
-                    jsonCardsArray = (JSONArray) parser.parse(user.cards.toString());
-                }
 
-                // if (user.cards instanceof Collection<?>) {
-                //     for (Card card: user.cards) {
-                //         System.out.println("7***********************");
-                //         JSONObject jsonObj = new JSONObject();
-                //         jsonObj.put("longNum", card.longNum.toString());
-                //         jsonObj.put("expires", card.expires.toString());
-                //         jsonObj.put("ccv", card.ccv.toString());
-                //         jsonCardsArray.add(jsonObj);
-                //     }
-                //     System.out.println(user.addresses.toString());
-                //     JSONParser parser = new JSONParser();
-                //     jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
-                // }
+                    for (int i=0; i < user.cards.size(); i++) {
+                        if(user.cards[i] instanceof Collection<?>){
+                        JSONObject jsonObj = new JSONObject();
+                        System.out.println("7***********************");
+                        jsonObj.put("longNum", card.longNum.toString());
+                        jsonObj.put("expires", card.expires.toString());
+                        jsonObj.put("ccv", card.ccv.toString());
+                        jsonCardsArray.add(jsonObj);
+                        } else {
+                            JSONParser parser = new JSONParser();
+                            jsonCardsArray = (JSONArray) parser.parse(user.cards[i].toString());                       
+                        }
+                    }
 
                 String _document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
         
