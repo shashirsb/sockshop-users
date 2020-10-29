@@ -387,12 +387,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 for (int i=0; i < user.addresses.size(); i++) {
                     JSONObject jsonObj = new JSONObject();
-                    jsonObj.put("addressId", user.addresses(i).addressId.toString());
-                    jsonObj.put("number", user.addresses(i).number.toString());
-                    jsonObj.put("street", user.addresses(i).street.toString());
-                    jsonObj.put("city", user.addresses(i).city.toString());
-                    jsonObj.put("postcode", user.addresses(i).postcode.toString());
-                    jsonObj.put("country", user.addresses(i).country.toString());
+                    jsonObj.put("addressId", user.addresses[i].addressId.toString());
+                    jsonObj.put("number", user.addresses[i].number.toString());
+                    jsonObj.put("street", user.addresses[i].street.toString());
+                    jsonObj.put("city", user.addresses[i].city.toString());
+                    jsonObj.put("postcode", user.addresses[i].postcode.toString());
+                    jsonObj.put("country", user.addresses[i].country.toString());
 
                   
                     jsonAddressArray.add(jsonObj);
@@ -406,9 +406,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                // for (Card card: user.cards) {
                     for (int i=0; i < user.cards.size(); i++) {
                     JSONObject jsonObj = new JSONObject();
-                    jsonObj.put("longNum",  user.cards(i).longNum.toString());
-                    jsonObj.put("expires",  user.cards(i).expires.toString());
-                    jsonObj.put("ccv",  user.cards(i).ccv.toString());
+                    jsonObj.put("longNum",  user.cards[i].longNum.toString());
+                    jsonObj.put("expires",  user.cards[i].expires.toString());
+                    jsonObj.put("ccv",  user.cards[i].ccv.toString());
 
                     jsonCardsArray.add(jsonObj);
          
