@@ -118,8 +118,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     @Override
     public AddressId addAddress(String userID, Address address) {
-        User user = findUser(userID);
-        user.removeAddress("1");
+        User user = findUser(userID);       
         if (user != null) {
             AddressId id = user.addAddress(address).getId();
             updateUser(userID, user);
@@ -149,7 +148,6 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public CardId addCard(String userID, Card card) {
         User user = findUser(userID);
-        user.removeCard("1");
         if (user != null) {
             CardId id = user.addCard(card).getId();
             updateUser(userID, user);
@@ -389,22 +387,22 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println(user.cards instanceof Collection <?> );
 
 
-                if (user.addresses instanceof Collection <?> ) {
-                    for (Address address: user.addresses) {
-                        JSONObject jsonObj = new JSONObject();
-                        System.out.println("6***********************");
-                        jsonObj.put("addressId", address.addressId.toString());
-                        jsonObj.put("number", address.number.toString());
-                        jsonObj.put("street", address.street.toString());
-                        jsonObj.put("city", address.city.toString());
-                        jsonObj.put("postcode", address.postcode.toString());
-                        jsonObj.put("country", address.country.toString());
-                        jsonAddressArray.add(jsonObj);
-                    }
-                } else {
-                    JSONParser parser = new JSONParser();
-                    jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
-                }
+                // if (user.addresses instanceof Collection <?> ) {
+                //     for (Address address: user.addresses) {
+                //         JSONObject jsonObj = new JSONObject();
+                //         System.out.println("6***********************");
+                //         jsonObj.put("addressId", address.addressId.toString());
+                //         jsonObj.put("number", address.number.toString());
+                //         jsonObj.put("street", address.street.toString());
+                //         jsonObj.put("city", address.city.toString());
+                //         jsonObj.put("postcode", address.postcode.toString());
+                //         jsonObj.put("country", address.country.toString());
+                //         jsonAddressArray.add(jsonObj);
+                //     }
+                // } else {
+                //     JSONParser parser = new JSONParser();
+                //     jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
+                // }
 
                 if (user.cards instanceof Collection <?> ) {
                     for (Card card: user.cards) {
