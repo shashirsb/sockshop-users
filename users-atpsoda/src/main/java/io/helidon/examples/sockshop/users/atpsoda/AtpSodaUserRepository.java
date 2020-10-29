@@ -390,7 +390,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                
                     for (Address address : user.addresses) {
-                        if(adress instanceof Collection<?>){
+                        if(address instanceof Collection<?>){
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("6***********************");
                         jsonObj.put("addressId", address.addressId.toString());
