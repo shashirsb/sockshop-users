@@ -422,6 +422,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 String document = "{\"addresses\":" + _addresses + ",\"cards\":" + _cards + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
                 System.out.println(document);
+                System.out.println(_addresses);
+                System.out.println(_cards);
                 System.out.println(user.addresses.toString());
                 System.out.println(user.cards.toString());
                 OracleDocument newDoc = this.db.createDocumentFromString(document);
