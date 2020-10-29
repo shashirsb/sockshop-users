@@ -174,7 +174,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public Collection < ? extends User > getAllUsers() {
         List < User > results = new ArrayList < > ();
-        users.find().forEach((Consumer << ? super User > ) results::add);
+        // users.find().forEach((Consumer << ? super User > ) results::add);
         return results;
     }
 
