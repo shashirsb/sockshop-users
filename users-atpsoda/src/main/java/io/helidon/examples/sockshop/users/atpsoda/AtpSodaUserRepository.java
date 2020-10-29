@@ -360,6 +360,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     }
 
     private void updateUser(String userID, User user) {
+        String _addresses = "";
+        String _cards = "";
         try {
             String k1 = null;
 
@@ -389,8 +391,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("*************************");
 
                 JSONArray jsonAddressArray = new JSONArray();
-                if(user.addresses != null) {        
-
+                if(user.addresses instanceof Address ) {        
                 for (Address address: user.addresses) {
                     JSONObject jsonObj = new JSONObject();
                     jsonObj.put("addressId", address.addressId.toString());
@@ -398,29 +399,28 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonObj.put("street", address.street.toString());
                     jsonObj.put("city", address.city.toString());
                     jsonObj.put("postcode", address.postcode.toString());
-                    jsonObj.put("country", address.country.toString());
-
-                  
+                    jsonObj.put("country", address.country.toString());                  
                     jsonAddressArray.add(jsonObj);
-
                 }
+                _addresses = jsonAddressArray.toString();
+                _cards = user.cards.toString();
             }
 
             JSONArray jsonCardsArray = new JSONArray();
-            if(user.cards != null) {                
+            if(user.cards instanceof Card ) {    
 
                 for (Card card: user.cards) {
                     JSONObject jsonObj = new JSONObject();
                     jsonObj.put("longNum", card.longNum.toString());
                     jsonObj.put("expires", card.expires.toString());
                     jsonObj.put("ccv", card.ccv.toString());
-
-                    jsonCardsArray.add(jsonObj);
-         
+                    jsonCardsArray.add(jsonObj);         
                 }
+                _cards = jsonCardsArray.toString();
+                _addresses = user.addresses.toString();                
             }
 
-                String document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                String document = "{\"addresses\":" + _addresses + ",\"cards\":" + _cards + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
                 System.out.println(document);
                 System.out.println(user.addresses.toString());
                 System.out.println(user.cards.toString());
