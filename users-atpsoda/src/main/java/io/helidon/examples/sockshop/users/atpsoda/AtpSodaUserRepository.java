@@ -390,7 +390,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                
                     for (Address address : user.addresses) {
-                        if(user.addresses[i] instanceof Collection<?>){
+                        if(adress instanceof Collection<?>){
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("6***********************");
                         jsonObj.put("addressId", address.addressId.toString());
@@ -407,7 +407,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     }
 
                     for (Card card : user.cards) {
-                        if(user.cards[i] instanceof Collection<?>){
+                        if(card instanceof Collection<?>){
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("7***********************");
                         jsonObj.put("longNum", card.longNum.toString());
