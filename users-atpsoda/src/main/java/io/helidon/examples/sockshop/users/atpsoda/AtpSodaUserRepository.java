@@ -300,7 +300,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             try {
                 OracleDocument resultDoc;
                 while (c.hasNext()) {
- 
+
                     resultDoc = c.next();
 
 
@@ -385,13 +385,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 JSONArray jsonAddressArray = new JSONArray();
                 JSONArray jsonCardsArray = new JSONArray();
 
-                System.out.println(user.addresses instanceof Collection<?>);
-                System.out.println(user.cards instanceof Collection<?>);
-                
-     
-               
-                    for (Address address : user.addresses) {
-                        if(user.addresses instanceof Collection<>){
+                System.out.println(user.addresses instanceof Collection <?> );
+                System.out.println(user.cards instanceof Collection <?> );
+
+
+                if (user.addresses instanceof Collection <?> ) {
+                    for (Address address: user.addresses) {
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("6***********************");
                         jsonObj.put("addressId", address.addressId.toString());
@@ -401,28 +400,31 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         jsonObj.put("postcode", address.postcode.toString());
                         jsonObj.put("country", address.country.toString());
                         jsonAddressArray.add(jsonObj);
-                        } else {
-                            JSONParser parser = new JSONParser();
-                            jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());                       
-                        }
                     }
+                } else {
+                    JSONParser parser = new JSONParser();
+                    jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
+                }
 
-                    for (Card card : user.cards) {
-                        if(user.cards instanceof Collection<>){
+                if (user.card instanceof Collection <?> ) {
+                    for (Card card: user.cards) {
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("7***********************");
                         jsonObj.put("longNum", card.longNum.toString());
                         jsonObj.put("expires", card.expires.toString());
                         jsonObj.put("ccv", card.ccv.toString());
                         jsonCardsArray.add(jsonObj);
-                        } else {
-                            JSONParser parser = new JSONParser();
-                            jsonCardsArray = (JSONArray) parser.parse(user.cards.toString());                       
-                        }
                     }
+                } else {
+                    JSONParser parser = new JSONParser();
+                    jsonCardsArray = (JSONArray) parser.parse(user.cards.toString());
+                }
+
+
+
 
                 String _document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
-        
+
                 System.out.println(_document);
                 System.out.println(jsonAddressArray.toString());
                 System.out.println(jsonCardsArray.toString());
