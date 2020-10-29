@@ -406,7 +406,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
                 }
 
-                if (user.card instanceof Collection <?> ) {
+                if (user.cards instanceof Collection <?> ) {
                     for (Card card: user.cards) {
                         JSONObject jsonObj = new JSONObject();
                         System.out.println("7***********************");
