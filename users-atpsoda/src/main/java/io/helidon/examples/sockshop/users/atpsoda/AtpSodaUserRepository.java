@@ -381,9 +381,17 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("\n");
 
 
-                //Verify list data
-                JSONArray jsonAddressArray = new JSONArray();
+                System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println(user.toString());
+                System.out.println("*************************");
+                System.out.println("*************************");
 
+
+                if(user.addresses != null) {
+                    //Verify list data
+                JSONArray jsonAddressArray = new JSONArray();
 
                 for (Address address: user.addresses) {
                     JSONObject jsonObj = new JSONObject();
@@ -398,9 +406,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonAddressArray.add(jsonObj);
 
                 }
+            }
 
 
-
+            if(user.cards != null) {
                 JSONArray jsonCardsArray = new JSONArray();
 
                 for (Card card: user.cards) {
@@ -412,7 +421,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonCardsArray.add(jsonObj);
          
                 }
-
+            }
 
                 String document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
                 System.out.println(document);
