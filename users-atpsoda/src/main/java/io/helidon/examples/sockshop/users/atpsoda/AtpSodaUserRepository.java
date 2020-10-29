@@ -406,7 +406,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     }
 
                     JSONParser parser = new JSONParser();
-                    jsonCardsArray = (JSONArray)parser.parse("\""+user.Cards.toString()+"\"");
+                    jsonCardsArray = (JSONArray)parser.parse("\""+user.cards.toString()+"\"");
                 }
 
                 if (user.cards instanceof Card) {
