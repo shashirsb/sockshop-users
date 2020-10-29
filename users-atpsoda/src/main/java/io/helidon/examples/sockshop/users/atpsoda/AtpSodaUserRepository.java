@@ -388,10 +388,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("*************************");
                 System.out.println("*************************");
 
-
-                if(user.addresses != null) {
-                    //Verify list data
                 JSONArray jsonAddressArray = new JSONArray();
+                if(user.addresses != null) {        
 
                 for (Address address: user.addresses) {
                     JSONObject jsonObj = new JSONObject();
@@ -408,9 +406,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 }
             }
 
-
-            if(user.cards != null) {
-                JSONArray jsonCardsArray = new JSONArray();
+            JSONArray jsonCardsArray = new JSONArray();
+            if(user.cards != null) {                
 
                 for (Card card: user.cards) {
                     JSONObject jsonObj = new JSONObject();
