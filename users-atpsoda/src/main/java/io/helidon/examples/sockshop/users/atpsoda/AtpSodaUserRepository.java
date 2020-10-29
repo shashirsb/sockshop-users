@@ -394,7 +394,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonObj.put("postcode", address.postcode.toString());
                     jsonObj.put("country", address.country.toString());
 
-                    jsonAddressArray.put(jsonObj.valueToString());
+                    jsonAddressArray = (JSONArray)jsonObj;
+
                 }
 
 
@@ -407,7 +408,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     jsonObj.put("expires", card.expires.toString());
                     jsonObj.put("ccv", card.ccv.toString());
 
-                    jsonCardsArray.put(jsonObj.valueToString());
+                    jsonCardsArray = (JSONArray)jsonObj;
+         
                 }
 
 
