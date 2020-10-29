@@ -394,6 +394,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             // List < Address > addressesList = user.addresses;
             // List < Card > cardsList = user.cards;
 
+         //Verify list data
+        for (String address : user.addresse) {
+            System.out.println(address);
+        }
+
+ 
+
             String document = "{\"addresses\":" + user.addresses + ",\"cards\":" + user.cards + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
             System.out.println(document);
             System.out.println(user.addresses.toString());
