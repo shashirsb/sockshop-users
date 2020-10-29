@@ -385,14 +385,14 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 JSONArray jsonAddressArray = new JSONArray();
 
 
-                for (int i=0; i < user.addresses.size(); i++) {
+                for (Address address: user.addresses) {
                     JSONObject jsonObj = new JSONObject();
-                    jsonObj.put("addressId", user.addresses[i].addressId.toString());
-                    jsonObj.put("number", user.addresses[i].number.toString());
-                    jsonObj.put("street", user.addresses[i].street.toString());
-                    jsonObj.put("city", user.addresses[i].city.toString());
-                    jsonObj.put("postcode", user.addresses[i].postcode.toString());
-                    jsonObj.put("country", user.addresses[i].country.toString());
+                    jsonObj.put("addressId", address.addressId.toString());
+                    jsonObj.put("number", address.number.toString());
+                    jsonObj.put("street", address.street.toString());
+                    jsonObj.put("city", address.city.toString());
+                    jsonObj.put("postcode", address.postcode.toString());
+                    jsonObj.put("country", address.country.toString());
 
                   
                     jsonAddressArray.add(jsonObj);
@@ -403,12 +403,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 JSONArray jsonCardsArray = new JSONArray();
 
-               // for (Card card: user.cards) {
-                    for (int i=0; i < user.cards.size(); i++) {
+                for (Card card: user.cards) {
                     JSONObject jsonObj = new JSONObject();
-                    jsonObj.put("longNum",  user.cards[i].longNum.toString());
-                    jsonObj.put("expires",  user.cards[i].expires.toString());
-                    jsonObj.put("ccv",  user.cards[i].ccv.toString());
+                    jsonObj.put("longNum", card.longNum.toString());
+                    jsonObj.put("expires", card.expires.toString());
+                    jsonObj.put("ccv", card.ccv.toString());
 
                     jsonCardsArray.add(jsonObj);
          
