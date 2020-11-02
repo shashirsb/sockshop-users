@@ -435,7 +435,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         int i =0;
                         for (Address _address: addressClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
-                            System.out.println(_address.getAddress(i).toString());
+                            System.out.println(user.getAddress(i).toString());
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             i++;
                         }
