@@ -316,10 +316,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     user.password = jsonObject.get("password").toString();
 
 
-                    JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
+    
 
                     JSONArray addressesList = new JSONArray();
-                    Collection<Item> items = user.addresses;
+                    Collection<Address> items = user.addresses;
                         for (Item item : items) {
                             JSONObject objitems= new JSONObject();
                             objitems.put("number", item.number.toString());
@@ -331,7 +331,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         }               
 
                     JSONArray cardsList = new JSONArray();
-                    Collection<Item> items = user.cards;
+                    Collection<Card> items = user.cards;
                         for (Item item : items) {
                             JSONObject objitems= new JSONObject();
                             objitems.put("longNum", Long.parseLong(item.longNum.toString()));
@@ -441,8 +441,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 String _document = "{\"addresses\":" + addressesList + ",\"cards\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
 
                 System.out.println(_document);
-                System.out.println(jsonAddressArray.toString());
-                System.out.println(jsonCardsArray.toString());
+                System.out.println(addressesList.toString());
+                System.out.println(cardsList.toString());
                 OracleDocument newDoc = this.db.createDocumentFromString(_document);
 
 
