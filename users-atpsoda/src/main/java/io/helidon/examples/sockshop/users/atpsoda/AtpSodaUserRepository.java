@@ -319,25 +319,25 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     
 
                     JSONArray addressesList = new JSONArray();
-                    Collection<Address> items = user.addresses;
-                        for (Address item : items) {
-                            JSONObject objitems= new JSONObject();
-                            objitems.put("number", item.number.toString());
-                            objitems.put("street", item.street.toString());
-                            objitems.put("city", item.city.toString());
-                            objitems.put("postcode", item.postcode.toString());
-                            objitems.put("country", item.country.toString());
-                            addressesList.add(objitems);
+                    Collection<Address> addresses = user.addresses;
+                        for (Address a : addresses) {
+                            JSONObject objaddress= new JSONObject();
+                            objaddress.put("number", a.number.toString());
+                            objaddress.put("street", a.street.toString());
+                            objaddress.put("city", a.city.toString());
+                            objaddress.put("postcode", a.postcode.toString());
+                            oobjaddressbjitems.put("country", a.country.toString());
+                            addressesList.add(objaddress);
                         }               
 
                     JSONArray cardsList = new JSONArray();
-                    Collection<Card> items = user.cards;
-                        for (Card item : items) {
-                            JSONObject objitems= new JSONObject();
-                            objitems.put("longNum", Long.parseLong(item.longNum.toString()));
-                            objitems.put("expires", item.expires.toString());
-                            objitems.put("ccv", item.ccv.toString());
-                            cardsList.add(objitems);
+                    Collection<Card> cards = user.cards;
+                        for (Card c : cards) {
+                            JSONObject objcard= new JSONObject();
+                            objcard.put("longNum", Long.parseLong(c.longNum.toString()));
+                            objcard.put("expires", c.expires.toString());
+                            objcard.put("ccv", c.ccv.toString());
+                            cardsList.add(objcard);
                         }
 
 
@@ -396,26 +396,27 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
                 JSONArray addressesList = new JSONArray();
-                    Collection<Address> items = user.addresses;
-                        for (Item item : items) {
-                            JSONObject objitems= new JSONObject();
-                            objitems.put("number", item.number.toString());
-                            objitems.put("street", item.street.toString());
-                            objitems.put("city", item.city.toString());
-                            objitems.put("postcode", item.postcode.toString());
-                            objitems.put("country", item.country.toString());
-                            addressesList.add(objitems);
-                        }               
+                Collection<Address> addresses = user.addresses;
+                    for (Address a : addresses) {
+                        JSONObject objaddress= new JSONObject();
+                        objaddress.put("number", a.number.toString());
+                        objaddress.put("street", a.street.toString());
+                        objaddress.put("city", a.city.toString());
+                        objaddress.put("postcode", a.postcode.toString());
+                        oobjaddressbjitems.put("country", a.country.toString());
+                        addressesList.add(objaddress);
+                    }               
 
-                    JSONArray cardsList = new JSONArray();
-                    Collection<Card> items = user.cards;
-                        for (Item item : items) {
-                            JSONObject objitems= new JSONObject();
-                            objitems.put("longNum", Long.parseLong(item.longNum.toString()));
-                            objitems.put("expires", item.expires.toString());
-                            objitems.put("ccv", item.ccv.toString());
-                            cardsList.add(objitems);
-                        }
+                JSONArray cardsList = new JSONArray();
+                Collection<Card> cards = user.cards;
+                    for (Card c : cards) {
+                        JSONObject objcard= new JSONObject();
+                        objcard.put("longNum", Long.parseLong(c.longNum.toString()));
+                        objcard.put("expires", c.expires.toString());
+                        objcard.put("ccv", c.ccv.toString());
+                        cardsList.add(objcard);
+                    }
+
 
        
 
