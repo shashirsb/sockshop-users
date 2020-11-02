@@ -432,7 +432,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
-                        System.out.println("Address Array:" +addressClass.toString() );
+                        System.out.println("Address Array:" +addressClass.Address.toString() );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
                         for (Address _address: addressClass) {
