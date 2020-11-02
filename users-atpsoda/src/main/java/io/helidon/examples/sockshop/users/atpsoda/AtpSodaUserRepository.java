@@ -418,8 +418,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                   // from  soda data
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
-                    List <Address> addresses = user.addresses;
-                    if (_addressArray != null && this.isNullOrEmptyList(addresses)) {
+                    Collection <Address> addressClass = user.Address;
+                    if (_addressArray != null && this.isNullOrEmptyCollection(addressClass)) {
                         for (Object o: _addressArray) {
                             if (o instanceof JSONObject) {
                                 _itemsObject = (JSONObject) o;
@@ -430,10 +430,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
-                        System.out.println("Address Array:" +addresses.toString() );
+                        System.out.println("Address Array:" +addressClass.toString() );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
-                        for (Address _address: addresses) {
+                        for (Address _address: addressClass) {
                             JSONObject objaddress = new JSONObject();
                             System.out.println("Address object:" +_address.toString() );
                             System.out.println("#############################" );
