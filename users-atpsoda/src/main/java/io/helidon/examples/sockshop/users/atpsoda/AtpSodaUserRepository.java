@@ -275,8 +275,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     // --- helpers ----------------------------------------------------------
 
-    public boolean isNullOrEmpty(List<?> l ) {
+    public boolean isNullOrEmptyList(List<?> l ) {
         return l == null || l.isEmpty();
+    }
+
+    public boolean isNullOrEmptyCollection(Collection<?> c ) {
+        return c == null || c.isEmpty();
     }
 
     private User findUser(String userID) {
@@ -327,7 +331,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
                     Collection <Address> addresses = user.addresses;
-                    if (_addressArray != null && this.isNullOrEmpty(addresses)) {
+                    if (_addressArray != null && this.isNullOrEmptyCollection(addresses)) {
                         for (Object o: _addressArray) {
                             if (o instanceof JSONObject) {
                                 _itemsObject = (JSONObject) o;
@@ -346,7 +350,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
                     Collection <Card> cards = user.cards;
-                    if (_cardArray != null && this.isNullOrEmpty(cards)) {
+                    if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
                         for (Object o: _cardArray) {
                             if (o instanceof JSONObject) {
                                 _itemsObject = (JSONObject) o;
@@ -415,7 +419,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
                     List <Address> addresses = user.addresses;
-                    if (_addressArray != null && this.isNullOrEmpty(addresses)) {
+                    if (_addressArray != null && this.isNullOrEmptyList(addresses)) {
                         for (Object o: _addressArray) {
                             if (o instanceof JSONObject) {
                                 _itemsObject = (JSONObject) o;
@@ -447,9 +451,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1");
                     JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
                     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^2");
-                    Collection <Card> cards = user.cards;
+                    List <Card> cards = user.cards;
                     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^3");
-                    if (_cardArray != null && this.isNullOrEmpty(cards)) {
+                    if (_cardArray != null && this.isNullOrEmptyList(cards)) {
                         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^4");
                         for (Object o: _cardArray) {
                             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^5");
