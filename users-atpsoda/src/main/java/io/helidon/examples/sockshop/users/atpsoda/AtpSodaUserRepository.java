@@ -315,10 +315,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     user.email = jsonObject.get("email").toString();
                     user.password = jsonObject.get("password").toString();
     
-// from user object
-JSONArray addressesList = new JSONArray(); 
-
-
+       
+                JSONArray addressesList = new JSONArray(); 
                 
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
@@ -345,8 +343,7 @@ JSONArray addressesList = new JSONArray();
   
                 
                  
-                JSONArray cardsList = new JSONArray();
-               
+                JSONArray cardsList = new JSONArray();              
 
 
                  // from  soda data
@@ -414,12 +411,12 @@ JSONArray addressesList = new JSONArray();
                 System.out.println("\n");
 
 
-                System.out.println("*************************");
-                System.out.println("*************************");
+                System.out.println("***********updateUser**************");
+                System.out.println("***********updateUser**************");
                 System.out.println("*************************");
                 System.out.println(user.toString());
-                System.out.println("*************************");
-                System.out.println("*************************");
+                System.out.println("************updateUser*************");
+                System.out.println("************updateUser*************");
 
                 JSONParser parser = new JSONParser();
                 Object obj = parser.parse(resultDoc.getContentAsString());
@@ -509,7 +506,9 @@ JSONArray addressesList = new JSONArray();
 
 
                 resultDoc = col.find().key(resultDoc.getKey()).version(resultDoc.getVersion()).replaceOneAndGet(newDoc);
-                System.out.println(resultDoc);
+                System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println("updateUser - resultDoc" +resultDoc);
 
                 // users.replaceOne(eq("username", userID), user);
                 System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
