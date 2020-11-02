@@ -432,26 +432,23 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
 
-                        int i =0;
+                        int i =1;
                         for (Address _address: addressClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             System.out.println(user.getAddress(""+i+"").toString());
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+                            
+                            if( i >=2 ){
+                            JSONObject objaddress = new JSONObject();
+                            objaddress.put("number", _address.number.toString());
+                            objaddress.put("street", _address.street.toString());
+                            objaddress.put("city", _address.city.toString());
+                            objaddress.put("postcode", _address.postcode.toString());
+                            objaddress.put("country", _address.country.toString());
+                            addressesList.add(_address);
+                            }
                             i++;
                         }
-
-                        //     JSONObject objaddress = new JSONObject();
-                        //     System.out.println("Address object:" +_address.toString() );
-                        //     System.out.println("#############################" );
-                        //     System.out.println("#############################" );
-                        //     System.out.println("#############################" );
-                        //     objaddress.put("number", _address.number.toString());
-                        //     objaddress.put("street", _address.street.toString());
-                        //     objaddress.put("city", _address.city.toString());
-                        //     objaddress.put("postcode", _address.postcode.toString());
-                        //     objaddress.put("country", _address.country.toString());
-                        //     addressesList.add(_address);
-                        // }
 
            
 
