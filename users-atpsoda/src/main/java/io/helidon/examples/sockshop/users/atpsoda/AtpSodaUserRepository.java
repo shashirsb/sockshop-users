@@ -444,21 +444,35 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     // from  soda data
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1");
                     JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
+                    System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^2");
                     Collection <Card> cards = user.cards;
+                    System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^3");
                     if (_cardArray != null && this.isNullOrEmpty(cards)) {
+                        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^4");
                         for (Object o: _cardArray) {
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^5");
                             if (o instanceof JSONObject) {
+                                System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^6");
                                 _itemsObject = (JSONObject) o;
+                                System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^7");
                                 cardsList.add(_itemsObject);
+                                System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^8");
                             }
                         }
                     } else {
+                        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^9");
                         for (Card _card: cards) {
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^10");
                             JSONObject objcard = new JSONObject();
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11");
                             objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^12");
                             objcard.put("expires", _card.expires.toString());
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^13");
                             objcard.put("ccv", _card.ccv.toString());
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^14");
                             cardsList.add(objcard);
                         }
                     }
