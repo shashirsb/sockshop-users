@@ -432,13 +432,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
 
-                        int i =1;
+                        int i = 0;
                         for (Address _address: addressClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             System.out.println(user.getAddress(""+i+"").toString());
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             
-                            if( i >=2 ){
+                            if( i == addressClass.size()){
                             JSONObject objaddress = new JSONObject();
                             objaddress.put("number", _address.number.toString());
                             objaddress.put("street", _address.street.toString());
@@ -478,13 +478,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
 
-                        i =1;
+                        int i = 0;
                         for (Card _card: cardClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             System.out.println(user.getCard(""+i+"").toString());
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             
-                            if( i >=2 ){
+                            if( i == cardClass.size()){
                                 JSONObject objcard = new JSONObject();
                                 System.out.println("Card object:" +_card.toString() );
                                 objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
