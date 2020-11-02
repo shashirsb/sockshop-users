@@ -252,11 +252,14 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 for (int i = 0; i < jsonArray.size(); i++) {
 
                     // Create a JSON document.
-                    OracleDocument doc =
-                        this.db.createDocumentFromString(jsonArray.get(i).toString());
+                    // OracleDocument doc =
+                    //     this.db.createDocumentFromString(jsonArray.get(i).toString());
+
+                        OracleDocument doc =
+                        this.db.createDocumentFromString(user.toString());
 
                     // Insert the document into a collection.
-                    col.insert(user);
+                    col.insert(doc);
 
                 }
 
@@ -301,7 +304,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     resultDoc = c.next();
 
-                   // user =resultDoc;
+                    //user =resultDoc;
 
 
 
