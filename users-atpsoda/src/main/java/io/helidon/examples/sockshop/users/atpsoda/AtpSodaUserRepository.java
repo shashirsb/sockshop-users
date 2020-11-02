@@ -275,6 +275,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     // --- helpers ----------------------------------------------------------
 
+    public boolean isNullOrEmpty( final Collection< ? > c ) {
+        return c == null || c.isEmpty();
+    }
+
     private User findUser(String userID) {
 
 
@@ -425,6 +429,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 Object obj = parser.parse(resultDoc.getContentAsString());
                 JSONObject jsonObject = (JSONObject) obj;
 
+                JSONArray addressesList = new JSONArray();
+                
                   // from  soda data
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
@@ -567,7 +573,5 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         return "successfully created users collection !!!";
     }
 
-    public static boolean isNullOrEmpty( final Collection< ? > c ) {
-        return c == null || c.isEmpty();
-    }
+   
 }
