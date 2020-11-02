@@ -337,13 +337,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                  for(Object o: _addressArray){
                      if ( o instanceof JSONObject ) {
                          _itemsObject = (JSONObject) o;
-                         addressesList.add(user.addresses =  Address.builder()
-                         .number(_itemsObject.get("number").toString())
-                         .street(_itemsObject.get("street").toString())
-                         .city(_itemsObject.get("city").toString())
-                         .postcode(_itemsObject.get("postcode").toString())
-                         .country(_itemsObject.get("country").toString())
-                         .build());
+                         addressesList.add(_itemsObject);
                      }
                  }
   
@@ -362,15 +356,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                 JSONArray _cardArray = (JSONArray)jsonObject.get("card");                  
+                 JSONArray _cardArray = (JSONArray)jsonObject.get("card");           
                  for(Object o: _cardArray){
                      if ( o instanceof JSONObject ) {
                           _itemsObject = (JSONObject) o;
-                          cardsList.add(user.cards =  Card.builder()
-                         .longNum(Long.parseLong(_itemsObject.get("longNum").toString()))
-                         .expires(_itemsObject.get("expires").toString())
-                         .ccv(_itemsObject.get("ccv").toString())
-                         .build());
+                          cardsList.add(_itemsObject);
                      }
                  }
 
@@ -445,13 +435,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                  for(Object o: _addressArray){
                      if ( o instanceof JSONObject ) {
                          _itemsObject = (JSONObject) o;
-                         addressesList.add(user.address =  Address.builder()
-                         .number(_itemsObject.get("number").toString())
-                         .street(_itemsObject.get("street").toString())
-                         .city(_itemsObject.get("city").toString())
-                         .postcode(_itemsObject.get("postcode").toString())
-                         .country(_itemsObject.get("country").toString())
-                         .build());
+                         addressesList.add(_itemsObject);
                      }
                  }
   
@@ -470,15 +454,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                 JSONArray _cardArray = (JSONArray)jsonObject.get("card");                  
+                 JSONArray _cardArray = (JSONArray)jsonObject.get("card");           
                  for(Object o: _cardArray){
                      if ( o instanceof JSONObject ) {
                           _itemsObject = (JSONObject) o;
-                         addressesList.add(user.address =  Address.builder()
-                         .longNum(Long.parseLong(_itemsObject.get("longNum").toString()))
-                         .expires(_itemsObject.get("expires").toString())
-                         .ccv(_itemsObject.get("ccv").toString())
-                         .build());
+                          cardsList.add(_itemsObject);
                      }
                  }
        
