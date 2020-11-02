@@ -335,7 +335,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         for (Object o: _addressArray) {
                             if (o instanceof JSONObject) {
                                 _itemsObject = (JSONObject) o;                               
-                                user.addAddress(new Address(_itemsObject.get("number").toString(), _address.get("street").toString(), _address.get("city").toString(), _address.get("postcode").toString(), _address.get("country").toString()));
+                                user.addAddress(new Address(_itemsObject.get("number").toString(), _itemsObject.get("street").toString(), _itemsObject.get("city").toString(), _itemsObject.get("postcode").toString(), _itemsObject.get("country").toString()));
                        
                             }
                         }
