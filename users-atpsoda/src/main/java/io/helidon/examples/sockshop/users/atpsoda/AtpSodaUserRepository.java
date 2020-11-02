@@ -431,10 +431,15 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("Address Array:" +addressClass.toString() );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
-                        for (int i=0; i > addressClass.size(); i++) {
+
+                        int i =0;
+                        for (Address _address: addressClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
-                            System.out.println(addressClass(i).getAddress(i).toString());
+                            System.out.println(_address.getAddress(i).toString());
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+                            i++;
+                        }
+
                         //     JSONObject objaddress = new JSONObject();
                         //     System.out.println("Address object:" +_address.toString() );
                         //     System.out.println("#############################" );
@@ -448,7 +453,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         //     addressesList.add(_address);
                         // }
 
-                    }
+           
 
 
 
