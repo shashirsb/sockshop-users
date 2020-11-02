@@ -101,7 +101,7 @@ import org.apache.commons.lang3.StringUtils;
 @Traced
 public class AtpSodaUserRepository extends DefaultUserRepository {
 
-
+    private Collection<User> users;
 
     public static AtpSodaProducers asp = new AtpSodaProducers();
     public static OracleDatabase db = asp.dbConnect();
@@ -321,42 +321,44 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     System.out.println(jsonObject.toString());
                     System.out.println("2---------------------------------------");
 
-                    user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
+                    user = (User) resultDoc.getContentAsString();
+
+                    // user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
 
 
-                     // from  soda data
-                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                    JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
-                    Collection <Address> addresses = user.addresses;
-                    if (_addressArray != null ) {
-                        for (Object o: _addressArray) {
-                            if (o instanceof JSONObject) {
-                                _itemsObject = (JSONObject) o;                               
-                                user.addAddress(new Address(_itemsObject.get("number").toString(), _itemsObject.get("street").toString(), _itemsObject.get("city").toString(), _itemsObject.get("postcode").toString(), _itemsObject.get("country").toString()));
+                    //  // from  soda data
+                    // //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    // JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
+                    // Collection <Address> addresses = user.addresses;
+                    // if (_addressArray != null ) {
+                    //     for (Object o: _addressArray) {
+                    //         if (o instanceof JSONObject) {
+                    //             _itemsObject = (JSONObject) o;                               
+                    //             user.addAddress(new Address(_itemsObject.get("number").toString(), _itemsObject.get("street").toString(), _itemsObject.get("city").toString(), _itemsObject.get("postcode").toString(), _itemsObject.get("country").toString()));
                        
-                            }
-                        }
-                    }  else {
-                        user.addAddress(new Address("","","","",""));
+                    //         }
+                    //     }
+                    // }  else {
+                    //     user.addAddress(new Address("","","","",""));
                        
-                    }               
+                    // }               
 
 
 
-                    // from  soda data
-                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                    JSONArray _cardArray = (JSONArray) jsonObject.get("card");
-                    Collection <Card> cards = user.cards;
-                    if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
-                        for (Object o: _cardArray) {
-                            if (o instanceof JSONObject) {
-                                _itemsObject = (JSONObject) o;
-                                user.addCard(new Card(_itemsObject.get("longNum").toString(), _itemsObject.get("expires").toString(), _itemsObject.get("ccv").toString()));
-                            }
-                        }
-                    } else {
-                        user.addCard(new Card("","",""));
-                    }
+                    // // from  soda data
+                    // //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    // JSONArray _cardArray = (JSONArray) jsonObject.get("card");
+                    // Collection <Card> cards = user.cards;
+                    // if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
+                    //     for (Object o: _cardArray) {
+                    //         if (o instanceof JSONObject) {
+                    //             _itemsObject = (JSONObject) o;
+                    //             user.addCard(new Card(_itemsObject.get("longNum").toString(), _itemsObject.get("expires").toString(), _itemsObject.get("ccv").toString()));
+                    //         }
+                    //     }
+                    // } else {
+                    //     user.addCard(new Card("","",""));
+                    // }
                 }
                     
             } finally {
