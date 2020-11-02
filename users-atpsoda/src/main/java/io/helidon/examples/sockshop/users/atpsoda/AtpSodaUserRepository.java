@@ -122,7 +122,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         if (user != null) {
             user.removeAddress("1");
             AddressId id = user.addAddress(address).getId();
-            updateUser(userID, user);
+            //updateUser(userID, user);
             return id;
         }
         return null;
