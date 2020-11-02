@@ -458,44 +458,44 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
 
-                    // // from  soda data
-                    // //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                    // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1");
-                    // JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
-                    // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^2");
-                    // List <Card> cards = user.cards;
-                    // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^3");
-                    // if (_cardArray != null && this.isNullOrEmptyList(cards)) {
-                    //     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^4");
-                    //     for (Object o: _cardArray) {
-                    //         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^5");
-                    //         if (o instanceof JSONObject) {
-                    //             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^6");
-                    //             _itemsObject = (JSONObject) o;
-                    //             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^7");
-                    //             cardsList.add(_itemsObject);
-                    //             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^8");
-                    //         }
-                    //     }
-                    // } else {
-                    //     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^9");
-                    //     for (Card _card: cards) {
-                    //         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^10");
-                    //         JSONObject objcard = new JSONObject();
-                    //         System.out.println("Card object:" +_card.toString() );
-                    //         System.out.println("#############################" );
-                    //         System.out.println("#############################" );
-                    //         System.out.println("#############################" );
-                    //         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11");
-                    //         objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                    //         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^12");
-                    //         objcard.put("expires", _card.expires.toString());
-                    //         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^13");
-                    //         objcard.put("ccv", _card.ccv.toString());
-                    //         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^14");
-                    //         cardsList.add(_card);
-                    //     }
-                    // }
+                    // from  soda data
+                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+
+                    JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
+                    List <Card> cardClass = user.cards;
+                    if (_cardArray != null && this.isNullOrEmptyList(cardClass)) {
+                        for (Object o: _cardArray) {
+                            if (o instanceof JSONObject) {
+                                _itemsObject = (JSONObject) o;
+                                cardsList.add(_itemsObject);
+                            }
+                        }
+                    } else {
+                        System.out.println("#############################" );
+                        System.out.println("#############################" );
+                        System.out.println("#############################" );
+                        System.out.println("Cards Array:" +cardClass.toString() );
+                        System.out.println("#############################" );
+                        System.out.println("#############################" );
+
+                        int i =1;
+                        for (Card _card: cardClass) {
+                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+                            System.out.println(user.getCard(""+i+"").toString());
+                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+                            
+                            if( i >=2 ){
+                                JSONObject objcard = new JSONObject();
+                                System.out.println("Card object:" +_card.toString() );
+                                objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                                objcard.put("expires", _card.expires.toString());
+                                objcard.put("ccv", _card.ccv.toString());
+                                cardsList.add(objcard);
+                            }
+                            i++;
+                        }
+
+                    }
 
 
 
@@ -507,12 +507,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("********* ADDRESS *******");
                 System.out.println(addressesList);
                 System.out.println(addressesList.toString());
-                // System.out.println("*************************");
-                // System.out.println("********* CARDS *********");
-                // System.out.println(cardsList);
-                // System.out.println(cardsList.toString());
-                // System.out.println("*************************");
-                // System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println("********* CARDS *********");
+                System.out.println(cardsList);
+                System.out.println(cardsList.toString());
+                System.out.println("*************************");
+                System.out.println("*************************");
                 System.out.println(user.toString());
                 System.out.println("*************************");
                 System.out.println("*************************");
