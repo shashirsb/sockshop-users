@@ -432,7 +432,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
 
-                        int i = 0;
+                        int i = 1;
                         for (Address _address: addressClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             System.out.println(user.getAddress(""+i+"").toString());
@@ -478,7 +478,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
 
-                        i = 0;
+                        i = 1;
                         for (Card _card: cardClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             System.out.println(user.getCard(""+i+"").toString());
