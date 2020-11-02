@@ -256,7 +256,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         this.db.createDocumentFromString(jsonArray.get(i).toString());
 
                     // Insert the document into a collection.
-                    col.insert(doc);
+                    col.insert(user);
 
                 }
 
@@ -301,7 +301,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     resultDoc = c.next();
 
-                    user =resultDoc;
+                   // user =resultDoc;
 
 
 
