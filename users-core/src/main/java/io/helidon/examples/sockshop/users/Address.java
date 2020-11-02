@@ -81,6 +81,7 @@ public class Address implements Serializable {
     /**
      * Construct {@code Address} with specified parameters.
      */
+    @Builder
     public Address(String number, String street, String city, String postcode, String country) {
         this.number = number;
         this.street = street;

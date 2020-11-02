@@ -302,7 +302,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 OracleDocument resultDoc;
 
                 while (c.hasNext()) {
-
+                    JSONObject _itemsObject = new JSONObject();
                     // String orderId, String carrier, String trackingNumber, LocalDate deliveryDate
                     resultDoc = c.next();
                     JSONParser parser = new JSONParser();
@@ -314,31 +314,68 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     user.lastName = jsonObject.get("lastName").toString();
                     user.email = jsonObject.get("email").toString();
                     user.password = jsonObject.get("password").toString();
-
-
     
 
-                    JSONArray addressesList = new JSONArray();
-                    Collection<Address> addresses = user.addresses;
-                        for (Address _address : addresses) {
-                            JSONObject objaddress= new JSONObject();
-                            objaddress.put("number", _address.number.toString());
-                            objaddress.put("street", _address.street.toString());
-                            objaddress.put("city", _address.city.toString());
-                            objaddress.put("postcode", _address.postcode.toString());
-                            objaddress.put("country", _address.country.toString());
-                            addressesList.add(objaddress);
-                        }               
+                    
+                JSONParser parser = new JSONParser();
+                Object obj = parser.parse(resultDoc.getContentAsString());
+                JSONObject jsonObject = (JSONObject) obj;
 
-                    JSONArray cardsList = new JSONArray();
-                    Collection<Card> cards = user.cards;
-                        for (Card _card : cards) {
-                            JSONObject objcard= new JSONObject();
-                            objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                            objcard.put("expires", _card.expires.toString());
-                            objcard.put("ccv", _card.ccv.toString());
-                            cardsList.add(objcard);
-                        }
+                // from user object
+                JSONArray addressesList = new JSONArray();
+                Collection<Address> addresses = user.addresses;
+                    for (Address _address : addresses) {
+                        JSONObject objaddress= new JSONObject();
+                        objaddress.put("number", _address.number.toString());
+                        objaddress.put("street", _address.street.toString());
+                        objaddress.put("city", _address.city.toString());
+                        objaddress.put("postcode", _address.postcode.toString());
+                        objaddress.put("country", _address.country.toString());
+                        addressesList.add(objaddress);
+                    }               
+
+                 // from  soda data
+                 //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                 JSONArray _addressArray = (JSONArray)jsonObject.get("address");                  
+                 for(Object o: _addressArray){
+                     if ( o instanceof JSONObject ) {
+                         _itemsObject = (JSONObject) o;
+                         addressesList.add(user.address =  Address.builder()
+                         .number(_itemsObject.get("number").toString())
+                         .street(_itemsObject.get("street").toString())
+                         .city(_itemsObject.get("city").toString())
+                         .postcode(_itemsObject.get("postcode").toString())
+                         .country(_itemsObject.get("country").toString())
+                         .build());
+                     }
+                 }
+  
+                 
+                 
+                JSONArray cardsList = new JSONArray();
+                Collection<Card> cards = user.cards;
+                    for (Card _card : cards) {
+                        JSONObject objcard= new JSONObject();
+                        objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                        objcard.put("expires", _card.expires.toString());
+                        objcard.put("ccv", _card.ccv.toString());
+                        cardsList.add(objcard);
+                    }
+
+
+                 // from  soda data
+                 //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                 JSONArray _cardArray = (JSONArray)jsonObject.get("card");                  
+                 for(Object o: _cardArray){
+                     if ( o instanceof JSONObject ) {
+                          _itemsObject = (JSONObject) o;
+                         addressesList.add(user.address =  Address.builder()
+                         .longNum(Long.parseLong(_itemsObject.get("longNum").toString()))
+                         .expires(_itemsObject.get("expires").toString())
+                         .ccv(_itemsObject.get("ccv").toString())
+                         .build());
+                     }
+                 }
 
                     user.addresses = addressesList;
                     user.cards = cardsList;
@@ -352,8 +389,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        System.out.println("Shipment getShipment.. GET Request 200OK");
+        System.out.println("User findUser:" +  user);
+        System.out.println("User findUser. GET Request 200OK");
         return user;
     }
 
@@ -370,6 +407,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             OracleCursor c = col.find().filter(filterSpec).getCursor();
 
             while (c.hasNext()) {
+                JSONObject _itemsObject = new JSONObject();
                 OracleDocument resultDoc = c.next();
                 System.out.println("Key:         " + resultDoc.getKey());
                 System.out.println("Content:     " + resultDoc.getContentAsString());
@@ -387,8 +425,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("*************************");
                 System.out.println("*************************");
 
+                JSONParser parser = new JSONParser();
+                Object obj = parser.parse(resultDoc.getContentAsString());
+                JSONObject jsonObject = (JSONObject) obj;
 
-
+                // from user object
                 JSONArray addressesList = new JSONArray();
                 Collection<Address> addresses = user.addresses;
                     for (Address _address : addresses) {
@@ -401,6 +442,24 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         addressesList.add(objaddress);
                     }               
 
+                 // from  soda data
+                 //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                 JSONArray _addressArray = (JSONArray)jsonObject.get("address");                  
+                 for(Object o: _addressArray){
+                     if ( o instanceof JSONObject ) {
+                         _itemsObject = (JSONObject) o;
+                         addressesList.add(user.address =  Address.builder()
+                         .number(_itemsObject.get("number").toString())
+                         .street(_itemsObject.get("street").toString())
+                         .city(_itemsObject.get("city").toString())
+                         .postcode(_itemsObject.get("postcode").toString())
+                         .country(_itemsObject.get("country").toString())
+                         .build());
+                     }
+                 }
+  
+                 
+                 
                 JSONArray cardsList = new JSONArray();
                 Collection<Card> cards = user.cards;
                     for (Card _card : cards) {
@@ -412,18 +471,31 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     }
 
 
+                 // from  soda data
+                 //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                 JSONArray _cardArray = (JSONArray)jsonObject.get("card");                  
+                 for(Object o: _cardArray){
+                     if ( o instanceof JSONObject ) {
+                          _itemsObject = (JSONObject) o;
+                         addressesList.add(user.address =  Address.builder()
+                         .longNum(Long.parseLong(_itemsObject.get("longNum").toString()))
+                         .expires(_itemsObject.get("expires").toString())
+                         .ccv(_itemsObject.get("ccv").toString())
+                         .build());
+                     }
+                 }
        
 
 
 
                 System.out.println("*************************");
                 System.out.println("*************************");
-                System.out.println("*************************");
+                System.out.println("********* ADDRESS *******");
                 System.out.println(addressesList);
                 System.out.println(addressesList.toString()); 
                 System.out.println("*************************");
-                System.out.println("*************************");
-                System.out.println(addressesList);
+                System.out.println("********* CARDS *********");
+                System.out.println(cardsList);
                 System.out.println(cardsList.toString());
                 System.out.println("*************************");
                 System.out.println("*************************");
@@ -433,7 +505,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
 
-                String _document = "{\"addresses\":" + addressesList + ",\"cards\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                String _document = "{\"address\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
 
                 System.out.println(_document);
                 System.out.println(addressesList.toString());
@@ -460,7 +532,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         // Create a collection with the name "MyJSONCollection".
         // This creates a database table, also named "MyJSONCollection", to store the collection.
 
-        String stringToParse = "[{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"randy\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"cards\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"},\"addresses\":{\"href\":\"http://user/customers/randy/addresses\"},\"cards\":{\"href\":\"http://user/customers/randy/cards\"}},\"password\":\"pass\",\"username\":\"randy\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"user\"},\"addressId\":\"1\",\"city\":\"Springfield\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/user:1\"},\"self\":{\"href\":\"http://user/addresses/user:1\"}},\"number\":\"123\",\"postcode\":\"12123\",\"street\":\"Main St\"}],\"cards\":[{\"_id\":{\"cardId\":\"1234\",\"user\":\"user\"},\"cardId\":\"1234\",\"ccv\":\"123\",\"expires\":\"12/19\",\"links\":{\"card\":{\"href\":\"http://user/cards/user:1234\"},\"self\":{\"href\":\"http://user/cards/user:1234\"}},\"longNum\":\"1234123412341234\"}],\"email\":\"user@weavesocks.com\",\"firstName\":\"Test\",\"lastName\":\"User\",\"links\":{\"customer\":{\"href\":\"http://user/customers/user\"},\"self\":{\"href\":\"http://user/customers/user\"},\"addresses\":{\"href\":\"http://user/customers/user/addresses\"},\"cards\":{\"href\":\"http://user/customers/user/cards\"}},\"password\":\"pass\",\"username\":\"user\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"aleks\"},\"addressId\":\"1\",\"city\":\"Tampa\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/aleks:1\"},\"self\":{\"href\":\"http://user/addresses/aleks:1\"}},\"number\":\"555\",\"postcode\":\"33633\",\"street\":\"Spruce St\"}],\"cards\":[{\"_id\":{\"cardId\":\"4567\",\"user\":\"aleks\"},\"cardId\":\"4567\",\"ccv\":\"007\",\"expires\":\"10/20\",\"links\":{\"card\":{\"href\":\"http://user/cards/aleks:4567\"},\"self\":{\"href\":\"http://user/cards/aleks:4567\"}},\"longNum\":\"4567456745674567\"}],\"email\":\"aleks@weavesocks.com\",\"firstName\":\"Aleks\",\"lastName\":\"Seovic\",\"links\":{\"customer\":{\"href\":\"http://user/customers/aleks\"},\"self\":{\"href\":\"http://user/customers/aleks\"},\"addresses\":{\"href\":\"http://user/customers/aleks/addresses\"},\"cards\":{\"href\":\"http://user/customers/aleks/cards\"}},\"password\":\"pass\",\"username\":\"aleks\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"bin\"},\"addressId\":\"1\",\"city\":\"Boston\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/bin:1\"},\"self\":{\"href\":\"http://user/addresses/bin:1\"}},\"number\":\"123\",\"postcode\":\"01555\",\"street\":\"Boston St\"}],\"cards\":[{\"_id\":{\"cardId\":\"3691\",\"user\":\"bin\"},\"cardId\":\"3691\",\"ccv\":\"789\",\"expires\":\"01/21\",\"links\":{\"card\":{\"href\":\"http://user/cards/bin:3691\"},\"self\":{\"href\":\"http://user/cards/bin:3691\"}},\"longNum\":\"3691369136913691\"}],\"email\":\"bin@weavesocks.com\",\"firstName\":\"Bin\",\"lastName\":\"Chen\",\"links\":{\"customer\":{\"href\":\"http://user/customers/bin\"},\"self\":{\"href\":\"http://user/customers/bin\"},\"addresses\":{\"href\":\"http://user/customers/bin/addresses\"},\"cards\":{\"href\":\"http://user/customers/bin/cards\"}},\"password\":\"pass\",\"username\":\"bin\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"harvey\"},\"addressId\":\"1\",\"city\":\"San Francisco\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/harvey:1\"},\"self\":{\"href\":\"http://user/addresses/harvey:1\"}},\"number\":\"123\",\"postcode\":\"99123\",\"street\":\"O'Farrell St\"}],\"cards\":[{\"_id\":{\"cardId\":\"5476\",\"user\":\"harvey\"},\"cardId\":\"5476\",\"ccv\":\"456\",\"expires\":\"03/22\",\"links\":{\"card\":{\"href\":\"http://user/cards/harvey:5476\"},\"self\":{\"href\":\"http://user/cards/harvey:5476\"}},\"longNum\":\"6854657645765476\"}],\"email\":\"harvey@weavesocks.com\",\"firstName\":\"Harvey\",\"lastName\":\"Raja\",\"links\":{\"customer\":{\"href\":\"http://user/customers/harvey\"},\"self\":{\"href\":\"http://user/customers/harvey\"},\"addresses\":{\"href\":\"http://user/customers/harvey/addresses\"},\"cards\":{\"href\":\"http://user/customers/harvey/cards\"}},\"password\":\"pass\",\"username\":\"harvey\"}]";
+        String stringToParse = "[{\"address\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"randy\"},\"addressId\":\"1\",\"city\":\"Denver\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/randy:1\"},\"self\":{\"href\":\"http://user/addresses/randy:1\"}},\"number\":\"123\",\"postcode\":\"74765\",\"street\":\"Mountain St\"}],\"card\":[{\"_id\":{\"cardId\":\"7865\",\"user\":\"randy\"},\"cardId\":\"7865\",\"ccv\":\"042\",\"expires\":\"08/23\",\"links\":{\"card\":{\"href\":\"http://user/cards/randy:7865\"},\"self\":{\"href\":\"http://user/cards/randy:7865\"}},\"longNum\":\"6543123465437865\"}],\"email\":\"randy@weavesocks.com\",\"firstName\":\"Randy\",\"lastName\":\"Stafford\",\"links\":{\"customer\":{\"href\":\"http://user/customers/randy\"},\"self\":{\"href\":\"http://user/customers/randy\"},\"addresses\":{\"href\":\"http://user/customers/randy/addresses\"},\"cards\":{\"href\":\"http://user/customers/randy/cards\"}},\"password\":\"pass\",\"username\":\"randy\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"user\"},\"addressId\":\"1\",\"city\":\"Springfield\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/user:1\"},\"self\":{\"href\":\"http://user/addresses/user:1\"}},\"number\":\"123\",\"postcode\":\"12123\",\"street\":\"Main St\"}],\"cards\":[{\"_id\":{\"cardId\":\"1234\",\"user\":\"user\"},\"cardId\":\"1234\",\"ccv\":\"123\",\"expires\":\"12/19\",\"links\":{\"card\":{\"href\":\"http://user/cards/user:1234\"},\"self\":{\"href\":\"http://user/cards/user:1234\"}},\"longNum\":\"1234123412341234\"}],\"email\":\"user@weavesocks.com\",\"firstName\":\"Test\",\"lastName\":\"User\",\"links\":{\"customer\":{\"href\":\"http://user/customers/user\"},\"self\":{\"href\":\"http://user/customers/user\"},\"addresses\":{\"href\":\"http://user/customers/user/addresses\"},\"cards\":{\"href\":\"http://user/customers/user/cards\"}},\"password\":\"pass\",\"username\":\"user\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"aleks\"},\"addressId\":\"1\",\"city\":\"Tampa\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/aleks:1\"},\"self\":{\"href\":\"http://user/addresses/aleks:1\"}},\"number\":\"555\",\"postcode\":\"33633\",\"street\":\"Spruce St\"}],\"cards\":[{\"_id\":{\"cardId\":\"4567\",\"user\":\"aleks\"},\"cardId\":\"4567\",\"ccv\":\"007\",\"expires\":\"10/20\",\"links\":{\"card\":{\"href\":\"http://user/cards/aleks:4567\"},\"self\":{\"href\":\"http://user/cards/aleks:4567\"}},\"longNum\":\"4567456745674567\"}],\"email\":\"aleks@weavesocks.com\",\"firstName\":\"Aleks\",\"lastName\":\"Seovic\",\"links\":{\"customer\":{\"href\":\"http://user/customers/aleks\"},\"self\":{\"href\":\"http://user/customers/aleks\"},\"addresses\":{\"href\":\"http://user/customers/aleks/addresses\"},\"cards\":{\"href\":\"http://user/customers/aleks/cards\"}},\"password\":\"pass\",\"username\":\"aleks\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"bin\"},\"addressId\":\"1\",\"city\":\"Boston\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/bin:1\"},\"self\":{\"href\":\"http://user/addresses/bin:1\"}},\"number\":\"123\",\"postcode\":\"01555\",\"street\":\"Boston St\"}],\"cards\":[{\"_id\":{\"cardId\":\"3691\",\"user\":\"bin\"},\"cardId\":\"3691\",\"ccv\":\"789\",\"expires\":\"01/21\",\"links\":{\"card\":{\"href\":\"http://user/cards/bin:3691\"},\"self\":{\"href\":\"http://user/cards/bin:3691\"}},\"longNum\":\"3691369136913691\"}],\"email\":\"bin@weavesocks.com\",\"firstName\":\"Bin\",\"lastName\":\"Chen\",\"links\":{\"customer\":{\"href\":\"http://user/customers/bin\"},\"self\":{\"href\":\"http://user/customers/bin\"},\"addresses\":{\"href\":\"http://user/customers/bin/addresses\"},\"cards\":{\"href\":\"http://user/customers/bin/cards\"}},\"password\":\"pass\",\"username\":\"bin\"},{\"addresses\":[{\"_id\":{\"addressId\":\"1\",\"user\":\"harvey\"},\"addressId\":\"1\",\"city\":\"San Francisco\",\"country\":\"USA\",\"links\":{\"address\":{\"href\":\"http://user/addresses/harvey:1\"},\"self\":{\"href\":\"http://user/addresses/harvey:1\"}},\"number\":\"123\",\"postcode\":\"99123\",\"street\":\"O'Farrell St\"}],\"cards\":[{\"_id\":{\"cardId\":\"5476\",\"user\":\"harvey\"},\"cardId\":\"5476\",\"ccv\":\"456\",\"expires\":\"03/22\",\"links\":{\"card\":{\"href\":\"http://user/cards/harvey:5476\"},\"self\":{\"href\":\"http://user/cards/harvey:5476\"}},\"longNum\":\"6854657645765476\"}],\"email\":\"harvey@weavesocks.com\",\"firstName\":\"Harvey\",\"lastName\":\"Raja\",\"links\":{\"customer\":{\"href\":\"http://user/customers/harvey\"},\"self\":{\"href\":\"http://user/customers/harvey\"},\"addresses\":{\"href\":\"http://user/customers/harvey/addresses\"},\"cards\":{\"href\":\"http://user/customers/harvey/cards\"}},\"password\":\"pass\",\"username\":\"harvey\"}]";
         try {
 
             JSONParser parser = new JSONParser();

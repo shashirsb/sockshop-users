@@ -69,6 +69,7 @@ public class Card implements Serializable {
     /**
      * Construct {@code Card} with specified parameters.
      */
+    @Builder
     public Card(String longNum, String expires, String ccv) {
         this.longNum = longNum;
         this.expires = expires;
