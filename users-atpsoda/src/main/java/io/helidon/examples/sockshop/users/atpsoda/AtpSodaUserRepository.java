@@ -303,7 +303,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     resultDoc = c.next();
                     JSONParser parser = new JSONParser();
                     Object obj = parser.parse(resultDoc.getContentAsString());
-                    Document doc = Document.parse( jsonlist.toString() );
+                    Document doc = Document.parse( jsonlist.toString();
                     JSONObject jsonObject = (JSONObject) obj;
 
                     user.username = jsonObject.get("username").toString();
