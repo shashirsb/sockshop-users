@@ -315,22 +315,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     user.email = jsonObject.get("email").toString();
                     user.password = jsonObject.get("password").toString();
     
+// from user object
+JSONArray addressesList = new JSONArray(); 
 
 
-
-                // from user object
-                JSONArray addressesList = new JSONArray();
-                Collection<Address> addresses = user.addresses;
-                    for (Address _address : addresses) {
-                        JSONObject objaddress= new JSONObject();
-                        objaddress.put("number", _address.number.toString());
-                        objaddress.put("street", _address.street.toString());
-                        objaddress.put("city", _address.city.toString());
-                        objaddress.put("postcode", _address.postcode.toString());
-                        objaddress.put("country", _address.country.toString());
-                        addressesList.add(objaddress);
-                    }               
-
+                
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                  JSONArray _addressArray = (JSONArray)jsonObject.get("addresses");   
@@ -340,19 +329,24 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                          _itemsObject = (JSONObject) o;
                          addressesList.add(_itemsObject);
                      }
+                 }} else {
+                    Collection<Address> addresses = user.addresses;
+                    for (Address _address : addresses) {
+                        JSONObject objaddress= new JSONObject();
+                        objaddress.put("number", _address.number.toString());
+                        objaddress.put("street", _address.street.toString());
+                        objaddress.put("city", _address.city.toString());
+                        objaddress.put("postcode", _address.postcode.toString());
+                        objaddress.put("country", _address.country.toString());
+                        addressesList.add(objaddress);
+                    } 
+
                  }
   
-                }
+                
                  
                 JSONArray cardsList = new JSONArray();
-                Collection<Card> cards = user.cards;
-                    for (Card _card : cards) {
-                        JSONObject objcard= new JSONObject();
-                        objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                        objcard.put("expires", _card.expires.toString());
-                        objcard.put("ccv", _card.ccv.toString());
-                        cardsList.add(objcard);
-                    }
+               
 
 
                  // from  soda data
@@ -366,6 +360,18 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                      }
                  }
                 }
+                  else {
+                    Collection<Card> cards = user.cards;
+                    for (Card _card : cards) {
+                        JSONObject objcard= new JSONObject();
+                        objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                        objcard.put("expires", _card.expires.toString());
+                        objcard.put("ccv", _card.ccv.toString());
+                        cardsList.add(objcard);
+                    }
+                  }
+                
+       
 
                     user.addresses = addressesList;
                     user.cards = cardsList;
@@ -420,17 +426,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 JSONObject jsonObject = (JSONObject) obj;
 
                 // from user object
-                JSONArray addressesList = new JSONArray();
-                Collection<Address> addresses = user.addresses;
-                    for (Address _address : addresses) {
-                        JSONObject objaddress= new JSONObject();
-                        objaddress.put("number", _address.number.toString());
-                        objaddress.put("street", _address.street.toString());
-                        objaddress.put("city", _address.city.toString());
-                        objaddress.put("postcode", _address.postcode.toString());
-                        objaddress.put("country", _address.country.toString());
-                        addressesList.add(objaddress);
-                    }               
+                JSONArray addressesList = new JSONArray();                              
 
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
@@ -441,19 +437,24 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                          _itemsObject = (JSONObject) o;
                          addressesList.add(_itemsObject);
                      }
+                 }} else {
+                    Collection<Address> addresses = user.addresses;
+                    for (Address _address : addresses) {
+                        JSONObject objaddress= new JSONObject();
+                        objaddress.put("number", _address.number.toString());
+                        objaddress.put("street", _address.street.toString());
+                        objaddress.put("city", _address.city.toString());
+                        objaddress.put("postcode", _address.postcode.toString());
+                        objaddress.put("country", _address.country.toString());
+                        addressesList.add(objaddress);
+                    } 
+
                  }
   
-                }
+                
                  
                 JSONArray cardsList = new JSONArray();
-                Collection<Card> cards = user.cards;
-                    for (Card _card : cards) {
-                        JSONObject objcard= new JSONObject();
-                        objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                        objcard.put("expires", _card.expires.toString());
-                        objcard.put("ccv", _card.ccv.toString());
-                        cardsList.add(objcard);
-                    }
+               
 
 
                  // from  soda data
@@ -467,6 +468,17 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                      }
                  }
                 }
+                  else {
+                    Collection<Card> cards = user.cards;
+                    for (Card _card : cards) {
+                        JSONObject objcard= new JSONObject();
+                        objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                        objcard.put("expires", _card.expires.toString());
+                        objcard.put("ccv", _card.ccv.toString());
+                        cardsList.add(objcard);
+                    }
+                  }
+                
        
 
 
