@@ -119,10 +119,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public AddressId addAddress(String userID, Address address) {
         User user = findUser(userID);
-        if (user != null) {
-            user.removeAddress("1");
+        if (user != null) {            
             AddressId id = user.addAddress(address).getId();
-            //updateUser(userID, user);
+            updateUser(userID, user);
             return id;
         }
         return null;
@@ -318,11 +317,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     Object obj = parser.parse(resultDoc.getContentAsString());
                     JSONObject jsonObject = (JSONObject) obj;
 
-                    user.username = jsonObject.get("username").toString();
-                    user.firstName = jsonObject.get("firstName").toString();
-                    user.lastName = jsonObject.get("lastName").toString();
-                    user.email = jsonObject.get("email").toString();
-                    user.password = jsonObject.get("password").toString();
+                    // user.username = jsonObject.get("username").toString();
+                    // user.firstName = jsonObject.get("firstName").toString();
+                    // user.lastName = jsonObject.get("lastName").toString();
+                    // user.email = jsonObject.get("email").toString();
+                    // user.password = jsonObject.get("password").toString();
 
                     user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
 
@@ -432,19 +431,22 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("Address Array:" +addressClass.toString() );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
-                        for (Address _address: addressClass) {
-                            JSONObject objaddress = new JSONObject();
-                            System.out.println("Address object:" +_address.toString() );
-                            System.out.println("#############################" );
-                            System.out.println("#############################" );
-                            System.out.println("#############################" );
-                            objaddress.put("number", _address.number.toString());
-                            objaddress.put("street", _address.street.toString());
-                            objaddress.put("city", _address.city.toString());
-                            objaddress.put("postcode", _address.postcode.toString());
-                            objaddress.put("country", _address.country.toString());
-                            addressesList.add(_address);
-                        }
+                        for (int i=0; i > addressClass.size(); i++) {
+                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+                            System.out.println(_address.getAddress(i).toString());
+                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+                        //     JSONObject objaddress = new JSONObject();
+                        //     System.out.println("Address object:" +_address.toString() );
+                        //     System.out.println("#############################" );
+                        //     System.out.println("#############################" );
+                        //     System.out.println("#############################" );
+                        //     objaddress.put("number", _address.number.toString());
+                        //     objaddress.put("street", _address.street.toString());
+                        //     objaddress.put("city", _address.city.toString());
+                        //     objaddress.put("postcode", _address.postcode.toString());
+                        //     objaddress.put("country", _address.country.toString());
+                        //     addressesList.add(_address);
+                        // }
 
                     }
 
@@ -503,12 +505,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("********* ADDRESS *******");
                 System.out.println(addressesList);
                 System.out.println(addressesList.toString());
-                System.out.println("*************************");
-                System.out.println("********* CARDS *********");
-                System.out.println(cardsList);
-                System.out.println(cardsList.toString());
-                System.out.println("*************************");
-                System.out.println("*************************");
+                // System.out.println("*************************");
+                // System.out.println("********* CARDS *********");
+                // System.out.println(cardsList);
+                // System.out.println(cardsList.toString());
+                // System.out.println("*************************");
+                // System.out.println("*************************");
                 System.out.println(user.toString());
                 System.out.println("*************************");
                 System.out.println("*************************");
