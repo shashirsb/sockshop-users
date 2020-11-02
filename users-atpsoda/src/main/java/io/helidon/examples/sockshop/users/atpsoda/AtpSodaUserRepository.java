@@ -478,7 +478,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
 
-                        int i =1;
+                        i =1;
                         for (Card _card: cardClass) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                             System.out.println(user.getCard(""+i+"").toString());
