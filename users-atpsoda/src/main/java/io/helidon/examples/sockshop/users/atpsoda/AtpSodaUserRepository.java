@@ -320,7 +320,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     JSONArray addressesList = new JSONArray();
                     Collection<Address> items = user.addresses;
-                        for (Item item : items) {
+                        for (Address item : items) {
                             JSONObject objitems= new JSONObject();
                             objitems.put("number", item.number.toString());
                             objitems.put("street", item.street.toString());
@@ -332,7 +332,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     JSONArray cardsList = new JSONArray();
                     Collection<Card> items = user.cards;
-                        for (Item item : items) {
+                        for (Card item : items) {
                             JSONObject objitems= new JSONObject();
                             objitems.put("longNum", Long.parseLong(item.longNum.toString()));
                             objitems.put("expires", item.expires.toString());
