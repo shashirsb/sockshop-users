@@ -177,7 +177,7 @@ public class User implements Serializable {
      *
      * @return the card for the specified card ID
      */
-    public Card getCard(String id) {
+    public Card getCards(String id) {
         return cards.stream()
             .filter(card -> card.getCardId().equals(id))
             .findFirst()
