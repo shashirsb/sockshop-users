@@ -340,12 +340,6 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             cardsList.add(objcard);
                         }
 
-
-                        // public Card(String longNum, String expires, String ccv) {
-                        //     this.longNum = longNum;
-                        //     this.expires = expires;
-                        //     this.ccv = ccv;
-
                     user.addresses = addressesList;
                     user.cards = cardsList;
 
