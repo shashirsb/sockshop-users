@@ -323,7 +323,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     JSONArray addressesList = new JSONArray();
 
 
-                    // from  soda data
+                     // from  soda data
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
                     Collection <Address> addresses = user.addresses;
@@ -338,11 +338,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                         for (Address _address: addresses) {
                             JSONObject objaddress = new JSONObject();
-                            objaddress.put("number", _address.number.toString());
-                            objaddress.put("street", _address.street.toString());
-                            objaddress.put("city", _address.city.toString());
-                            objaddress.put("postcode", _address.postcode.toString());
-                            objaddress.put("country", _address.country.toString());
+                            objaddress.put("number", _address.get("number").toString());
+                            objaddress.put("street", _address.get("street").toString());
+                            objaddress.put("city", _address.get("city").toString());
+                            objaddress.put("postcode", _address.get("postcode").toString());
+                            objaddress.put("country", _address.get("country").toString());
                             addressesList.add(objaddress);
                         }
 
@@ -368,9 +368,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     } else {
                         for (Card _card: cards) {
                             JSONObject objcard = new JSONObject();
-                            objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                            objcard.put("expires", _card.expires.toString());
-                            objcard.put("ccv", _card.ccv.toString());
+                            objcard.put("longNum", Long.parseLong(_card.get("longNum").toString()));
+                            objcard.put("expires", _card.get("expires").toString());
+                            objcard.put("ccv", _card.get("ccv").toString());
                             cardsList.add(objcard);
                         }
                     }
@@ -446,11 +446,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                         for (Address _address: addresses) {
                             JSONObject objaddress = new JSONObject();
-                            objaddress.put("number", _address.number.toString());
-                            objaddress.put("street", _address.street.toString());
-                            objaddress.put("city", _address.city.toString());
-                            objaddress.put("postcode", _address.postcode.toString());
-                            objaddress.put("country", _address.country.toString());
+                            objaddress.put("number", _address.get("number").toString());
+                            objaddress.put("street", _address.get("street").toString());
+                            objaddress.put("city", _address.get("city").toString());
+                            objaddress.put("postcode", _address.get("postcode").toString());
+                            objaddress.put("country", _address.get("country").toString());
                             addressesList.add(objaddress);
                         }
 
@@ -476,9 +476,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     } else {
                         for (Card _card: cards) {
                             JSONObject objcard = new JSONObject();
-                            objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                            objcard.put("expires", _card.expires.toString());
-                            objcard.put("ccv", _card.ccv.toString());
+                            objcard.put("longNum", Long.parseLong(_card.get("longNum").toString()));
+                            objcard.put("expires", _card.get("expires").toString());
+                            objcard.put("ccv", _card.get("ccv").toString());
                             cardsList.add(objcard);
                         }
                     }
