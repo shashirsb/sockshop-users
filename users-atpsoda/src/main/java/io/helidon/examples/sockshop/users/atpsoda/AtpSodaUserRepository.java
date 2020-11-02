@@ -347,18 +347,18 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
 
-                    // from  soda data
-                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                    JSONArray _cardArray = (JSONArray) jsonObject.get("card");
-                    Collection <Card> cards = user.cards;
-                    if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
-                        for (Object o: _cardArray) {
-                            if (o instanceof JSONObject) {
-                                _itemsObject = (JSONObject) o;
-                                cardsList.add(_itemsObject);
-                            }
-                        }
-                    } 
+                    // // from  soda data
+                    // //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    // JSONArray _cardArray = (JSONArray) jsonObject.get("card");
+                    // Collection <Card> cards = user.cards;
+                    // if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
+                    //     for (Object o: _cardArray) {
+                    //         if (o instanceof JSONObject) {
+                    //             _itemsObject = (JSONObject) o;
+                    //             cardsList.add(_itemsObject);
+                    //         }
+                    //     }
+                    // } 
 
 
 
