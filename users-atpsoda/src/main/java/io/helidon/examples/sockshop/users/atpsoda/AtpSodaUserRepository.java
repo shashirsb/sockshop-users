@@ -317,7 +317,34 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
                     JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
-                    JSONArray cardsList = (JSONArray) jsonObject.get("cards");
+
+                    JSONArray addressesList = new JSONArray();
+                    Collection<Item> items = user.addresses;
+                        for (Item item : items) {
+                            JSONObject objitems= new JSONObject();
+                            objitems.put("number", item.number.toString());
+                            objitems.put("street", item.street.toString());
+                            objitems.put("city", item.city.toString());
+                            objitems.put("postcode", item.postcode.toString());
+                            objitems.put("country", item.country.toString());
+                            addressesList.add(objitems);
+                        }               
+
+                    JSONArray cardsList = new JSONArray();
+                    Collection<Item> items = user.cards;
+                        for (Item item : items) {
+                            JSONObject objitems= new JSONObject();
+                            objitems.put("longNum", Long.parseLong(item.longNum.toString()));
+                            objitems.put("expires", item.expires.toString());
+                            objitems.put("ccv", item.ccv.toString());
+                            cardsList.add(objitems);
+                        }
+
+
+                        // public Card(String longNum, String expires, String ccv) {
+                        //     this.longNum = longNum;
+                        //     this.expires = expires;
+                        //     this.ccv = ccv;
 
                     user.addresses = addressesList;
                     user.cards = cardsList;
@@ -366,48 +393,52 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("*************************");
                 System.out.println("*************************");
 
-                JSONArray jsonAddressArray = new JSONArray();
-                JSONArray jsonCardsArray = new JSONArray();
-
-                System.out.println(user.addresses instanceof Collection <?> );
-                System.out.println(user.cards instanceof Collection <?> );
 
 
-                // if (user.addresses instanceof Collection <?> ) {
-                //     for (Address address: user.addresses) {
-                //         JSONObject jsonObj = new JSONObject();
-                //         System.out.println("6***********************");
-                //         jsonObj.put("addressId", address.addressId.toString());
-                //         jsonObj.put("number", address.number.toString());
-                //         jsonObj.put("street", address.street.toString());
-                //         jsonObj.put("city", address.city.toString());
-                //         jsonObj.put("postcode", address.postcode.toString());
-                //         jsonObj.put("country", address.country.toString());
-                //         jsonAddressArray.add(jsonObj);
-                //     }
-                // } else {
-                //     JSONParser parser = new JSONParser();
-                //     jsonAddressArray = (JSONArray) parser.parse(user.addresses.toString());
-                // }
+                JSONArray addressesList = new JSONArray();
+                Collection<Item> items = user.addresses;
+                    for (Item item : items) {
+                        JSONObject objitems= new JSONObject();
+                        objitems.put("number", item.number.toString());
+                        objitems.put("street", item.street.toString());
+                        objitems.put("city", item.city.toString());
+                        objitems.put("postcode", item.postcode.toString());
+                        objitems.put("country", item.country.toString());
+                        addressesList.add(objitems);
+                    }               
 
-                if (user.cards instanceof Collection <?> ) {
-                    for (Card card: user.cards) {
-                        JSONObject jsonObj = new JSONObject();
-                        System.out.println("7***********************");
-                        jsonObj.put("longNum", card.longNum.toString());
-                        jsonObj.put("expires", card.expires.toString());
-                        jsonObj.put("ccv", card.ccv.toString());
-                        jsonCardsArray.add(jsonObj);
+                JSONArray cardsList = new JSONArray();
+                Collection<Item> items = user.cards;
+                    for (Item item : items) {
+                        JSONObject objitems= new JSONObject();
+                        objitems.put("longNum", Long.parseLong(item.longNum.toString()));
+                        objitems.put("expires", item.expires.toString());
+                        objitems.put("ccv", item.ccv.toString());
+                        cardsList.add(objitems);
                     }
-                } else {
-                    JSONParser parser = new JSONParser();
-                    jsonCardsArray = (JSONArray) parser.parse(user.cards.toString());
-                }
+
+       
 
 
 
+                System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println(addressesList);
+                System.out.println(addressesList.toString()); 
+                System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println(addressesList);
+                System.out.println(cardsList.toString());
+                System.out.println("*************************");
+                System.out.println("*************************");
+                System.out.println(user.toString());
+                System.out.println("*************************");
+                System.out.println("*************************");
 
-                String _document = "{\"addresses\":" + jsonAddressArray.toString() + ",\"cards\":" + jsonCardsArray.toString() + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+
+
+                String _document = "{\"addresses\":" + addressesList + ",\"cards\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
 
                 System.out.println(_document);
                 System.out.println(jsonAddressArray.toString());
