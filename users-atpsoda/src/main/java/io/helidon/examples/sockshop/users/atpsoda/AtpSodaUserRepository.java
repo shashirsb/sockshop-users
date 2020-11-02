@@ -477,14 +477,18 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     } else {
                         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^9");
                         for (Card _card: cards) {
-                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^10");
-                            // JSONObject objcard = new JSONObject();
-                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11");
-                            // objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^12");
-                            // objcard.put("expires", _card.expires.toString());
-                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^13");
-                            // objcard.put("ccv", _card.ccv.toString());
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^10");
+                            JSONObject objcard = new JSONObject();
+                            System.out.println("Card object:" +_card.toString() );
+                            System.out.println("#############################" );
+                            System.out.println("#############################" );
+                            System.out.println("#############################" );
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11");
+                            objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^12");
+                            objcard.put("expires", _card.expires.toString());
+                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^13");
+                            objcard.put("ccv", _card.ccv.toString());
                             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^14");
                             cardsList.add(_card);
                         }
@@ -512,7 +516,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
 
-                String _document = "{\"addresses\":" + addressesList + ",\"cards\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+                String _document = "{\"addresses\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
 
                 System.out.println("**********DOCUMENT***************");
                 System.out.println("*************************");
