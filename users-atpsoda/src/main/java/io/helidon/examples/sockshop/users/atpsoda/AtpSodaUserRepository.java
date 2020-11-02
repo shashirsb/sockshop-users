@@ -317,11 +317,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     Object obj = parser.parse(resultDoc.getContentAsString());
                     JSONObject jsonObject = (JSONObject) obj;
 
-                    // user.username = jsonObject.get("username").toString();
-                    // user.firstName = jsonObject.get("firstName").toString();
-                    // user.lastName = jsonObject.get("lastName").toString();
-                    // user.email = jsonObject.get("email").toString();
-                    // user.password = jsonObject.get("password").toString();
+       
 
                     user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
 
@@ -391,21 +387,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             while (c.hasNext()) {
                 JSONObject _itemsObject = new JSONObject();
                 OracleDocument resultDoc = c.next();
-                System.out.println("Key:         " + resultDoc.getKey());
-                System.out.println("Content:     " + resultDoc.getContentAsString());
-                System.out.println("Version:     " + resultDoc.getVersion());
-                System.out.println("Last modified: " + resultDoc.getLastModified());
-                System.out.println("Created on:    " + resultDoc.getCreatedOn());
-                System.out.println("Media:         " + resultDoc.getMediaType());
-                System.out.println("\n");
 
-                System.out.println("***********updateUser**************");
-                System.out.println("***********updateUser**************");
-                System.out.println("*************************");
-                System.out.println(user.toString());
-                System.out.println("************updateUser*************");
-                System.out.println("************updateUser*************");
-                
 
                 JSONParser parser = new JSONParser();
                 Object obj = parser.parse(resultDoc.getContentAsString());
@@ -425,18 +407,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             }
                         }
                     } else {
-                        System.out.println("#############################" );
-                        System.out.println("#############################" );
-                        System.out.println("#############################" );
-                        System.out.println("Address Array:" +addressClass.toString() );
-                        System.out.println("#############################" );
-                        System.out.println("#############################" );
+    
 
                         int i = 1;
                         for (Address _address: addressClass) {
-                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
-                            System.out.println(user.getAddress(""+i+"").toString());
-                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+    
                             
                             if( i == addressClass.size()){
                             JSONObject objaddress = new JSONObject();
@@ -471,18 +446,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             }
                         }
                     } else {
-                        System.out.println("#############################" );
-                        System.out.println("#############################" );
-                        System.out.println("#############################" );
-                        System.out.println("Cards Array:" +cardClass.toString() );
-                        System.out.println("#############################" );
-                        System.out.println("#############################" );
+                   
 
                         i = 1;
                         for (Card _card: cardClass) {
-                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
-                            System.out.println(user.getCard(""+i+"").toString());
-                            System.out.println("#########@@@@@@@@@@@@@@@@###########" );
+                       
                             
                             if( i == cardClass.size()){
                                 JSONObject objcard = new JSONObject();
@@ -495,46 +463,21 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             i++;
                         }
 
-                    }
+                    }     
 
 
 
+               // String _document = "{\"addresses\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
 
-
-
-                System.out.println("*************************");
-                System.out.println("*************************");
-                System.out.println("********* ADDRESS *******");
-                System.out.println(addressesList);
-                System.out.println(addressesList.toString());
-                System.out.println("*************************");
-                System.out.println("********* CARDS *********");
-                System.out.println(cardsList);
-                System.out.println(cardsList.toString());
-                System.out.println("*************************");
-                System.out.println("*************************");
-                System.out.println(user.toString());
-                System.out.println("*************************");
-                System.out.println("*************************");
-
-
-
-                String _document = "{\"addresses\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
-
-                System.out.println("**********DOCUMENT***************");
-                System.out.println("*************************");
+          
                 System.out.println(_document);
                 System.out.println(addressesList.toString());
                 System.out.println(cardsList.toString());
-                System.out.println("**********DOCUMENT***************");
-                System.out.println("*************************");
                 OracleDocument newDoc = this.db.createDocumentFromString(_document);
 
 
                 resultDoc = col.find().key(resultDoc.getKey()).version(resultDoc.getVersion()).replaceOneAndGet(newDoc);
-                System.out.println("*************************");
-                System.out.println("*************************");
-                System.out.println("updateUser - resultDoc" + resultDoc);
+         
 
                 // users.replaceOne(eq("username", userID), user);
                 System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
