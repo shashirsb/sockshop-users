@@ -316,10 +316,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     user.password = jsonObject.get("password").toString();
     
 
-                    
-                JSONParser parser = new JSONParser();
-                Object obj = parser.parse(resultDoc.getContentAsString());
-                JSONObject jsonObject = (JSONObject) obj;
+
 
                 // from user object
                 JSONArray addressesList = new JSONArray();
@@ -340,7 +337,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                  for(Object o: _addressArray){
                      if ( o instanceof JSONObject ) {
                          _itemsObject = (JSONObject) o;
-                         addressesList.add(user.address =  Address.builder()
+                         addressesList.add(user.addresses =  Address.builder()
                          .number(_itemsObject.get("number").toString())
                          .street(_itemsObject.get("street").toString())
                          .city(_itemsObject.get("city").toString())
@@ -369,7 +366,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                  for(Object o: _cardArray){
                      if ( o instanceof JSONObject ) {
                           _itemsObject = (JSONObject) o;
-                         addressesList.add(user.address =  Address.builder()
+                          cardsList.add(user.cards =  Card.builder()
                          .longNum(Long.parseLong(_itemsObject.get("longNum").toString()))
                          .expires(_itemsObject.get("expires").toString())
                          .ccv(_itemsObject.get("ccv").toString())
