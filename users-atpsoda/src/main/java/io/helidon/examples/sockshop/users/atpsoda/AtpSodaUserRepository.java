@@ -342,11 +342,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     }  else {
                         user.addAddress(new Address(null,null,null,null,null));
                        
-                    }
-
-
-
-                  
+                    }               
 
 
 
@@ -364,6 +360,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     } else {
                         user.addCard(new Card(null, null, null));
                     }
+                }
                     
             } finally {
                 // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
@@ -380,12 +377,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     private void updateUser(String userID, User user) {
 
-                System.out.println("***********updateUser**************");
-                System.out.println("***********updateUser**************");
-                System.out.println("*************************");
-                System.out.println(user.toString());
-                System.out.println("************updateUser*************");
-                System.out.println("************updateUser*************");
+              
 
         try {
             String k1 = null;
@@ -408,7 +400,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println("Media:         " + resultDoc.getMediaType());
                 System.out.println("\n");
 
-
+                System.out.println("***********updateUser**************");
+                System.out.println("***********updateUser**************");
+                System.out.println("*************************");
+                System.out.println(user.toString());
+                System.out.println("************updateUser*************");
+                System.out.println("************updateUser*************");
                 
 
                 JSONParser parser = new JSONParser();
