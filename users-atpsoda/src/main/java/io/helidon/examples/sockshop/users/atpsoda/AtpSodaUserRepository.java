@@ -445,7 +445,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             objaddress.put("city", _address.city.toString());
                             objaddress.put("postcode", _address.postcode.toString());
                             objaddress.put("country", _address.country.toString());
-                            addressesList.add(_address);
+                            addressesList.add(objaddress);
                             }
                             i++;
                         }
