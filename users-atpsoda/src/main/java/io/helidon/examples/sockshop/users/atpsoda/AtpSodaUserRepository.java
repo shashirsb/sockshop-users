@@ -324,48 +324,47 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     user.email = jsonObject.get("email").toString();
                     user.password = jsonObject.get("password").toString();
 
-
-                    JSONArray addressesList = new JSONArray();
+                    user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
 
 
                      // from  soda data
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
                     Collection <Address> addresses = user.addresses;
-                    if (_addressArray != null && this.isNullOrEmptyCollection(addresses)) {
+                    if (_addressArray != null ) {
                         for (Object o: _addressArray) {
                             if (o instanceof JSONObject) {
-                                _itemsObject = (JSONObject) o;
-                                addressesList.add(_itemsObject);
+                                _itemsObject = (JSONObject) o;                               
+                                user.addAddress(new Address(_itemsObject.get("number").toString(), _address.get("street").toString(), _address.get("city").toString(), _address.get("postcode").toString(), _address.get("country").toString()));
+                       
                             }
                         }
-                    } 
+                    }  else {
+                        user.addAddress(new Address(null,null,null,null,null));
+                       
+                    }
 
 
 
-                    JSONArray cardsList = new JSONArray();
+                  
 
 
 
-                    // // from  soda data
-                    // //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                    // JSONArray _cardArray = (JSONArray) jsonObject.get("card");
-                    // Collection <Card> cards = user.cards;
-                    // if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
-                    //     for (Object o: _cardArray) {
-                    //         if (o instanceof JSONObject) {
-                    //             _itemsObject = (JSONObject) o;
-                    //             cardsList.add(_itemsObject);
-                    //         }
-                    //     }
-                    // } 
-
-
-
-                    user.addresses = addressesList;
-                    user.cards = cardsList;
-
-                }
+                    // from  soda data
+                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    JSONArray _cardArray = (JSONArray) jsonObject.get("card");
+                    Collection <Card> cards = user.cards;
+                    if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
+                        for (Object o: _cardArray) {
+                            if (o instanceof JSONObject) {
+                                _itemsObject = (JSONObject) o;
+                                user.addCard(new Card(_itemsObject.get("longNum").toString(), _itemsObject.get("expires").toString(), _itemsObject.get("ccv").toString()));
+                            }
+                        }
+                    } else {
+                        user.addCard(new Card(null, null, null));
+                    }
+                    
             } finally {
                 // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
                 if (c != null) c.close();
