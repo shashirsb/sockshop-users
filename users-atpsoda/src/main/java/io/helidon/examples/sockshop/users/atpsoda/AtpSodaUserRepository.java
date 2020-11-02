@@ -334,19 +334,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                                 addressesList.add(_itemsObject);
                             }
                         }
-                    } else {
-
-                        for (Address _address: addresses) {
-                            JSONObject objaddress = new JSONObject();
-                            objaddress.put("number", _address.get("number").toString());
-                            objaddress.put("street", _address.get("street").toString());
-                            objaddress.put("city", _address.get("city").toString());
-                            objaddress.put("postcode", _address.get("postcode").toString());
-                            objaddress.put("country", _address.get("country").toString());
-                            addressesList.add(objaddress);
-                        }
-
-                    }
+                    } 
 
 
 
@@ -365,15 +353,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                                 cardsList.add(_itemsObject);
                             }
                         }
-                    } else {
-                        for (Card _card: cards) {
-                            JSONObject objcard = new JSONObject();
-                            objcard.put("longNum", Long.parseLong(_card.get("longNum").toString()));
-                            objcard.put("expires", _card.get("expires").toString());
-                            objcard.put("ccv", _card.get("ccv").toString());
-                            cardsList.add(objcard);
-                        }
-                    }
+                    } 
 
 
 
