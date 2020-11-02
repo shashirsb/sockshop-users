@@ -318,17 +318,19 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
        
                 JSONArray addressesList = new JSONArray(); 
                 
-                 // from  soda data
+ 
+                   // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                  JSONArray _addressArray = (JSONArray)jsonObject.get("addresses");   
-                 if(_addressArray != null)   {            
+                 Collection<Address> addresses = user.addresses;
+                 if(_addressArray != null && addresses.Iterator().next() == [])   {            
                  for(Object o: _addressArray){
                      if ( o instanceof JSONObject ) {
                          _itemsObject = (JSONObject) o;
                          addressesList.add(_itemsObject);
                      }
                  }} else {
-                    Collection<Address> addresses = user.addresses;
+                    
                     for (Address _address : addresses) {
                         JSONObject objaddress= new JSONObject();
                         objaddress.put("number", _address.number.toString());
@@ -343,13 +345,15 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
   
                 
                  
-                JSONArray cardsList = new JSONArray();              
+                JSONArray cardsList = new JSONArray();
+               
 
 
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                 JSONArray _cardArray = (JSONArray)jsonObject.get("cards");      
-                 if(_cardArray != null)   {         
+                 JSONArray _cardArray = (JSONArray)jsonObject.get("cards");     
+                 Collection<Card> cards = user.cards; 
+                 if(_cardArray != null  && cards.Iterator().next() == [])   {         
                  for(Object o: _cardArray){
                      if ( o instanceof JSONObject ) {
                           _itemsObject = (JSONObject) o;
@@ -357,8 +361,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                      }
                  }
                 }
-                  else {
-                    Collection<Card> cards = user.cards;
+                  else {                    
                     for (Card _card : cards) {
                         JSONObject objcard= new JSONObject();
                         objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
@@ -428,14 +431,15 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                  JSONArray _addressArray = (JSONArray)jsonObject.get("addresses");   
-                 if(_addressArray != null)   {            
+                 Collection<Address> addresses = user.addresses;
+                 if(_addressArray != null && addresses.Iterator().next() == [])   {            
                  for(Object o: _addressArray){
                      if ( o instanceof JSONObject ) {
                          _itemsObject = (JSONObject) o;
                          addressesList.add(_itemsObject);
                      }
                  }} else {
-                    Collection<Address> addresses = user.addresses;
+                    
                     for (Address _address : addresses) {
                         JSONObject objaddress= new JSONObject();
                         objaddress.put("number", _address.number.toString());
@@ -456,8 +460,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                  // from  soda data
                  //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                 JSONArray _cardArray = (JSONArray)jsonObject.get("cards");      
-                 if(_cardArray != null)   {         
+                 JSONArray _cardArray = (JSONArray)jsonObject.get("cards");     
+                 Collection<Card> cards = user.cards; 
+                 if(_cardArray != null  && cards.Iterator().next() == [])   {         
                  for(Object o: _cardArray){
                      if ( o instanceof JSONObject ) {
                           _itemsObject = (JSONObject) o;
@@ -465,8 +470,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                      }
                  }
                 }
-                  else {
-                    Collection<Card> cards = user.cards;
+                  else {                    
                     for (Card _card : cards) {
                         JSONObject objcard= new JSONObject();
                         objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
