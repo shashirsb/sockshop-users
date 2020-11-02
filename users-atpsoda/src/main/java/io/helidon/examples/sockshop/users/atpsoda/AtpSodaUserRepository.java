@@ -420,7 +420,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                   // from  soda data
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
-                    Collection <Address> addressClass = user.address;
+                    Collection <Address> addressClass = user.addresses;
                     if (_addressArray != null && this.isNullOrEmptyCollection(addressClass)) {
                         for (Object o: _addressArray) {
                             if (o instanceof JSONObject) {
@@ -432,7 +432,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
-                        System.out.println("Address Array:" +addressClass.Address.toString() );
+                        System.out.println("Address Array:" +addressClass.toString() );
                         System.out.println("#############################" );
                         System.out.println("#############################" );
                         for (Address _address: addressClass) {
@@ -462,7 +462,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1");
                     JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
                     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^2");
-                    List <Card> cards = user.card;
+                    List <Card> cards = user.cards;
                     System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^3");
                     if (_cardArray != null && this.isNullOrEmptyList(cards)) {
                         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^4");
