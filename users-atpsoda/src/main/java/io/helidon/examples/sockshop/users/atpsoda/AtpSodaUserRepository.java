@@ -428,8 +428,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         }
                     } else {
 
-                        for (Address _address: addresses) {
-                            JSONObject objaddress = new JSONObject();
+                        for (JSONObject _address: addresses) {
+                            //JSONObject objaddress = new JSONObject();
                             // objaddress.put("number", _address.number.toString());
                             // objaddress.put("street", _address.street.toString());
                             // objaddress.put("city", _address.city.toString());
@@ -467,7 +467,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         }
                     } else {
                         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^9");
-                        for (Card _card: cards) {
+                        for (JSONObject _card: cards) {
                             // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^10");
                             // JSONObject objcard = new JSONObject();
                             // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11");
