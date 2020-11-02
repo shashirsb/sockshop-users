@@ -339,7 +339,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             }
                         }
                     }  else {
-                        user.addAddress(new Address(null,null,null,null,null));
+                        user.addAddress(new Address("","","","",""));
                        
                     }               
 
@@ -357,7 +357,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             }
                         }
                     } else {
-                        user.addCard(new Card(null, null, null));
+                        user.addCard(new Card("","",""));
                     }
                 }
                     
