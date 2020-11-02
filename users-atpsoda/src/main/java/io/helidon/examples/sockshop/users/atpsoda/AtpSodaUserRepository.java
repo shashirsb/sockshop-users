@@ -303,6 +303,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             // Find a documents in the collection.
             OracleDocument filterSpec =
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
+                System.out.println("1---------------------------------------");
+                System.out.println(col.find().filter(filterSpec).toString());
+                System.out.println("2---------------------------------------");
             OracleCursor c = col.find().filter(filterSpec).getCursor();
             String jsonFormattedString = null;
             try {
