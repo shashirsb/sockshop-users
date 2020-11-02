@@ -433,7 +433,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                         System.out.println("#############################" );
                         for (int i=0; i > addressClass.size(); i++) {
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
-                            System.out.println(_address.getAddress(i).toString());
+                            System.out.println(addressClass.getAddress(i).toString());
                             System.out.println("#########@@@@@@@@@@@@@@@@###########" );
                         //     JSONObject objaddress = new JSONObject();
                         //     System.out.println("Address object:" +_address.toString() );
