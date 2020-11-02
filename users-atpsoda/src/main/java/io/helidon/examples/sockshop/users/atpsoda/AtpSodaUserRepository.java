@@ -301,36 +301,40 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     resultDoc = c.next();
 
+                    user =resultDoc;
 
 
-                    JSONParser parser = new JSONParser();
 
-                    Object obj = parser.parse(resultDoc.getContentAsString());
+                    // JSONParser parser = new JSONParser();
 
-                    JSONObject jsonObject = (JSONObject) obj;
-                    System.out.println(jsonObject.get("username"));
+                    // Object obj = parser.parse(resultDoc.getContentAsString());
 
-                    user.username = jsonObject.get("username").toString();
-                    user.firstName = jsonObject.get("firstName").toString();
-                    user.lastName = jsonObject.get("lastName").toString();
-                    user.email = jsonObject.get("email").toString();
-                    user.password = jsonObject.get("password").toString();
+                    // Document doc = Document.parse( jsonlist.toString() );
+
+                    // JSONObject jsonObject = (JSONObject) obj;
+                    // System.out.println(jsonObject.get("username"));
+
+                    // user.username = jsonObject.get("username").toString();
+                    // user.firstName = jsonObject.get("firstName").toString();
+                    // user.lastName = jsonObject.get("lastName").toString();
+                    // user.email = jsonObject.get("email").toString();
+                    // user.password = jsonObject.get("password").toString();
 
 
-                    JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
+                    // JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
 
-                    // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
-                    //     addressesList.add(_jsonArrayaddresses.get(i).toString());
-                    // }
+                    // // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
+                    // //     addressesList.add(_jsonArrayaddresses.get(i).toString());
+                    // // }
 
-                    JSONArray cardsList = (JSONArray) jsonObject.get("cards");
+                    // JSONArray cardsList = (JSONArray) jsonObject.get("cards");
 
-                    // for (int i = 0; i < _jsonArraycards.size(); i++) {
-                    //     cardsList.add(_jsonArraycards.get(i).toString());
-                    // }
+                    // // for (int i = 0; i < _jsonArraycards.size(); i++) {
+                    // //     cardsList.add(_jsonArraycards.get(i).toString());
+                    // // }
 
-                    user.addresses = addressesList;
-                    user.cards = cardsList;
+                    // user.addresses = addressesList;
+                    // user.cards = cardsList;
                     System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
                     System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
 
