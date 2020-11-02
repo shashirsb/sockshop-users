@@ -276,18 +276,21 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     // --- helpers ----------------------------------------------------------
 
     private User findUser(String userID) {
+        
+
+        //return users.find(eq("username", userID)).first();
+
+        ////////////////////////
 
 
         User user = new User();
-        // Address address = new Address();
-        // Card card = new Card();
+
         org.json.simple.JSONObject _jsonObject = new JSONObject();
         org.json.simple.parser.JSONParser _parser = new JSONParser();
 
-        try {
-            // Get a collection with the name "socks".
-            // This creates a database table, also named "socks", to store the collection.
 
+        try {
+      
             OracleCollection col = this.db.admin().createCollection("users");
 
             // Find a documents in the collection.
@@ -295,19 +298,16 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
             OracleCursor c = col.find().filter(filterSpec).getCursor();
             String jsonFormattedString = null;
-
             try {
                 OracleDocument resultDoc;
+
                 while (c.hasNext()) {
 
+                    // String orderId, String carrier, String trackingNumber, LocalDate deliveryDate
                     resultDoc = c.next();
                     JSONParser parser = new JSONParser();
                     Object obj = parser.parse(resultDoc.getContentAsString());
                     JSONObject jsonObject = (JSONObject) obj;
-
-                    
-
-                    System.out.println(jsonObject.get("username"));
 
                     user.username = jsonObject.get("username").toString();
                     user.firstName = jsonObject.get("firstName").toString();
@@ -321,10 +321,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     user.addresses = addressesList;
                     user.cards = cardsList;
-                    System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
-                    System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
 
-                }
+                                    }
             } finally {
                 // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
                 if (c != null) c.close();
@@ -334,10 +332,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             e.printStackTrace();
         }
 
+        System.out.println("Shipment getShipment.. GET Request 200OK");
         return user;
-
-
-        //return users.find(eq("username", userID)).first();
     }
 
     private void updateUser(String userID, User user) {
