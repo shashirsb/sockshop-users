@@ -275,8 +275,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     // --- helpers ----------------------------------------------------------
 
-    public boolean isNullOrEmpty(Collection<?> c ) {
-        return c == null || c.isEmpty();
+    public boolean isNullOrEmpty(List<?> l ) {
+        return l == null || l.isEmpty();
     }
 
     private User findUser(String userID) {
@@ -414,7 +414,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                   // from  soda data
                     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
-                    Collection <Address> addresses = user.addresses;
+                    List <Address> addresses = user.addresses;
                     if (_addressArray != null && this.isNullOrEmpty(addresses)) {
                         for (Object o: _addressArray) {
                             if (o instanceof JSONObject) {
@@ -426,12 +426,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                         for (Address _address: addresses) {
                             JSONObject objaddress = new JSONObject();
-                            objaddress.put("number", _address.number.toString());
-                            objaddress.put("street", _address.street.toString());
-                            objaddress.put("city", _address.city.toString());
-                            objaddress.put("postcode", _address.postcode.toString());
-                            objaddress.put("country", _address.country.toString());
-                            addressesList.add(objaddress);
+                            // objaddress.put("number", _address.number.toString());
+                            // objaddress.put("street", _address.street.toString());
+                            // objaddress.put("city", _address.city.toString());
+                            // objaddress.put("postcode", _address.postcode.toString());
+                            // objaddress.put("country", _address.country.toString());
+                            addressesList.add(_address);
                         }
 
                     }
@@ -464,16 +464,16 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     } else {
                         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^9");
                         for (Card _card: cards) {
-                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^10");
-                            JSONObject objcard = new JSONObject();
-                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11");
-                            objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^12");
-                            objcard.put("expires", _card.expires.toString());
-                            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^13");
-                            objcard.put("ccv", _card.ccv.toString());
+                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^10");
+                            // JSONObject objcard = new JSONObject();
+                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11");
+                            // objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^12");
+                            // objcard.put("expires", _card.expires.toString());
+                            // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^13");
+                            // objcard.put("ccv", _card.ccv.toString());
                             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^14");
-                            cardsList.add(objcard);
+                            cardsList.add(_card);
                         }
                     }
 
