@@ -109,8 +109,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Inject
     AtpSodaUserRepository() {
         try {
-            String UserResponse = createData();
-            System.out.println(UserResponse);
+            String UserResponse = createData();           
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -454,7 +453,6 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                             
                             if( i == cardClass.size()){
                                 JSONObject objcard = new JSONObject();
-                                System.out.println("Card object:" +_card.toString() );
                                 objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
                                 objcard.put("expires", _card.expires.toString());
                                 objcard.put("ccv", _card.ccv.toString());
