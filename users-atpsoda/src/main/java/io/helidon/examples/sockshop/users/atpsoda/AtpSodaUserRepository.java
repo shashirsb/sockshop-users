@@ -252,11 +252,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 for (int i = 0; i < jsonArray.size(); i++) {
 
                     // Create a JSON document.
-                    // OracleDocument doc =
-                    //     this.db.createDocumentFromString(jsonArray.get(i).toString());
-
-                        OracleDocument doc =
-                        this.db.createDocumentFromString(user.toString());
+                    OracleDocument doc =
+                        this.db.createDocumentFromString(jsonArray.get(i).toString());
+                        
 
                     // Insert the document into a collection.
                     col.insert(doc);
@@ -303,41 +301,23 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 while (c.hasNext()) {
 
                     resultDoc = c.next();
+                    JSONParser parser = new JSONParser();
+                    Object obj = parser.parse(resultDoc.getContentAsString());
+                    Document doc = Document.parse( jsonlist.toString() );
+                    JSONObject jsonObject = (JSONObject) obj;
 
-                    //user =resultDoc;
-
-
-
-                    // JSONParser parser = new JSONParser();
-
-                    // Object obj = parser.parse(resultDoc.getContentAsString());
-
-                    // Document doc = Document.parse( jsonlist.toString() );
-
-                    // JSONObject jsonObject = (JSONObject) obj;
-                    // System.out.println(jsonObject.get("username"));
-
-                    // user.username = jsonObject.get("username").toString();
-                    // user.firstName = jsonObject.get("firstName").toString();
-                    // user.lastName = jsonObject.get("lastName").toString();
-                    // user.email = jsonObject.get("email").toString();
-                    // user.password = jsonObject.get("password").toString();
+                    user.username = jsonObject.get("username").toString();
+                    user.firstName = jsonObject.get("firstName").toString();
+                    user.lastName = jsonObject.get("lastName").toString();
+                    user.email = jsonObject.get("email").toString();
+                    user.password = jsonObject.get("password").toString();
 
 
-                    // JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
+                    JSONArray addressesList = (JSONArray) jsonObject.get("addresses");
+                    JSONArray cardsList = (JSONArray) jsonObject.get("cards");
 
-                    // // for (int i = 0; i < _jsonArrayaddresses.size(); i++) {
-                    // //     addressesList.add(_jsonArrayaddresses.get(i).toString());
-                    // // }
-
-                    // JSONArray cardsList = (JSONArray) jsonObject.get("cards");
-
-                    // // for (int i = 0; i < _jsonArraycards.size(); i++) {
-                    // //     cardsList.add(_jsonArraycards.get(i).toString());
-                    // // }
-
-                    // user.addresses = addressesList;
-                    // user.cards = cardsList;
+                    user.addresses = addressesList;
+                    user.cards = cardsList;
                     System.out.println("findUser(String userID)  " + userID + ".. GET Request 200OK");
                     System.out.println("findUser(String userID)  " + user.toString() + ".. GET Request 200OK");
 
