@@ -387,11 +387,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         try {
             String k1 = null;
 
-            Gson gson = new Gson();
-            System.out.println("$3---------------------------------------");
-            System.out.println(user.toString());
-            System.out.println(gson.toJson(User.class));
-            System.out.println("$4---------------------------------------");
+            // Gson gson = new Gson();
+            // System.out.println("$3---------------------------------------");
+            // System.out.println(user.toString());
+            // System.out.println(gson.toJson(User.class));
+            // System.out.println("$4---------------------------------------");
 
 
             OracleCollection col = this.db.admin().createCollection("users");
