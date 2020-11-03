@@ -323,7 +323,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     Gson gson = new Gson(); // Or use new GsonBuilder().create();
                     user = gson.fromJson(resultDoc.getContentAsString(), User.class); // deserializes json into target2
                     
-                 
+                    System.out.println("1-findUser");
 
                     System.out.println("1---------------------------------------");
                     System.out.println(user.toString());
@@ -408,6 +408,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 JSONArray addressesList = new JSONArray();
 
+                System.out.println("1-updateUser");
                 System.out.println("$5---------------------------------------");
                 System.out.println(resultDoc.getContentAsString());
                 System.out.println("$6---------------------------------------");
@@ -417,6 +418,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 System.out.println(user.toString());
                 System.out.println(gson.toJson(User.class));
                 System.out.println("$4---------------------------------------");
+
+
                 //   // from  soda data
                 //     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                 //     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
