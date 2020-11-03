@@ -305,7 +305,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 Gson gson = new Gson();
                 System.out.println("%%%---------------------------------------");
                 System.out.println(user.toString());
-                System.out.println(""&&&&&---------------------------------------");
+                System.out.println("&&&&&---------------------------------------");
                 System.out.println(gson.toJson(user));
                 System.out.println("%%%---------------------------------------");
 
