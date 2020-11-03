@@ -132,7 +132,7 @@ public class Address implements Serializable {
      *
      * @return {@code _links} attribute for this entity
      */
-    @JsonbProperty("_links")
+    @JsonbProperty("links")
     public Links getLinks() {
         return Links.address(getId());
     }
