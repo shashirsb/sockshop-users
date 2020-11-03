@@ -120,9 +120,18 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public AddressId addAddress(String userID, Address address) {
         User user = findUser(userID);
-        if (user != null) {            
+        System.out.println("1-------------------------------");
+        System.out.println(userID);
+        System.out.println(address.toString());
+        System.out.println(user.toString());
+        System.out.println("2-------------------------------");
+        
+        if (user != null) {
             AddressId id = user.addAddress(address).getId();
             updateUser(userID, user);
+            System.out.println("3-------------------------------");
+            System.out.println(id.toString());
+            System.out.println("4-------------------------------");
             return id;
         }
         return null;
@@ -130,10 +139,12 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     @Override
     public Address getAddress(AddressId id) {
-        return findUser(id.getUser()).getAddress(id.getAddressId());
+
+        System.out.println("5-------------------------------");
+        System.out.println(findUser(id.getUser()).getAddress(id.getAddressId())+"");
+        System.out.println("6-------------------------------");
+    return findUser(id.getUser()).getAddress(id.getAddressId());
     }
-
-
 
 
     @Override
