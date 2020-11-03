@@ -291,18 +291,19 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             // Find a documents in the collection.
             OracleDocument filterSpec =
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
+            
+            OracleDocument oneDoc = col.find().filter(filterSpec).getOne();
                
-            //OracleCursor c = col.find().filter(filterSpec).getCursor();
-            if(userID != null) {
+            if(oneDoc != null) {
             	 Gson gson = new Gson(); // Or use new GsonBuilder().create();
-                 user = gson.fromJson(col.find().filter(filterSpec).getOne().getContentAsString(), User.class); // deserializes json into target2
+                 user = gson.fromJson(oneDoc.getContentAsString(), User.class); // deserializes json into target2
                          
                          System.out.println("1-findUser");
 
                          System.out.println("1---------------------------------------");
                          System.out.println(user.toString());
                          System.out.println("2---------------------------------------");   
-            }
+            } 
 
               
 
