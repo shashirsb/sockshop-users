@@ -203,15 +203,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 OracleDocument filterSpec =
                     this.db.createDocumentFromString("{ \"username\" : \"" + id + "\"}");
 
-                OracleCursor c = col.find().filter(filterSpec).getCursor();
-
-                while (c.hasNext()) {
-                    OracleDocument resultDoc = c.next();
-
-                    k1 = resultDoc.getKey();
-                }
-
-                c.close();
+                k1 = col.find().filter(filterSpec).getOne().getKey();
 
                 col.find().key("\"" + k1 + "\"").remove();
 
@@ -235,40 +227,29 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         User existing = findUser(user.getUsername());
 
         if (existing.getUsername() == null) {
-            existing = _user;
+            //existing = _user;
             try {
-                String stringToParse = "[{\"addresses\":[],\"cards\":[],\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"self\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.getUsername() + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.getUsername() + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.getUsername() + "\"}]";
-
-                JSONParser parser = new JSONParser();
-                JSONObject jsonObjects = new JSONObject();
-                JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
-
-
-
-                // Create a collection with the name "MyJSONCollection".
-                // This creates a database table, also named "MyJSONCollection", to store the collection.\
+            	
+                Gson gson = new Gson();
+                System.out.println("$3---------------------------------------");
+                System.out.println(user.toString());
+                System.out.println(gson.toJson(User.class));
 
                 OracleCollection col = this.db.admin().createCollection("users");
 
-                for (int i = 0; i < jsonArray.size(); i++) {
+                // Create a JSON document.
+                OracleDocument doc =
+                    this.db.createDocumentFromString(gson.toJson(User.class));
 
-                    // Create a JSON document.
-                    OracleDocument doc =
-                        this.db.createDocumentFromString(jsonArray.get(i).toString());
+                // Insert the document into a collection.
+                col.insert(doc);
 
-
-                    // Insert the document into a collection.
-                    col.insert(doc);
-
-                }
 
             } catch (OracleException e) {
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //  users.insertOne(user);
-
         }
 
         return existing;
@@ -316,72 +297,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                     System.out.println("1---------------------------------------");
                     System.out.println(user.toString());
-                    System.out.println("2---------------------------------------");
-
-            
-           // String jsonFormattedString = null;
-            // try {
-            //     OracleDocument resultDoc;
-
-            //     while (c.hasNext()) {
-            //         JSONObject _itemsObject = new JSONObject();
-            //         // String orderId, String carrier, String trackingNumber, LocalDate deliveryDate
-            //         resultDoc = c.next();
-            //         JSONParser parser = new JSONParser();
-            //         Object obj = parser.parse(resultDoc.getContentAsString());
-            //         JSONObject jsonObject = (JSONObject) obj;
-                    
-            //         Gson gson = new Gson(); // Or use new GsonBuilder().create();
-            //         user = gson.fromJson(resultDoc.getContentAsString(), User.class); // deserializes json into target2
-                    
-            //         System.out.println("1-findUser");
-
-            //         System.out.println("1---------------------------------------");
-            //         System.out.println(user.toString());
-            //         System.out.println("2---------------------------------------");
-
-            //         // user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
-
-
-            //         //  // from  soda data
-            //         // //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-            //         // JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
-            //         // Collection <Address> addresses = user.addresses;
-            //         // if (_addressArray != null ) {
-            //         //     for (Object o: _addressArray) {
-            //         //         if (o instanceof JSONObject) {
-            //         //             _itemsObject = (JSONObject) o;                               
-            //         //             user.addAddress(new Address(_itemsObject.get("number").toString(), _itemsObject.get("street").toString(), _itemsObject.get("city").toString(), _itemsObject.get("postcode").toString(), _itemsObject.get("country").toString()));
-                       
-            //         //         }
-            //         //     }
-            //         // }  else {
-            //         //     user.addAddress(new Address("","","","",""));
-                       
-            //         // }               
-
-
-
-            //         // // from  soda data
-            //         // //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-            //         // JSONArray _cardArray = (JSONArray) jsonObject.get("card");
-            //         // Collection <Card> cards = user.cards;
-            //         // if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
-            //         //     for (Object o: _cardArray) {
-            //         //         if (o instanceof JSONObject) {
-            //         //             _itemsObject = (JSONObject) o;
-            //         //             user.addCard(new Card(_itemsObject.get("longNum").toString(), _itemsObject.get("expires").toString(), _itemsObject.get("ccv").toString()));
-            //         //         }
-            //         //     }
-            //         // } else {
-            //         //     user.addCard(new Card("","",""));
-            //         // }
-            //     }
-                    
-            // } finally {
-            //     // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
-            //     if (c != null) c.close();
-            // }
+                    System.out.println("2---------------------------------------");      
 
         } catch (Exception e) {
             e.printStackTrace();
