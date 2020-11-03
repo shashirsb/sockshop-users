@@ -91,6 +91,8 @@ import org.json.simple.parser.JSONParser;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.gson.Gson;
+
 /**
  * An implementation of {@link io.helidon.examples.sockshop.users.UserRepository}
  * that that uses MongoDB as a backend data store.
@@ -100,7 +102,7 @@ import org.apache.commons.lang3.StringUtils;
 @Priority(APPLICATION)
 @Traced
 public class AtpSodaUserRepository extends DefaultUserRepository {
-    private org.json.simple.JSONObject<User> testusers;
+ 
 
 
     public static AtpSodaProducers asp = new AtpSodaProducers();
@@ -316,10 +318,14 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     JSONParser parser = new JSONParser();
                     Object obj = parser.parse(resultDoc.getContentAsString());
                     JSONObject jsonObject = (JSONObject) obj;
-                    testusers.add(jsonObject);
+                    
+                    Gson gson = new Gson(); // Or use new GsonBuilder().create();
+                    User targetUser = gson.fromJson(resultDoc.getContentAsString(), User.class); // deserializes json into target2
+                    
+                 
 
                     System.out.println("1---------------------------------------");
-                    System.out.println(testusers.toString());
+                    System.out.println(targetUser.toString());
                     System.out.println("2---------------------------------------");
 
                     user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
