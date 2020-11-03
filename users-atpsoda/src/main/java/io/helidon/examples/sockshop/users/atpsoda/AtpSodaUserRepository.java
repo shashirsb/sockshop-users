@@ -320,7 +320,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     JSONObject jsonObject = (JSONObject) obj;
                     
                     Gson gson = new Gson(); // Or use new GsonBuilder().create();
-                    User targetUser = gson.fromJson(jsonObject, User.class); // deserializes json into target2
+                    User targetUser = gson.fromJson(resultDoc.getContentAsString(), User.class); // deserializes json into target2
                     
                  
 
