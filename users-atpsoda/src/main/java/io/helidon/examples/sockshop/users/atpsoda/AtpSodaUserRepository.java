@@ -307,7 +307,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             
             OracleDocument localuser = col.find().filter(filterSpec).getOne();
             Gson gson =new Gson();
-            user = gson.fromJson(localuser.getContentAsString(), User.class);
+            //user = gson.fromJson(localuser.getContentAsString(), User.class);
 
                    JSONParser parser = new JSONParser();
                    Object obj = parser.parse(localuser.getContentAsString());
@@ -315,9 +315,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                    System.out.println("1---------------------------------------");
                    System.out.println(jsonObject.toString());
+                   System.out.println(user.toString());
                    System.out.println("2---------------------------------------");
 
-                   //user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
+                   user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
 
                    JSONObject _itemsObject = new JSONObject();
 
