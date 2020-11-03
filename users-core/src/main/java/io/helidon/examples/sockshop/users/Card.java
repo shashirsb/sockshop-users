@@ -140,7 +140,7 @@ public class Card implements Serializable {
      *
      * @return {@code _links} attribute for this entity
      */
-    @JsonbProperty("links")
+    @JsonbProperty("_links")
     public Links getLinks() {
         return Links.card(getId());
     }

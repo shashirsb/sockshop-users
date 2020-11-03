@@ -69,12 +69,4 @@ public class AddressId implements Serializable {
             return new AddressId(id);
         }
     }
-
-	public String getUser() {
-		return user;
-	}
-
-	public String getAddressId() {
-		return addressId;
-	}
 }
