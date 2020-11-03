@@ -208,7 +208,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 col.find().key("\"" + k1 + "\"").remove();
 
             } catch (Exception e) {
-                //TODO: handle exception
+                e.printStackTrace();
             }
             // users.deleteOne(eq("username", id));
         }
@@ -223,38 +223,25 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     @Override
     public User register(User user) {
-        System.out.println("&&&&&8--------------------");
-        System.out.println(user.getUsername());
-        System.out.println("&&&&&8--------------------");
-        User existing = findUser(user.getUsername());
 
+        User existing = findUser(user.getUsername());
         if (existing.getUsername() == null) {
             existing = null;
-            try {
-            	
-                Gson gson = new Gson();
-                System.out.println("$$$$$8---------------------------------------");
-                System.out.println(user.toString());
-                System.out.println(gson.toJson(user));
-                System.out.println("$$$$$8---------------------------------------");
-
+            try {            	
+                Gson gson = new Gson();               
                 OracleCollection col = this.db.admin().createCollection("users");
-
                 // Create a JSON document.
                 OracleDocument doc =
                     this.db.createDocumentFromString(gson.toJson(user).toString());
-
                 // Insert the document into a collection.
                 col.insert(doc);
-
-
             } catch (OracleException e) {
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
+        System.out.println("User register... "+ user +". GET Request 200OK");
         return existing;
     }
 
@@ -271,40 +258,25 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     private User findUser(String userID) {
 
         User user = new User(null,null,null,null,null);
-
-
         org.json.simple.JSONObject _jsonObject = new JSONObject();
         org.json.simple.parser.JSONParser _parser = new JSONParser();
-
 
         try {
 
             OracleCollection col = this.db.admin().createCollection("users");
-
             // Find a documents in the collection.
             OracleDocument filterSpec =
-                this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
-            
-            OracleDocument oneDoc = col.find().filter(filterSpec).getOne();
-               
+                this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");            
+            OracleDocument oneDoc = col.find().filter(filterSpec).getOne();               
             if(oneDoc != null) {
             	 Gson gson = new Gson(); // Or use new GsonBuilder().create();
-                 user = gson.fromJson(oneDoc.getContentAsString(), User.class); // deserializes json into target2
-                         
-                         System.out.println("1-findUser");
-
-                         System.out.println("1---------------------------------------");
-                         System.out.println(user.toString());
-                         System.out.println("2---------------------------------------");   
-            } 
-
-              
+                 user = gson.fromJson(oneDoc.getContentAsString(), User.class); 
+            }               
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("User findUser:" + user);
-        System.out.println("User findUser. GET Request 200OK");
+        System.out.println("User findUser... "+ user +". GET Request 200OK");
         return user;
     }
 
@@ -313,9 +285,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
               //users.replaceOne(eq("username", userID), user);
 
         try {
-            String k1 = null;
-
-            
+            String k1 = null;           
 
 
             OracleCollection col = this.db.admin().createCollection("users");
@@ -336,16 +306,16 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 JSONArray addressesList = new JSONArray();
 
-                System.out.println("1-updateUser");
-                System.out.println("$5---------------------------------------");
+                System.out.println("%%%-updateUser");
+                System.out.println("%%%---------------------------------------");
                 System.out.println(resultDoc.getContentAsString());
-                System.out.println("$6---------------------------------------");
+                System.out.println("%%%---------------------------------------");
 
                 Gson gson = new Gson();
-                System.out.println("$3---------------------------------------");
+                System.out.println("%%%---------------------------------------");
                 System.out.println(user.toString());
-                System.out.println(gson.toJson(User.class));
-                System.out.println("$4---------------------------------------");
+                System.out.println(gson.toJson(user));
+                System.out.println("%%%---------------------------------------");
 
 
                 //   // from  soda data
@@ -423,7 +393,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
           
 
-                OracleDocument newDoc = this.db.createDocumentFromString(gson.toJson(User.class));
+                OracleDocument newDoc = this.db.createDocumentFromString(gson.toJson(user));
 
                 
              
