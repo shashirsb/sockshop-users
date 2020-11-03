@@ -500,7 +500,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 // users.replaceOne(eq("username", userID), user);
                 System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
 
-            }
+            // }
 
             c.close();
         }} catch (Exception e) {
