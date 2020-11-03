@@ -341,8 +341,8 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
 
-                   from  soda data
-                   orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                   // from  soda data
+                   //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                    JSONArray _cardArray = (JSONArray) jsonObject.get("card");
                    Collection <Card> cards = user.cards;
                    if (_cardArray != null ) {
