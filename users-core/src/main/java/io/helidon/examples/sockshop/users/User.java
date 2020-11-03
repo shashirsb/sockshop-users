@@ -242,4 +242,8 @@ public class User implements Serializable {
     public Boolean authenticate(String password) {
         return password.equals(this.password);
     }
+
+	public String getUsername() {
+		return username;
+	}
 }

@@ -69,4 +69,12 @@ public class CardId implements Serializable {
             return new CardId(id);
         }
     }
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
 }
