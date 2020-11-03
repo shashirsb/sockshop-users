@@ -220,7 +220,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         User user = findUser(username);
         return user != null ? user.authenticate(password) : false;
     }
-    ////////////
+
     @Override
     public User register(User user) {
         User _user = null;
@@ -271,13 +271,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     private User findUser(String userID) {
 
-
-        //return users.find(eq("username", userID)).first();
-
-        ////////////////////////
-
-
-        User user = new User();
+        User user = new User(null,null,null,null,null);
 
 
         org.json.simple.JSONObject _jsonObject = new JSONObject();
