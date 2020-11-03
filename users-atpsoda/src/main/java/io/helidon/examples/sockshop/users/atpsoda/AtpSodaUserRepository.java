@@ -119,6 +119,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     @Override
     public AddressId addAddress(String userID, Address address) {
+    	 System.out.println("add address calling User findUser... ");
         User user = findUser(userID);
         System.out.println("1-------------------------------");
         System.out.println(userID);
