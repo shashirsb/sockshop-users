@@ -387,11 +387,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         try {
             String k1 = null;
 
-            Gson gson = new Gson();
-            System.out.println("$3---------------------------------------");
-            System.out.println(user.toString());
-            System.out.println(gson.toJson(User.class));
-            System.out.println("$4---------------------------------------");
+            
 
 
             OracleCollection col = this.db.admin().createCollection("users");
@@ -412,6 +408,15 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 JSONArray addressesList = new JSONArray();
 
+                System.out.println("$5---------------------------------------");
+                System.out.println(resultDoc.getContentAsString());
+                System.out.println("$6---------------------------------------");
+
+                Gson gson = new Gson();
+                System.out.println("$3---------------------------------------");
+                System.out.println(user.toString());
+                System.out.println(gson.toJson(User.class));
+                System.out.println("$4---------------------------------------");
                 //   // from  soda data
                 //     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
                 //     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
