@@ -224,6 +224,9 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     @Override
     public User register(User user) {
         User _user = null;
+        System.out.println("&&&&&8--------------------");
+        System.out.println(user.getUsername());
+        System.out.println("&&&&&8--------------------");
         User existing = findUser(user.getUsername());
 
         if (existing.getUsername() == null) {
@@ -231,9 +234,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
             try {
             	
                 Gson gson = new Gson();
-                System.out.println("$3---------------------------------------");
+                System.out.println("$$$$$8---------------------------------------");
                 System.out.println(user.toString());
                 System.out.println(gson.toJson(user));
+                System.out.println("$$$$$8---------------------------------------");
 
                 OracleCollection col = this.db.admin().createCollection("users");
 
