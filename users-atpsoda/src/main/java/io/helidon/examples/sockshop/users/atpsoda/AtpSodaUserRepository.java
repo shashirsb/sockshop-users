@@ -91,8 +91,6 @@ import org.json.simple.parser.JSONParser;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.gson.Gson;
-
 /**
  * An implementation of {@link io.helidon.examples.sockshop.users.UserRepository}
  * that that uses MongoDB as a backend data store.
@@ -102,7 +100,7 @@ import com.google.gson.Gson;
 @Priority(APPLICATION)
 @Traced
 public class AtpSodaUserRepository extends DefaultUserRepository {
- 
+
 
 
     public static AtpSodaProducers asp = new AtpSodaProducers();
@@ -119,20 +117,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     @Override
     public AddressId addAddress(String userID, Address address) {
-    	 System.out.println("add address calling User findUser... ");
         User user = findUser(userID);
-        System.out.println("1-------------------------------");
-        System.out.println(userID);
-        System.out.println(address.toString());
-        System.out.println(user.toString());
-        System.out.println("2-------------------------------");
-        
-        if (user != null) {
+        if (user != null) {            
             AddressId id = user.addAddress(address).getId();
             updateUser(userID, user);
-            System.out.println("3-------------------------------");
-            System.out.println(id.toString());
-            System.out.println("4-------------------------------");
             return id;
         }
         return null;
@@ -140,12 +128,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     @Override
     public Address getAddress(AddressId id) {
-
-        System.out.println("5-------------------------------");
-        System.out.println(findUser(id.getUser()).getAddress(id.getAddressId())+"");
-        System.out.println("6-------------------------------");
-    return findUser(id.getUser()).getAddress(id.getAddressId());
+        return findUser(id.getUser()).getAddress(id.getAddressId());
     }
+
+
 
 
     @Override
@@ -215,12 +201,20 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 OracleDocument filterSpec =
                     this.db.createDocumentFromString("{ \"username\" : \"" + id + "\"}");
 
-                k1 = col.find().filter(filterSpec).getOne().getKey();
+                OracleCursor c = col.find().filter(filterSpec).getCursor();
+
+                while (c.hasNext()) {
+                    OracleDocument resultDoc = c.next();
+
+                    k1 = resultDoc.getKey();
+                }
+
+                c.close();
 
                 col.find().key("\"" + k1 + "\"").remove();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                //TODO: handle exception
             }
             // users.deleteOne(eq("username", id));
         }
@@ -232,28 +226,49 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         User user = findUser(username);
         return user != null ? user.authenticate(password) : false;
     }
-
+    ////////////
     @Override
     public User register(User user) {
-
+        User _user = null;
         User existing = findUser(user.getUsername());
+
         if (existing.getUsername() == null) {
-            existing = null;
-            try {            	
-                Gson gson = new Gson();               
+            existing = _user;
+            try {
+                String stringToParse = "[{\"addresses\":[],\"cards\":[],\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"self\":{\"href\":\"http://user/customers/" + user.getUsername() + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.getUsername() + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.getUsername() + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.getUsername() + "\"}]";
+
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObjects = new JSONObject();
+                JSONArray jsonArray = (JSONArray) parser.parse(stringToParse.replace("\\", ""));
+
+
+
+                // Create a collection with the name "MyJSONCollection".
+                // This creates a database table, also named "MyJSONCollection", to store the collection.\
+
                 OracleCollection col = this.db.admin().createCollection("users");
-                // Create a JSON document.
-                OracleDocument doc =
-                    this.db.createDocumentFromString(gson.toJson(user).toString());
-                // Insert the document into a collection.
-                col.insert(doc);
+
+                for (int i = 0; i < jsonArray.size(); i++) {
+
+                    // Create a JSON document.
+                    OracleDocument doc =
+                        this.db.createDocumentFromString(jsonArray.get(i).toString());
+
+
+                    // Insert the document into a collection.
+                    col.insert(doc);
+
+                }
+
             } catch (OracleException e) {
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //  users.insertOne(user);
+
         }
-        System.out.println("User register... "+ user +". GET Request 200OK");
+
         return existing;
     }
 
@@ -269,80 +284,211 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     private User findUser(String userID) {
 
-        User user = new User(null,null,null,null,null);
+
+        //return users.find(eq("username", userID)).first();
+
+        ////////////////////////
+
+
+        User user = new User();
+
         org.json.simple.JSONObject _jsonObject = new JSONObject();
         org.json.simple.parser.JSONParser _parser = new JSONParser();
+
 
         try {
 
             OracleCollection col = this.db.admin().createCollection("users");
+
             // Find a documents in the collection.
             OracleDocument filterSpec =
-                this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");            
-            OracleDocument oneDoc = col.find().filter(filterSpec).getOne();               
-            if(oneDoc != null) {
-            	 Gson gson = new Gson(); // Or use new GsonBuilder().create();
-                 user = gson.fromJson(oneDoc.getContentAsString(), User.class); 
-            }               
+                this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
+               
+            OracleCursor c = col.find().filter(filterSpec).getCursor();
+            String jsonFormattedString = null;
+            try {
+                OracleDocument resultDoc;
+
+                while (c.hasNext()) {
+                    JSONObject _itemsObject = new JSONObject();
+                    // String orderId, String carrier, String trackingNumber, LocalDate deliveryDate
+                    resultDoc = c.next();
+                    JSONParser parser = new JSONParser();
+                    Object obj = parser.parse(resultDoc.getContentAsString());
+                    JSONObject jsonObject = (JSONObject) obj;
+
+                    System.out.println("1---------------------------------------");
+                    System.out.println(jsonObject.toString());
+                    System.out.println("2---------------------------------------");
+
+                    user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
+
+
+                     // from  soda data
+                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
+                    Collection <Address> addresses = user.addresses;
+                    if (_addressArray != null ) {
+                        for (Object o: _addressArray) {
+                            if (o instanceof JSONObject) {
+                                _itemsObject = (JSONObject) o;                               
+                                user.addAddress(new Address(_itemsObject.get("number").toString(), _itemsObject.get("street").toString(), _itemsObject.get("city").toString(), _itemsObject.get("postcode").toString(), _itemsObject.get("country").toString()));
+                       
+                            }
+                        }
+                    }  else {
+                        user.addAddress(new Address("","","","",""));
+                       
+                    }               
+
+
+
+                    // from  soda data
+                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    JSONArray _cardArray = (JSONArray) jsonObject.get("card");
+                    Collection <Card> cards = user.cards;
+                    if (_cardArray != null && this.isNullOrEmptyCollection(cards)) {
+                        for (Object o: _cardArray) {
+                            if (o instanceof JSONObject) {
+                                _itemsObject = (JSONObject) o;
+                                user.addCard(new Card(_itemsObject.get("longNum").toString(), _itemsObject.get("expires").toString(), _itemsObject.get("ccv").toString()));
+                            }
+                        }
+                    } else {
+                        user.addCard(new Card("","",""));
+                    }
+                }
+                    
+            } finally {
+                // IMPORTANT: YOU MUST CLOSE THE CURSOR TO RELEASE RESOURCES.
+                if (c != null) c.close();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("User findUser... "+ user +". GET Request 200OK");
+        System.out.println("User findUser:" + user);
+        System.out.println("User findUser. GET Request 200OK");
         return user;
     }
 
     private void updateUser(String userID, User user) {
 
-//     try {
-//    	 
-//     		 String k1 = null;
-//
-//              OracleCollection col = this.db.admin().createCollection("users");
-//              OracleDocument filterSpec =
-//                  this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
-//              	OracleDocument userDoc = col.find().filter(filterSpec).getOne();
-//
-//
-//                  JSONParser parser = new JSONParser();
-//                  Object obj = parser.parse(userDoc.getContentAsString());
-//                  JSONObject jsonObject = (JSONObject) obj;
-//
-//                  JSONArray addressesList = new JSONArray();
-//
-//                  System.out.println("%%%-updateUser");
-//                  System.out.println("%%%---------------------------------------");
-//                  System.out.println(userDoc.getContentAsString());
-//                  System.out.println("%%%---------------------------------------");
-//
-//                  Gson gson = new Gson();
-//                  System.out.println("%%%---------------------------------------");
-//                  System.out.println(user.toString());
-//                  System.out.println("&&&&&---------------------------------------");
-//                  System.out.println(gson.toJson(user));
-//                  System.out.println("%%%---------------------------------------");
-//
-//
-//                  OracleDocument newDoc = this.db.createDocumentFromString(gson.toJson(user));
-//                  OracleDocument resultDoc = col.find().key(userDoc.getKey()).version(userDoc.getVersion()).replaceOneAndGet(newDoc);
-//           
-//
-//                  // users.replaceOne(eq("username", userID), 
-//                  System.out.println(resultDoc.toString());
-//                  System.out.println("UpdateUser(String userID, User user.... GET Request 200O ");    		
-//     	
-//         
-//     } catch (Exception e) {
-//         //TODO: handle exception
-//     }
-}
+              
 
-   
-           
-               
+        try {
+            String k1 = null;
+
+            OracleCollection col = this.db.admin().createCollection("users");
+
+            OracleDocument filterSpec =
+                this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
+
+            OracleCursor c = col.find().filter(filterSpec).getCursor();
+
+            while (c.hasNext()) {
+                JSONObject _itemsObject = new JSONObject();
+                OracleDocument resultDoc = c.next();
 
 
+                JSONParser parser = new JSONParser();
+                Object obj = parser.parse(resultDoc.getContentAsString());
+                JSONObject jsonObject = (JSONObject) obj;
+
+                JSONArray addressesList = new JSONArray();
+
+                  // from  soda data
+                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                    JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
+                    Collection <Address> addressClass = user.addresses;
+                    if (_addressArray != null && this.isNullOrEmptyCollection(addressClass)) {
+                        for (Object o: _addressArray) {
+                            if (o instanceof JSONObject) {
+                                _itemsObject = (JSONObject) o;
+                                addressesList.add(_itemsObject);
+                            }
+                        }
+                    } else {
     
+
+                        int i = 1;
+                        for (Address _address: addressClass) {
+    
+                            
+                            if( i == addressClass.size()){
+                            JSONObject objaddress = new JSONObject();
+                            objaddress.put("number", _address.number.toString());
+                            objaddress.put("street", _address.street.toString());
+                            objaddress.put("city", _address.city.toString());
+                            objaddress.put("postcode", _address.postcode.toString());
+                            objaddress.put("country", _address.country.toString());
+                            addressesList.add(objaddress);
+                            }
+                            i++;
+                        }
+
+           
+
+
+
+                    JSONArray cardsList = new JSONArray();
+
+
+
+                    // from  soda data
+                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+
+                    JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
+                    List <Card> cardClass = user.cards;
+                    if (_cardArray != null && this.isNullOrEmptyList(cardClass)) {
+                        for (Object o: _cardArray) {
+                            if (o instanceof JSONObject) {
+                                _itemsObject = (JSONObject) o;
+                                cardsList.add(_itemsObject);
+                            }
+                        }
+                    } else {
+                   
+
+                        i = 1;
+                        for (Card _card: cardClass) {
+                       
+                            
+                            if( i == cardClass.size()){
+                                JSONObject objcard = new JSONObject();
+                                objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                                objcard.put("expires", _card.expires.toString());
+                                objcard.put("ccv", _card.ccv.toString());
+                                cardsList.add(objcard);
+                            }
+                            i++;
+                        }
+
+                    }     
+
+
+
+               String _document = "{\"addresses\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+
+          
+
+                OracleDocument newDoc = this.db.createDocumentFromString(_document);
+
+
+                resultDoc = col.find().key(resultDoc.getKey()).version(resultDoc.getVersion()).replaceOneAndGet(newDoc);
+         
+
+                // users.replaceOne(eq("username", userID), user);
+                System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
+
+            }
+
+            c.close();
+        }} catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public String createData() {
         // Create a collection with the name "MyJSONCollection".
@@ -384,4 +530,4 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
     }
 
    
-} 
+}
