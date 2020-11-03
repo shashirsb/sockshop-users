@@ -285,131 +285,39 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
               //users.replaceOne(eq("username", userID), user);
 
         try {
-            String k1 = null;           
-
-
+            String k1 = null;
             OracleCollection col = this.db.admin().createCollection("users");
-
             OracleDocument filterSpec =
                 this.db.createDocumentFromString("{ \"username\" : \"" + userID + "\"}");
-
-            OracleCursor c = col.find().filter(filterSpec).getCursor();
-
-            while (c.hasNext()) {
-                JSONObject _itemsObject = new JSONObject();
-                OracleDocument resultDoc = c.next();
-
+            OracleDocument userDoc = col.find().filter(filterSpec).getOne();
 
                 JSONParser parser = new JSONParser();
-                Object obj = parser.parse(resultDoc.getContentAsString());
+                Object obj = parser.parse(userDoc.getContentAsString());
                 JSONObject jsonObject = (JSONObject) obj;
 
                 JSONArray addressesList = new JSONArray();
 
                 System.out.println("%%%-updateUser");
                 System.out.println("%%%---------------------------------------");
-                System.out.println(resultDoc.getContentAsString());
+                System.out.println(userDoc.getContentAsString());
                 System.out.println("%%%---------------------------------------");
 
                 Gson gson = new Gson();
                 System.out.println("%%%---------------------------------------");
                 System.out.println(user.toString());
+                System.out.println(""&&&&&---------------------------------------");
                 System.out.println(gson.toJson(user));
                 System.out.println("%%%---------------------------------------");
 
-
-                //   // from  soda data
-                //     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                //     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
-                //     Collection <Address> addressClass = user.addresses;
-                //     if (_addressArray != null && this.isNullOrEmptyCollection(addressClass)) {
-                //         for (Object o: _addressArray) {
-                //             if (o instanceof JSONObject) {
-                //                 _itemsObject = (JSONObject) o;
-                //                 addressesList.add(_itemsObject);
-                //             }
-                //         }
-                //     } else {
-    
-
-                //         int i = 1;
-                //         for (Address _address: addressClass) {
-    
-                            
-                //             if( i == addressClass.size()){
-                //             JSONObject objaddress = new JSONObject();
-                //             objaddress.put("number", _address.number.toString());
-                //             objaddress.put("street", _address.street.toString());
-                //             objaddress.put("city", _address.city.toString());
-                //             objaddress.put("postcode", _address.postcode.toString());
-                //             objaddress.put("country", _address.country.toString());
-                //             addressesList.add(objaddress);
-                //             }
-                //             i++;
-                //         }
-
-           
-
-
-
-                //     JSONArray cardsList = new JSONArray();
-
-
-
-                //     // from  soda data
-                //     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-
-                //     JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
-                //     List <Card> cardClass = user.cards;
-                //     if (_cardArray != null && this.isNullOrEmptyList(cardClass)) {
-                //         for (Object o: _cardArray) {
-                //             if (o instanceof JSONObject) {
-                //                 _itemsObject = (JSONObject) o;
-                //                 cardsList.add(_itemsObject);
-                //             }
-                //         }
-                //     } else {
-                   
-
-                //         i = 1;
-                //         for (Card _card: cardClass) {
-                       
-                            
-                //             if( i == cardClass.size()){
-                //                 JSONObject objcard = new JSONObject();
-                //                 objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                //                 objcard.put("expires", _card.expires.toString());
-                //                 objcard.put("ccv", _card.ccv.toString());
-                //                 cardsList.add(objcard);
-                //             }
-                //             i++;
-                //         }
-
-                //     }     
-
-
-
-            //    String _document = "{\"addresses\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
-
-          
-
-                OracleDocument newDoc = this.db.createDocumentFromString(gson.toJson(user));
-
-                
-             
-
-                
-              
-                resultDoc = col.find().key(resultDoc.getKey()).version(resultDoc.getVersion()).replaceOneAndGet(newDoc);
+                OracleDocument newDoc = this.db.createDocumentFromString(gson.toJson(user));              
+                OracleDocument resultDoc = col.find().key(userDoc.getKey()).version(userDoc.getVersion()).replaceOneAndGet(newDoc);
          
 
                 // users.replaceOne(eq("username", userID), user);
+                System.out.println(resultDoc.toString());
                 System.out.println("UpdateUser(String userID, User user).... GET Request 200OK");
 
-            // }
-
-            c.close();
-        }} catch (Exception e) {
+         } catch (Exception e) {
             e.printStackTrace();
         }
 
