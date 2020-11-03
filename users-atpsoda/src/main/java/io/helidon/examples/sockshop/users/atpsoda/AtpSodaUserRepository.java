@@ -100,7 +100,7 @@ import org.apache.commons.lang3.StringUtils;
 @Priority(APPLICATION)
 @Traced
 public class AtpSodaUserRepository extends DefaultUserRepository {
-
+    private org.json.simple.JSONObject<User> testusers;
 
 
     public static AtpSodaProducers asp = new AtpSodaProducers();
@@ -316,9 +316,10 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                     JSONParser parser = new JSONParser();
                     Object obj = parser.parse(resultDoc.getContentAsString());
                     JSONObject jsonObject = (JSONObject) obj;
+                    testusers.add(jsonObject);
 
                     System.out.println("1---------------------------------------");
-                    System.out.println(jsonObject.toString());
+                    System.out.println(testusers.toString());
                     System.out.println("2---------------------------------------");
 
                     user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
