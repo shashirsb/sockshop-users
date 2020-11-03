@@ -223,14 +223,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
     @Override
     public User register(User user) {
-        User _user = null;
         System.out.println("&&&&&8--------------------");
         System.out.println(user.getUsername());
         System.out.println("&&&&&8--------------------");
         User existing = findUser(user.getUsername());
 
         if (existing.getUsername() == null) {
-            //existing = _user;
+            existing = null;
             try {
             	
                 Gson gson = new Gson();
