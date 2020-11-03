@@ -317,7 +317,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                    System.out.println(jsonObject.toString());
                    System.out.println("2---------------------------------------");
 
-                   user = gson.fromJson(jsonObject, User.class);
+                   user = gson.fromJson(jsonObject.toString(), User.class);
                    //user = new User(jsonObject.get("firstName").toString(), jsonObject.get("lastName").toString(), jsonObject.get("email").toString(), jsonObject.get("username").toString(), jsonObject.get("password").toString());
 
                    JSONObject _itemsObject = new JSONObject();
