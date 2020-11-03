@@ -387,11 +387,11 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         try {
             String k1 = null;
 
-            // Gson gson = new Gson();
-            // System.out.println("$3---------------------------------------");
-            // System.out.println(user.toString());
-            // System.out.println(gson.toJson(User.class));
-            // System.out.println("$4---------------------------------------");
+            Gson gson = new Gson();
+            System.out.println("$3---------------------------------------");
+            System.out.println(user.toString());
+            System.out.println(gson.toJson(User.class));
+            System.out.println("$4---------------------------------------");
 
 
             OracleCollection col = this.db.admin().createCollection("users");
@@ -412,82 +412,82 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 JSONArray addressesList = new JSONArray();
 
-                  // from  soda data
-                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
-                    JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
-                    Collection <Address> addressClass = user.addresses;
-                    if (_addressArray != null && this.isNullOrEmptyCollection(addressClass)) {
-                        for (Object o: _addressArray) {
-                            if (o instanceof JSONObject) {
-                                _itemsObject = (JSONObject) o;
-                                addressesList.add(_itemsObject);
-                            }
-                        }
-                    } else {
+                //   // from  soda data
+                //     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                //     JSONArray _addressArray = (JSONArray) jsonObject.get("addresses");
+                //     Collection <Address> addressClass = user.addresses;
+                //     if (_addressArray != null && this.isNullOrEmptyCollection(addressClass)) {
+                //         for (Object o: _addressArray) {
+                //             if (o instanceof JSONObject) {
+                //                 _itemsObject = (JSONObject) o;
+                //                 addressesList.add(_itemsObject);
+                //             }
+                //         }
+                //     } else {
     
 
-                        int i = 1;
-                        for (Address _address: addressClass) {
+                //         int i = 1;
+                //         for (Address _address: addressClass) {
     
                             
-                            if( i == addressClass.size()){
-                            JSONObject objaddress = new JSONObject();
-                            objaddress.put("number", _address.number.toString());
-                            objaddress.put("street", _address.street.toString());
-                            objaddress.put("city", _address.city.toString());
-                            objaddress.put("postcode", _address.postcode.toString());
-                            objaddress.put("country", _address.country.toString());
-                            addressesList.add(objaddress);
-                            }
-                            i++;
-                        }
+                //             if( i == addressClass.size()){
+                //             JSONObject objaddress = new JSONObject();
+                //             objaddress.put("number", _address.number.toString());
+                //             objaddress.put("street", _address.street.toString());
+                //             objaddress.put("city", _address.city.toString());
+                //             objaddress.put("postcode", _address.postcode.toString());
+                //             objaddress.put("country", _address.country.toString());
+                //             addressesList.add(objaddress);
+                //             }
+                //             i++;
+                //         }
 
            
 
 
 
-                    JSONArray cardsList = new JSONArray();
+                //     JSONArray cardsList = new JSONArray();
 
 
 
-                    // from  soda data
-                    //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
+                //     // from  soda data
+                //     //orders.items = jsonObject.get("items").toString();       // Convert to Collection<Item>
 
-                    JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
-                    List <Card> cardClass = user.cards;
-                    if (_cardArray != null && this.isNullOrEmptyList(cardClass)) {
-                        for (Object o: _cardArray) {
-                            if (o instanceof JSONObject) {
-                                _itemsObject = (JSONObject) o;
-                                cardsList.add(_itemsObject);
-                            }
-                        }
-                    } else {
+                //     JSONArray _cardArray = (JSONArray) jsonObject.get("cards");
+                //     List <Card> cardClass = user.cards;
+                //     if (_cardArray != null && this.isNullOrEmptyList(cardClass)) {
+                //         for (Object o: _cardArray) {
+                //             if (o instanceof JSONObject) {
+                //                 _itemsObject = (JSONObject) o;
+                //                 cardsList.add(_itemsObject);
+                //             }
+                //         }
+                //     } else {
                    
 
-                        i = 1;
-                        for (Card _card: cardClass) {
+                //         i = 1;
+                //         for (Card _card: cardClass) {
                        
                             
-                            if( i == cardClass.size()){
-                                JSONObject objcard = new JSONObject();
-                                objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
-                                objcard.put("expires", _card.expires.toString());
-                                objcard.put("ccv", _card.ccv.toString());
-                                cardsList.add(objcard);
-                            }
-                            i++;
-                        }
+                //             if( i == cardClass.size()){
+                //                 JSONObject objcard = new JSONObject();
+                //                 objcard.put("longNum", Long.parseLong(_card.longNum.toString()));
+                //                 objcard.put("expires", _card.expires.toString());
+                //                 objcard.put("ccv", _card.ccv.toString());
+                //                 cardsList.add(objcard);
+                //             }
+                //             i++;
+                //         }
 
-                    }     
+                //     }     
 
 
 
-               String _document = "{\"addresses\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
+            //    String _document = "{\"addresses\":" + addressesList + ",\"card\":" + cardsList + ",\"email\":\"" + user.email + "\",\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"links\":{\"customer\":{\"href\":\"http://user/customers/" + user.username + "\"},\"self\":{\"href\":\"http://user/customers/" + user.username + "\"},\"addresses\":{\"href\":\"http://user/customers/" + user.username + "/addresses\"},\"cards\":{\"href\":\"http://user/customers/" + user.username + "/cards\"}},\"password\":\"" + user.password + "\",\"username\":\"" + user.username + "\"}";
 
           
 
-                OracleDocument newDoc = this.db.createDocumentFromString(_document);
+                OracleDocument newDoc = this.db.createDocumentFromString(gson.toJson(User.class));
 
                 
              
