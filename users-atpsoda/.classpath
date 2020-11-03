@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/javax.json-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/json-20200518.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/mongo-java-driver-3.12.7.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/nio_char.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/ojdbc10.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/ons.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/oraclepki.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/orai18n.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/orajsoda-1.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/org.apache.commons.io.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/osdt_cert.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/osdt_core.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/ucp.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/xdb.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/engagement/2020-21/SODA-rewrite/final-code/sockshop-users/users-atpsoda/src/main/resources/libs/xmlparserv2.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
