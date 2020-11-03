@@ -355,7 +355,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                       } else {
                      
 
-                          i = 1;
+                          int i = 1;
                           for (Card _card: cardClass) {
                          
                               
