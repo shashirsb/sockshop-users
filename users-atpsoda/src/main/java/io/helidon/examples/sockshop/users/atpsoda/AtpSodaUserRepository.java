@@ -375,7 +375,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("User findUser:" + targetUser);
+        System.out.println("User findUser:" + user);
         System.out.println("User findUser. GET Request 200OK");
         return user;
     }
@@ -387,6 +387,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         try {
             String k1 = null;
 
+            Gson gson = new Gson();
             System.out.println("$3---------------------------------------");
             System.out.println(gson.toJson(user));
             System.out.println("$4---------------------------------------");
@@ -487,7 +488,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
                 OracleDocument newDoc = this.db.createDocumentFromString(_document);
 
-                Gson gson = new Gson();
+                
              
 
                 
