@@ -233,13 +233,13 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
                 Gson gson = new Gson();
                 System.out.println("$3---------------------------------------");
                 System.out.println(user.toString());
-                System.out.println(gson.toJson(User.class));
+                System.out.println(gson.toJson(user));
 
                 OracleCollection col = this.db.admin().createCollection("users");
 
                 // Create a JSON document.
                 OracleDocument doc =
-                    this.db.createDocumentFromString(gson.toJson(User.class));
+                    this.db.createDocumentFromString(gson.toJson(user).toString());
 
                 // Insert the document into a collection.
                 col.insert(doc);
