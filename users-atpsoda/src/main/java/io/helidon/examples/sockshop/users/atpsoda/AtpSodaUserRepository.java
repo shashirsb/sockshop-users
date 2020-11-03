@@ -293,6 +293,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
 
 
         User user = new User();
+        User targetUser = new User();
 
         org.json.simple.JSONObject _jsonObject = new JSONObject();
         org.json.simple.parser.JSONParser _parser = new JSONParser();
@@ -374,7 +375,7 @@ public class AtpSodaUserRepository extends DefaultUserRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("User findUser:" + user);
+        System.out.println("User findUser:" + targetUser);
         System.out.println("User findUser. GET Request 200OK");
         return targetUser;
     }
